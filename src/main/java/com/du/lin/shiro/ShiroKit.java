@@ -1,4 +1,4 @@
-package com.du.SpringBootTest1.shiro;
+package com.du.lin.shiro;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;

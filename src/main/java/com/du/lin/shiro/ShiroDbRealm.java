@@ -1,4 +1,4 @@
-package com.du.SpringBootTest1.shiro;
+package com.du.lin.shiro;
 
 
 import javax.annotation.Resource;
@@ -16,11 +16,10 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
-
-import com.du.SpringBootTest1.bean.Role;
-import com.du.SpringBootTest1.bean.User;
-import com.du.SpringBootTest1.dao.RoleMapper;
-import com.du.SpringBootTest1.dao.UserMapper;
+import com.du.lin.bean.Role;
+import com.du.lin.bean.User;
+import com.du.lin.dao.RoleMapper;
+import com.du.lin.dao.UserMapper;
 
 
 

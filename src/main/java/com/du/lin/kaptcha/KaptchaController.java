@@ -1,4 +1,4 @@
-package com.du.SpringBootTest1.kaptcha;
+package com.du.lin.kaptcha;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

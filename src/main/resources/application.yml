@@ -13,7 +13,7 @@ spring:
     
 mybatis:
   mapper-locations: classpath:mapping/*.xml
-  type-aliases-package: com.du.SpringBootTest1.bean
+  type-aliases-package: com.du.lin.bean
 
 lin:
   kaptchaswich: false

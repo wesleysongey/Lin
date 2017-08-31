@@ -7,10 +7,10 @@
     <relativePath/>
   </parent>
   <groupId>com.du</groupId>
-  <artifactId>SpringBootTest1</artifactId>
+  <artifactId>lin</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>SpringBootTest1</name>
+  <name>lin</name>
   <description>Demo project for Spring Boot</description>
   <properties>
     <webVersion>3.0</webVersion>

@@ -1,4 +1,4 @@
-package com.du.SpringBootTest1.controller;
+package com.du.lin.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.du.SpringBootTest1.shiro.ShiroKit;
+import com.du.lin.shiro.ShiroKit;
 
 @Controller
 public class PageController {

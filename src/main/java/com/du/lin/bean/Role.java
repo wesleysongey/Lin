@@ -1,4 +1,4 @@
-package com.du.SpringBootTest1.bean;
+package com.du.lin.bean;
 
 public class Role {
     private String username;

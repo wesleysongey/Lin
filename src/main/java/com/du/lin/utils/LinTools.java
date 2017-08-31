@@ -1,9 +1,9 @@
-package com.du.SpringBootTest1.utils;
+package com.du.lin.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.du.SpringBootTest1.config.properties.LinProperties;
+import com.du.lin.config.properties.LinProperties;
 @Component
 public class LinTools {
 	@Autowired

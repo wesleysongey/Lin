@@ -1,4 +1,4 @@
-package com.du.SpringBootTest1.controller;
+package com.du.lin.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.du.SpringBootTest1.bean.User;
-import com.du.SpringBootTest1.utils.LinTools;
+import com.du.lin.bean.User;
+import com.du.lin.utils.LinTools;
 
 
 @Controller

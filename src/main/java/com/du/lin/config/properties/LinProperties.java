@@ -1,4 +1,4 @@
-package com.du.SpringBootTest1.config.properties;
+package com.du.lin.config.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

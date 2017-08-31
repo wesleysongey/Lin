@@ -1,4 +1,4 @@
-package com.du.SpringBootTest1.redis;
+package com.du.lin.redis;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;

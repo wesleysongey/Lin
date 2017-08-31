@@ -1,8 +1,8 @@
-package com.du.SpringBootTest1.dao;
+package com.du.lin.dao;
 
 import org.springframework.cache.annotation.Cacheable;
 
-import com.du.SpringBootTest1.bean.User;
+import com.du.lin.bean.User;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);

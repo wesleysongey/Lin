@@ -1,4 +1,4 @@
-package com.du.SpringBootTest1.shiro;
+package com.du.lin.shiro;
 
 import java.util.HashMap;
 import java.util.Map;

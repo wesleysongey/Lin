@@ -1,13 +1,13 @@
-package com.du.SpringBootTest1;
+package com.du.lin;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-@MapperScan("com.du.SpringBootTest1.dao")
+@MapperScan("com.du.lin.dao")
 @SpringBootApplication
-public class SpringBootTest1Application {
+public class LinApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootTest1Application.class, args);
+		SpringApplication.run(LinApplication.class, args);
 	}
 }

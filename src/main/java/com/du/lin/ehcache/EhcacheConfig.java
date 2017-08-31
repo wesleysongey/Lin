@@ -1,4 +1,4 @@
-package com.du.SpringBootTest1.ehcache;
+package com.du.lin.ehcache;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.ehcache.EhCacheCacheManager;

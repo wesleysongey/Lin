@@ -1,6 +1,6 @@
-package com.du.SpringBootTest1.dao;
+package com.du.lin.dao;
 
-import com.du.SpringBootTest1.bean.Role;
+import com.du.lin.bean.Role;
 
 public interface RoleMapper {
     int deleteByPrimaryKey(String username);
