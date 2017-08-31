@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>login.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3"/>
+    <meta name="description" content="this is my page"/>
+    <meta name="content-type" content="text/html; charset=UTF-8"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"/>
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	
+  </head>
+  
+  <body>
+    <h1>Login Page</h1><br/>
+    <form th:action="@{/login}" method="POST" >
+    username:<input type="text" name="username" /><br/>
+    password:<input type="password" name="password" /><br/>
+    kaptcha :<input type="text" name="kaptcha" /> <br/> 
+    <img src="/static/kaptcha.jpg" width="200" id="kaptchaImage" alt="验证码加载中" title="看不清，点击换一张" />  
+<script type="text/javascript">  
+    $(function() {  
+        $('#kaptchaImage').click(function() {$(this).attr('src','/static/kaptcha.jpg?' + Math.floor(Math.random() * 100));});  
+    });  
+</script>  
+<br /><small>看不清，点击换一张</small><br/>
+    <input type="submit" value="Login" />
+    </form>
+  </body>
+</html>
