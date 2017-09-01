@@ -49,6 +49,6 @@ public class LoginController {
 			return "error";
 		}
 
-		return "success";
+		return "index1";
 	}
 }

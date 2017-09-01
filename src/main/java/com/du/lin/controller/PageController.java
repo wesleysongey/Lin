@@ -13,7 +13,7 @@ public class PageController {
 	@RequestMapping(value="/",method={RequestMethod.GET,RequestMethod.POST})
 	public String home(){
 		System.out.println("home");
-		 return "home";
+		 return "login2";
 	}
 	@RequestMapping(value="/login",method={RequestMethod.GET})
 	public String login(){
@@ -39,6 +39,14 @@ public class PageController {
 		System.out.println("to index1");
 		return "index1";
 	}
+	
+	
+	@RequestMapping(value="/welcome",method={RequestMethod.GET})
+	public String welcome(){
+		System.out.println("to welcome");
+		return "welcome";
+	}
+	
 	
 	
 }

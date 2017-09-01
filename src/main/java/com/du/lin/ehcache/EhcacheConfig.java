@@ -10,21 +10,21 @@ import org.springframework.core.io.ClassPathResource;
 import net.sf.ehcache.CacheManager;
 
 
-//@Configuration
-//@EnableCaching
-//public class EhcacheConfig{
-//	@Bean
-//	public EhCacheCacheManager ehCacheManager(CacheManager cm){
-//		EhCacheCacheManager manager = new EhCacheCacheManager();
-//		manager.setCacheManager(cm);
-//		return manager;
-//	}
-//	@Bean
-//	public EhCacheManagerFactoryBean cacheManager(){
-//		EhCacheManagerFactoryBean ehCacheFactoryBean = new EhCacheManagerFactoryBean();
-//		ehCacheFactoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
-//		return ehCacheFactoryBean;
-//	}
-//	
-//	
-//}
+@Configuration
+@EnableCaching
+public class EhcacheConfig{
+	@Bean
+	public EhCacheCacheManager ehCacheManager(CacheManager cm){
+		EhCacheCacheManager manager = new EhCacheCacheManager();
+		manager.setCacheManager(cm);
+		return manager;
+	}
+	@Bean
+	public EhCacheManagerFactoryBean cacheManager(){
+		EhCacheManagerFactoryBean ehCacheFactoryBean = new EhCacheManagerFactoryBean();
+		ehCacheFactoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
+		return ehCacheFactoryBean;
+	}
+	
+	
+}
