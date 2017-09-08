@@ -26,7 +26,7 @@ import com.du.lin.dao.UserMapper;
 
 
 public class ShiroDbRealm extends AuthorizingRealm{
-//	
+	
 	@Resource
 	private UserMapper userMapper;
 	@Resource
