@@ -2,42 +2,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.du.lin.dao.RoleMapper" >
   <resultMap id="BaseResultMap" type="com.du.lin.bean.Role" >
-    <id column="username" property="username" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="roles" property="roles" jdbcType="VARCHAR" />
+    <result column="tips" property="tips" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    username, roles
+    id, roles, tips
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from role
-    where username = #{username,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from role
-    where username = #{username,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.du.lin.bean.Role" >
-    insert into role (username, roles)
-    values (#{username,jdbcType=VARCHAR}, #{roles,jdbcType=VARCHAR})
+    insert into role (id, roles, tips
+      )
+    values (#{id,jdbcType=INTEGER}, #{roles,jdbcType=VARCHAR}, #{tips,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.du.lin.bean.Role" >
     insert into role
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="username != null" >
-        username,
+      <if test="id != null" >
+        id,
       </if>
       <if test="roles != null" >
         roles,
       </if>
+      <if test="tips != null" >
+        tips,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="username != null" >
-        #{username,jdbcType=VARCHAR},
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="roles != null" >
         #{roles,jdbcType=VARCHAR},
+      </if>
+      <if test="tips != null" >
+        #{tips,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -47,12 +56,16 @@
       <if test="roles != null" >
         roles = #{roles,jdbcType=VARCHAR},
       </if>
+      <if test="tips != null" >
+        tips = #{tips,jdbcType=VARCHAR},
+      </if>
     </set>
-    where username = #{username,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.du.lin.bean.Role" >
     update role
-    set roles = #{roles,jdbcType=VARCHAR}
-    where username = #{username,jdbcType=VARCHAR}
+    set roles = #{roles,jdbcType=VARCHAR},
+      tips = #{tips,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

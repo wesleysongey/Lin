@@ -8,11 +8,10 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.User;
 import com.du.lin.utils.LinTools;
 
@@ -23,7 +22,7 @@ public class LoginController {
 	private LinTools linTools;
 
 	@RequestMapping(value="/login",method={RequestMethod.POST})
-	public String login(HttpServletRequest request , User user ){
+	public String login(HttpServletRequest request , ShiroUser user ){
 		Subject subject = SecurityUtils.getSubject();
 
 
@@ -48,7 +47,8 @@ public class LoginController {
 			request.setAttribute("msg", "账号或密码错误");
 			return "error";
 		}
-
-		return "success";
+		System.out.println(((User)subject.getPrincipal()).toString());
+		request.setAttribute("username" , user.getUsername());
+		return "index1";
 	}
 }

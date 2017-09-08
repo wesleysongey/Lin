@@ -1,16 +1,18 @@
 package com.du.lin.bean;
 
 public class Role {
-    private String username;
+    private Integer id;
 
     private String roles;
 
-    public String getUsername() {
-        return username;
+    private String tips;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getRoles() {
@@ -20,4 +22,20 @@ public class Role {
     public void setRoles(String roles) {
         this.roles = roles == null ? null : roles.trim();
     }
+
+    public String getTips() {
+        return tips;
+    }
+
+    public void setTips(String tips) {
+        this.tips = tips == null ? null : tips.trim();
+    }
+
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", roles=" + roles + ", tips=" + tips + "]";
+	}
+    
+    
+    
 }

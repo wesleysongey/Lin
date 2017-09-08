@@ -1,22 +1,21 @@
 package com.du.lin.dao;
 
-import org.springframework.cache.annotation.Cacheable;
+import com.du.lin.bean.ShiroUser;
+import org.springframework.stereotype.Repository;
 
-import com.du.lin.bean.User;
-
+@Repository
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(User record);
+    int insert(ShiroUser record);
 
-    int insertSelective(User record);
+    int insertSelective(ShiroUser record);
 
-    User selectByPrimaryKey(Integer id);
-    
-    @Cacheable("usercache2")
-    User selectByUsername(String username);
+    ShiroUser selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(User record);
+    ShiroUser selectByUsername(String username);
 
-    int updateByPrimaryKey(User record);
+    int updateByPrimaryKeySelective(ShiroUser record);
+
+    int updateByPrimaryKey(ShiroUser record);
 }

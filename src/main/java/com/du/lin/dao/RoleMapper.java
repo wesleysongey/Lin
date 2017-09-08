@@ -1,15 +1,17 @@
 package com.du.lin.dao;
 
 import com.du.lin.bean.Role;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface RoleMapper {
-    int deleteByPrimaryKey(String username);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Role record);
 
     int insertSelective(Role record);
 
-    Role selectByPrimaryKey(String username);
+    Role selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Role record);
 
