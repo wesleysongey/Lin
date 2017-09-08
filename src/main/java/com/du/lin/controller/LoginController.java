@@ -47,8 +47,12 @@ public class LoginController {
 			request.setAttribute("msg", "账号或密码错误");
 			return "error";
 		}
+<<<<<<< HEAD
 		System.out.println(((User)subject.getPrincipal()).toString());
 		request.setAttribute("username" , user.getUsername());
+=======
+
+>>>>>>> f6132596b641707238770807b9b0f8e6f658bea9
 		return "index1";
 	}
 }

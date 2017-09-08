@@ -52,11 +52,16 @@ public class PageController {
 		System.out.println("to welcome");
 		return "welcome";
 	}
+<<<<<<< HEAD
 	@RequestMapping(value = "/logout" , method = {RequestMethod.GET})
 	public String logout(){
 		SecurityUtils.getSubject().logout();
 		System.out.println("to logout");
 		return "login2";
 	}
+=======
+	
+	
+>>>>>>> f6132596b641707238770807b9b0f8e6f658bea9
 	
 }
