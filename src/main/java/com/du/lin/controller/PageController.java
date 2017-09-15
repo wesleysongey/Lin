@@ -16,6 +16,14 @@ public class PageController {
 	@Autowired
 	private ShiroKit shiroKit;
 	
+	
+	@RequestMapping(value="/test",method={RequestMethod.GET,RequestMethod.POST})
+	public String test(){
+		System.out.println("test");
+		return "test";
+	}
+	
+	
 	@RequestMapping(value="/",method={RequestMethod.GET,RequestMethod.POST})
 	public String home(){
 		System.out.println("home");
@@ -52,16 +60,25 @@ public class PageController {
 		System.out.println("to welcome");
 		return "welcome";
 	}
-<<<<<<< HEAD
+
 	@RequestMapping(value = "/logout" , method = {RequestMethod.GET})
 	public String logout(){
 		SecurityUtils.getSubject().logout();
 		System.out.println("to logout");
 		return "login2";
 	}
-=======
+	@RequestMapping(value = "/userpage" , method = {RequestMethod.GET})
+	public String userpage(){
+		System.out.println("to userpage");
+		return "usergird";
+	}
 	
 	
->>>>>>> f6132596b641707238770807b9b0f8e6f658bea9
+	@RequestMapping(value="/setpassword",method={RequestMethod.GET})
+	public String setPassword(HttpServletRequest request){
+		System.out.println("setpassword");
+		request.setAttribute("username", shiroKit.getUsername() );
+		return "changepassword";
+	}
 	
 }

@@ -15,11 +15,17 @@
     from dept
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dept
+    where name = #{name}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from dept
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.du.lin.bean.Dept" >
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="id"  parameterType="com.du.lin.bean.Dept" >
     insert into dept (id, num, name
       )
     values (#{id,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}

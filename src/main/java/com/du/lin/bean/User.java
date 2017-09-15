@@ -11,13 +11,11 @@ public class User {
 
     private String avator;
 
-    private Integer deptid;
+    private String roleTip;
 
-    private Integer roleid;
+    private String dept;
 
-    private Dept dept;
-
-    private Role role;
+    private String role;
 
     public Integer getId() {
         return id;
@@ -59,44 +57,39 @@ public class User {
         this.avator = avator == null ? null : avator.trim();
     }
 
-    public Integer getDeptid() {
-        return deptid;
-    }
+   
 
-    public void setDeptid(Integer deptid) {
-        this.deptid = deptid;
-    }
+	public String getDept() {
+		return dept;
+	}
 
-    public Integer getRoleid() {
-        return roleid;
-    }
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
 
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
-    }
+	public String getRole() {
+		return role;
+	}
 
-    public Dept getDept() {
-        return dept;
-    }
+	public void setRole(String role) {
+		this.role = role;
+	}
 
-    public void setDept(Dept dept) {
-        this.dept = dept;
-    }
+	public String getRoleTip() {
+		return roleTip;
+	}
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
+	public void setRoleTip(String roleTip) {
+		this.roleTip = roleTip;
+	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", salt=" + salt + ", avator="
-				+ avator + ", deptid=" + deptid + ", roleid=" + roleid + ", dept=" + dept + ", role=" + role + "]";
+				+ avator + ", roleTip=" + roleTip + ", dept=" + dept + ", role=" + role + "]";
 	}
-    
+
+	
     
     
 }

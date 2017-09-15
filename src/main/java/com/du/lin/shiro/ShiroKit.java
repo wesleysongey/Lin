@@ -5,6 +5,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.du.lin.bean.Role;
 import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.User;
 import com.du.lin.dao.DeptMapper;
@@ -29,12 +30,33 @@ public class ShiroKit {
 		User user = new User();
 		user.setAvator(shiroUser.getAvator()==null?"":shiroUser.getAvator());
 		user.setId(shiroUser.getId());
-		user.setDept(deptMapper.selectByPrimaryKey(shiroUser.getDeptid()));
+		user.setDept(deptMapper.selectByPrimaryKey(shiroUser.getDeptid()).getName());
 		user.setPassword(shiroUser.getPassword());
-		user.setRole(roleMapper.selectByPrimaryKey(shiroUser.getRoleid()));
+		Role role = roleMapper.selectByPrimaryKey(shiroUser.getRoleid());
+		user.setRole(role.getRoles());
+		user.setRoleTip(role.getTips());
 		user.setSalt(shiroUser.getSalt());
 		user.setUsername(shiroUser.getUsername());
 		return user;
 	}
+	
+	public String getUsername(){
+		try {
+			return getUser().getUsername();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
+	
+	public User getUser(){
+		try {
+			return (User)getSubject().getPrincipal();			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	
 }

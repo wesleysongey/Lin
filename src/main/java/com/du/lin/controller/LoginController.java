@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.User;
+import com.du.lin.shiro.ShiroKit;
 import com.du.lin.utils.LinTools;
+import com.du.lin.utils.MD5Util;
 
 
 @Controller
@@ -24,8 +26,7 @@ public class LoginController {
 	@RequestMapping(value="/login",method={RequestMethod.POST})
 	public String login(HttpServletRequest request , ShiroUser user ){
 		Subject subject = SecurityUtils.getSubject();
-
-
+		user.setPassword(MD5Util.encrypt(user.getPassword()));
 		if (linTools.getKaptchaSwich()) {
 			String kaptchaRecevied = request.getParameter("kaptcha");
 			//用户输入的验证码的值  
@@ -47,12 +48,10 @@ public class LoginController {
 			request.setAttribute("msg", "账号或密码错误");
 			return "error";
 		}
-<<<<<<< HEAD
-		System.out.println(((User)subject.getPrincipal()).toString());
-		request.setAttribute("username" , user.getUsername());
-=======
 
->>>>>>> f6132596b641707238770807b9b0f8e6f658bea9
+		request.setAttribute("username" , user.getUsername());
+		request.setAttribute("tip" , ((User)subject.getPrincipal()).getRoleTip());
+
 		return "index1";
 	}
 }

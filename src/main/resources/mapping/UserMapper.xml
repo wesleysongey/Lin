@@ -30,7 +30,7 @@
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.du.lin.bean.ShiroUser" >
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.du.lin.bean.ShiroUser" >
     insert into user (id, username, password, 
       salt, avator, deptid, 
       roleid)
@@ -121,4 +121,9 @@
       roleid = #{roleid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="getUserList" resultMap="BaseResultMap"  >
+    select * from user
+  </select>
+  
 </mapper>

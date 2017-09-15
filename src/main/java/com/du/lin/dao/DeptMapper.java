@@ -13,6 +13,8 @@ public interface DeptMapper {
 
     Dept selectByPrimaryKey(Integer id);
 
+    Dept selectByName(String name);
+    
     int updateByPrimaryKeySelective(Dept record);
 
     int updateByPrimaryKey(Dept record);

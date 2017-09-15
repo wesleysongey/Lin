@@ -15,11 +15,17 @@
     from role
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByRoleTip" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where roles = #{roles}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.du.lin.bean.Role" >
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="id"  parameterType="com.du.lin.bean.Role" >
     insert into role (id, roles, tips
       )
     values (#{id,jdbcType=INTEGER}, #{roles,jdbcType=VARCHAR}, #{tips,jdbcType=VARCHAR}
