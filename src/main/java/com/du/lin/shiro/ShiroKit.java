@@ -28,7 +28,7 @@ public class ShiroKit {
 
 	public User toUser(ShiroUser shiroUser){
 		User user = new User();
-		user.setAvator(shiroUser.getAvator()==null?"":shiroUser.getAvator());
+		user.setAvator("0".equals(shiroUser.getAvator())?"女":"男");
 		user.setId(shiroUser.getId());
 		user.setDept(deptMapper.selectByPrimaryKey(shiroUser.getDeptid()).getName());
 		user.setPassword(shiroUser.getPassword());
@@ -58,5 +58,11 @@ public class ShiroKit {
 		}
 	}
 	
-	
+	public String getSex(){
+		if (getUser()==null || "".equals(getUser().getAvator())) {
+			return "unknow";
+		}else{
+			return getUser().getAvator().equals("女")?"girl":"boy";
+		}
+	}
 }

@@ -33,7 +33,7 @@
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element">
-                            <span><img alt="image" class="img-circle" src="img/profile_small.jpg" /></span>
+                            <span><img alt="image" class="img-circle" th:src="@{'img/' + ${sex} +'.jpg' }" /></span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
                                <span class="block m-t-xs"><strong class="font-bold" th:text="${username}" >Beaut-zihan</strong></span>
@@ -54,37 +54,20 @@
                         <div class="logo-element">Lin
                         </div>
                     </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-home"></i>
-                            <span class="nav-label">主页</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a class="J_menuItem" th:href="@{/login}" data-index="0">主页示例一</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" th:href="@{/login2}">主页示例二</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="index_v3.html">主页示例三</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="index_v4.html">主页示例四</a>
-                            </li>
-                            <li>
-                                <a href="index_v5.html" target="_blank">主页示例五</a>
-                            </li>
-                        </ul>
-
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="layouts.html"><i class="fa fa-clone"></i> <span class="nav-label">添加菜单</span></a>
+     				 <li>
+                        <a class="J_menuItem" th:href="@{/welcome}"><i class="fa fa-home"></i> <span class="nav-label">主页</span></a>
                     </li>
                     <li>
                         <a class="J_menuItem" th:href="@{/userpage}"><i class="fa fa-columns"></i> <span class="nav-label">用户管理</span></a>
                     </li>
+                    <li>
+                        <a class="J_menuItem" th:href="@{/deptpage}"><i class="fa fa-clone"></i> <span class="nav-label">部门管理</span></a>
+                    </li>
+                    
+                    <li>
+                        <a class="J_menuItem" th:href="@{/deptpage}"><i class="fa fa-tags"></i> <span class="nav-label">菜单管理</span></a>
+                    </li>
+                    
 
 
 

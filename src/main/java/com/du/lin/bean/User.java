@@ -16,6 +16,8 @@ public class User {
     private String dept;
 
     private String role;
+    
+    
 
     public Integer getId() {
         return id;

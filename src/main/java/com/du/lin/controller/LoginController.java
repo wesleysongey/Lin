@@ -22,6 +22,8 @@ import com.du.lin.utils.MD5Util;
 public class LoginController {
 	@Autowired
 	private LinTools linTools;
+	@Autowired
+	private ShiroKit shiroKit;
 
 	@RequestMapping(value="/login",method={RequestMethod.POST})
 	public String login(HttpServletRequest request , ShiroUser user ){
@@ -51,7 +53,8 @@ public class LoginController {
 
 		request.setAttribute("username" , user.getUsername());
 		request.setAttribute("tip" , ((User)subject.getPrincipal()).getRoleTip());
-
+		request.setAttribute("sex", shiroKit.getSex());
+		System.out.println( shiroKit.getUser().toString());
 		return "index1";
 	}
 }

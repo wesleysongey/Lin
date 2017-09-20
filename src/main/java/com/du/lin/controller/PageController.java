@@ -70,7 +70,7 @@ public class PageController {
 	@RequestMapping(value = "/userpage" , method = {RequestMethod.GET})
 	public String userpage(){
 		System.out.println("to userpage");
-		return "usergird";
+		return "usergrid";
 	}
 	
 	
@@ -78,7 +78,22 @@ public class PageController {
 	public String setPassword(HttpServletRequest request){
 		System.out.println("setpassword");
 		request.setAttribute("username", shiroKit.getUsername() );
+		request.setAttribute("sex", shiroKit.getSex() );
 		return "changepassword";
 	}
+	
+	@RequestMapping(value="/deptpage",method={RequestMethod.GET})
+	public String deptPage(HttpServletRequest request){
+		System.out.println("deptpage");
+		return "deptgrid";
+	}
+	
+	@RequestMapping(value="/menupage",method={RequestMethod.GET})
+	public String menuPage(HttpServletRequest request){
+		System.out.println("menupage");
+		return "menugrid";
+	}
+	
+
 	
 }

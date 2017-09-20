@@ -9,7 +9,7 @@ $(function () {
 
 	$("#table_list_2").jqGrid(
 			{
-				url : "/userlist",
+				url : "/deptlist",
 				datatype: "json",
 				mtype: "POST",
 				height: "100%",
@@ -17,46 +17,14 @@ $(function () {
 				shrinkToFit: true,
 				rowNum: 10,
 				rowList: [10, 20, 30],
-				colNames: ['用户名','性别', '部门', '角色','操作'],
+				colNames: ['部门名','操作'],
 				colModel: [
 				           {
-				        	   name: 'username',
-				        	   index: 'username',
+				        	   name: 'name',
+				        	   index: 'name',
 				        	   editable: true,
 				        	   width: 90
 
-				           },
-				           {
-				        	   name: 'avator',
-				        	   index: 'avator',
-				        	   editable: true,
-				        	   edittype:"select",
-				        	   editoptions:{
-				        		   value:"0:女;1:男"
-				        	   },
-				        	   width: 90
-
-				           },
-				           {
-				        	   name: 'dept',
-				        	   index: 'dept',
-				        	   editable: true,
-				        	   edittype:"select",
-				        	   editoptions:{
-				        		   value:"0:未分配;1:总公司;2:开发部;3:运营部;4:人事部"
-				        	   },
-				        	   width: 80
-				           },
-				           {
-				        	   name: 'roleTip',
-				        	   index: 'roleTip',
-				        	   editable: true,
-				        	   edittype:"select",
-				        	   editoptions:{
-				        		   value:"2:用户;1:超级管理员"
-				        	   },
-				        	   width: 100,
-				        	   sortable: false,
 				           },
 				           {
 				        	   name: 'handle',
@@ -67,21 +35,21 @@ $(function () {
 				           ],
 				           pager: "#pager_list_2",
 				           viewrecords: true,
-				           caption: "用户列表",
+				           caption: "部门列表",
 				           add: true,
 				           edit: false,
 				           addtext: 'Add',
-				           editurl: "/adduser",
+				           editurl: "/adddept",
 				           hidegrid: false , 
 				           gridComplete: function(){
 				        	   console.log("grid Complete");				        	
 				        	   var ids = $("#table_list_2").jqGrid("getDataIDs");
 				        	   for (var int = 0; int < ids.length; int++) {
 				        		   var id = ids[int];
-				        		   var modify = "<a href='#' style='color:#f60' onclick='changedialogshow(" + id + ")'>修改</a>";  //这里的onclick就是调用了上面的javascript函数 Modify(id)
-				        		   var del = "<a href='#'  style='color:#f60' onclick='del(" + id + ")' >删除</a>";   
-				        		   var resetpasswork = "<a href='#'  style='color:#f60' onclick='resetpasswork(" + id + ")' >重置密码</a>";   
-				        		   var result = $("#table_list_2").jqGrid("setRowData", id, {handle: modify + "&nbsp &nbsp" + del + "&nbsp &nbsp" + resetpasswork});
+				        		   var modify = "<a href='#' style='color:#f60' onclick='changedialogshow(" + id + ")'>修改信息</a>";  //这里的onclick就是调用了上面的javascript函数 Modify(id)
+				        		   var del = "<a href='#'  style='color:#f60' onclick='del(" + id + ")' >解散部门</a>";   
+//				        		   var resetpasswork = "<a href='#'  style='color:#f60' onclick='resetpasswork(" + id + ")' >重置密码</a>";   
+				        		   var result = $("#table_list_2").jqGrid("setRowData", id, {handle: modify + "&nbsp &nbsp" + del});
 				        	   }
 				           }
 			});
@@ -113,7 +81,7 @@ $(function () {
 function del(id){
 	var jsondata = {"id" : id};
 	$.ajax({
-		url: "/deleteuser",
+		url: "/deletedept",
 		type: "POST",
 		data: jsondata,
 		success: function(data , stutas){
@@ -136,7 +104,7 @@ function modify(){
 	
 	
 	$.ajax({
-		url: "/setuser",
+		url: "/setdept",
 		type: "POST",
 		data: $("#changefrom").serialize(),
 		success: function(data){
@@ -186,29 +154,10 @@ function changedialogdismiss(){
 }
 function changedialogshow(id){
 	
-	
-	
 	var datas = $("#table_list_2").jqGrid("getRowData",id);
-	$("#changeid").attr("value" , id);
-	$("#changeusername").text(datas.username);
+	$("#deptid").attr("value" , id);
+	$("#deptname").attr("value" , datas.name);
 	$("#changedialog").show(speed="slow");
 }
 
-//function createdialog(title="title",body="body",buttonname="ok",buttonfunc){
-//	$("#dialog").attr("title" , title);
-//	$("#dialog").text(body);
-//	$("#dialog").dialog({
-//		  resizable: false,
-//	      height:140,
-//	      modal: true,
-//	      buttons:{
-//	    	  buttonname:function(){
-//	    		 
-//	    	  },
-//	    	  Cancel: function(){
-//	    		  $( this ).dialog( "close" );
-//	    	  }
-//	      }
-//	});
-//}	
-//
+

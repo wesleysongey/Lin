@@ -68,39 +68,23 @@ public class UserController {
 		}
 		
 		String username = request.getParameter("username");
+		String avator = request.getParameter("avator");
 		String dept = request.getParameter("dept");
 		String role = request.getParameter("roleTip");
+		
+		System.out.println(username);
+		System.out.println(avator);
+		System.out.println(dept);
+		System.out.println(role);
+		
 		ShiroUser user = new ShiroUser();
 		user.setUsername(username);
 		user.setPassword(MD5Util.encrypt("111111"));
+		user.setAvator(avator);
+		user.setDeptid(Integer.parseInt(dept));
+		user.setRoleid(Integer.parseInt(role));
 		user.setSalt(linTools.getSalt());
-		
-		//添加角色
-		if (role == null||"".endsWith(role)
-			) {
-			user.setRoleid(Constant.DEFAULT_ROLE_ID);
-		}else {
-			Role roles = roleMapper.selectByRoleTip(role);
-			if (roles != null) {
-				user.setRoleid(roles.getId());
-			}else{
-				user.setRoleid(Constant.DEFAULT_ROLE_ID);
-			}
-		}
-		
-		//添加部门
-		if ("".endsWith(dept)||
-				dept == null) {
-			user.setDeptid(Constant.DEFAULT_DEPT_ID);
-		}else {
-			Dept depts= deptMapper.selectByName(dept);
-			if (depts == null) {
-				user.setDeptid(depts.getId());
-			}
-		}
-		
-		user.setAvator("");
-		int i = userMapper.insert(user);
+		int result = userMapper.insert(user);
 	}
 	
 	@ResponseBody
@@ -137,11 +121,21 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/setpassword" , method=RequestMethod.POST)
+	@RequestMapping(value="/rsetpassword" , method={RequestMethod.POST})
 	public String setPassword(HttpServletRequest request){
 		System.out.println("setpasswork post");
 		String password = request.getParameter("password");
-		ShiroUser user = new ShiroUser();
+		String oldpassword = request.getParameter("oldpassword");
+		System.out.println(oldpassword);
+		System.out.println(password);
+		ShiroUser user = userMapper.selectByPrimaryKey(shiroKit.getUser().getId());
+		System.out.println(user.getPassword());
+		System.out.println(MD5Util.encrypt(oldpassword));
+		if (!user.getPassword().equals(MD5Util.encrypt(oldpassword))) {
+			return Constant.RESULT_SET_PASSWORD_NO_MATCH;
+		}
+
+		user = new ShiroUser();         
 		user.setId(shiroKit.getUser().getId());
 		user.setPassword(MD5Util.encrypt(password));
 		int result = userMapper.updateByPrimaryKeySelective(user);
