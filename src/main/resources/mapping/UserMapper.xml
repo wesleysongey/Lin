@@ -111,6 +111,10 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updateByDeptidSelective" parameterType="java.lang.Integer" >
+    update user set deptid = 0
+   	where deptid = #{deptid,jdbcType=INTEGER}
+  </update>
   <update id="updateByPrimaryKey" parameterType="com.du.lin.bean.ShiroUser" >
     update user
     set username = #{username,jdbcType=VARCHAR},

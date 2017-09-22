@@ -16,15 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.du.lin.annotation.BizLog;
 import com.du.lin.bean.Dept;
 import com.du.lin.bean.Role;
 import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.User;
+import com.du.lin.constant.Constant;
 import com.du.lin.dao.DeptMapper;
 import com.du.lin.dao.RoleMapper;
 import com.du.lin.dao.UserMapper;
 import com.du.lin.shiro.ShiroKit;
-import com.du.lin.utils.Constant;
 import com.du.lin.utils.LinTools;
 import com.du.lin.utils.MD5Util;
 import com.google.gson.Gson;
@@ -47,7 +48,7 @@ public class UserController {
 	@Autowired
 	private DeptMapper deptMapper;
 	
-	
+	@BizLog("获取用户列表")
 	@ResponseBody
 	@RequestMapping(value="/userlist" , method={RequestMethod.POST})
 	public String list(){
@@ -56,8 +57,14 @@ public class UserController {
 		for (ShiroUser user : userList) {
 			users.add(shiroKit.toUser(user));
 		}
+		
+	
 		return gson.toJson(users);
+		
+		
 	}
+	
+	@BizLog("添加用户")
 	@ResponseBody
 	@RequestMapping(value="/adduser" , method={RequestMethod.POST})
 	public void addUser(HttpServletRequest request ){
@@ -86,7 +93,7 @@ public class UserController {
 		user.setSalt(linTools.getSalt());
 		int result = userMapper.insert(user);
 	}
-	
+	@BizLog("用户密码重置")
 	@ResponseBody
 	@RequestMapping(value="/resetpassword" , method=RequestMethod.POST)
 	public String resetPassword(HttpServletRequest request){
@@ -98,6 +105,7 @@ public class UserController {
 		return ""+result;
 	}
 	
+	@BizLog("删除用户")
 	@ResponseBody
 	@RequestMapping(value="/deleteuser" , method=RequestMethod.POST)
 	public String deleteUser(HttpServletRequest request){
@@ -107,7 +115,7 @@ public class UserController {
 		return ""+userresult;
 	}
 	
-	
+	@BizLog("用户信息修改")
 	@ResponseBody
 	@RequestMapping(value="/setuser" , method=RequestMethod.POST)
 	public String setuser(HttpServletRequest request){
@@ -120,6 +128,7 @@ public class UserController {
 		return "" + result;
 	}
 	
+	@BizLog("用户修改密码")
 	@ResponseBody
 	@RequestMapping(value="/rsetpassword" , method={RequestMethod.POST})
 	public String setPassword(HttpServletRequest request){

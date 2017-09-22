@@ -1,5 +1,8 @@
 package com.du.lin.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.du.lin.utils.LinTools;
@@ -9,17 +12,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.du.lin.bean.Dept;
+import com.du.lin.dao.DeptMapper;
 import com.du.lin.shiro.ShiroKit;
 
 @Controller
 public class PageController {
 	@Autowired
 	private ShiroKit shiroKit;
-	
+	@Autowired
+	private DeptMapper deptMapper;
 	
 	@RequestMapping(value="/test",method={RequestMethod.GET,RequestMethod.POST})
-	public String test(){
+	public String test(HttpServletRequest request){
 		System.out.println("test");
+		
 		return "test";
 	}
 	
@@ -68,8 +75,10 @@ public class PageController {
 		return "login2";
 	}
 	@RequestMapping(value = "/userpage" , method = {RequestMethod.GET})
-	public String userpage(){
+	public String userpage(HttpServletRequest request){
 		System.out.println("to userpage");
+		List<Dept> list = deptMapper.getAllDept();
+		request.setAttribute("depts", list);
 		return "usergrid";
 	}
 	

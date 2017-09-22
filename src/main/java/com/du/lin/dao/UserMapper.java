@@ -11,7 +11,7 @@ public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(ShiroUser record);
-
+   
     int insertSelective(ShiroUser record);
 
     List<ShiroUser> getUserList();
@@ -21,6 +21,8 @@ public interface UserMapper {
     ShiroUser selectByUsername(String username);
 
     int updateByPrimaryKeySelective(ShiroUser record);
+    
+    int updateByDeptidSelective(Integer deptid);
 
     int updateByPrimaryKey(ShiroUser record);
 }
