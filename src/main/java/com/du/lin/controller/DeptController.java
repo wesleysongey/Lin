@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.du.lin.annotation.BizLog;
 import com.du.lin.bean.Dept;
 import com.du.lin.constant.Constant;
 import com.du.lin.dao.DeptMapper;
@@ -49,7 +50,7 @@ public class DeptController {
 		System.out.println(gson.toJson(list));
 		return gson.toJson(list);
 	}
-	
+	@BizLog("添加部门")
 	@ResponseBody
 	@RequestMapping(value="/adddept" , method={RequestMethod.POST})
 	public String addDept(HttpServletRequest request){
@@ -65,7 +66,7 @@ public class DeptController {
 		return result+"";
 	}
 	
-	
+	@BizLog("修改部门信息")
 	@ResponseBody
 	@RequestMapping(value="/setdept" , method={RequestMethod.POST})
 	public String setDept(HttpServletRequest request){
@@ -78,7 +79,7 @@ public class DeptController {
 		int result = deptMapper.updateByPrimaryKeySelective(dept);
 		return "" + result;
 	}
-	
+	@BizLog("删除部门")
 	@ResponseBody
 	@RequestMapping(value="/deletedept" , method={RequestMethod.POST})
 	public String deleteDept(HttpServletRequest request){

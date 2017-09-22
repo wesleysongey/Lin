@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.User;
+import com.du.lin.log.LogManager;
+import com.du.lin.log.LogTaskFactory;
 import com.du.lin.shiro.ShiroKit;
 import com.du.lin.utils.LinTools;
 import com.du.lin.utils.MD5Util;
-
 
 @Controller
 public class LoginController {
@@ -25,20 +26,20 @@ public class LoginController {
 	@Autowired
 	private ShiroKit shiroKit;
 
-	@RequestMapping(value="/login",method={RequestMethod.POST})
-	public String login(HttpServletRequest request , ShiroUser user ){
+	@RequestMapping(value = "/login", method = { RequestMethod.POST })
+	public String login(HttpServletRequest request, ShiroUser user) {
 		Subject subject = SecurityUtils.getSubject();
 		user.setPassword(MD5Util.encrypt(user.getPassword()));
 		if (linTools.getKaptchaSwich()) {
 			String kaptchaRecevied = request.getParameter("kaptcha");
-			//用户输入的验证码的值  
-			String kaptchaExpected = (String) request.getSession().getAttribute(  
-					com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);  
-			//校验验证码是否正确  
-			if (kaptchaRecevied == null || !kaptchaRecevied.equals(kaptchaExpected)) {  
+			// 用户输入的验证码的值
+			String kaptchaExpected = (String) request.getSession()
+					.getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+			// 校验验证码是否正确
+			if (kaptchaRecevied == null || !kaptchaRecevied.equals(kaptchaExpected)) {
 				request.setAttribute("msg", "验证码错误");
-				return "error";//返回验证码错误  
-			}  
+				return "error";// 返回验证码错误
+			}
 
 		}
 
@@ -48,13 +49,16 @@ public class LoginController {
 		} catch (AuthenticationException e) {
 			System.out.println("登录失败");
 			request.setAttribute("msg", "账号或密码错误");
+			LogManager.getInstance().saveLog(
+					LogTaskFactory.getLoginFailTimerTask(user.getUsername(), "账号与密码不匹配", request.getRemoteHost()));
 			return "error";
 		}
 
-		request.setAttribute("username" , user.getUsername());
-		request.setAttribute("tip" , ((User)subject.getPrincipal()).getRoleTip());
+		request.setAttribute("username", user.getUsername());
+		request.setAttribute("tip", ((User) subject.getPrincipal()).getRoleTip());
 		request.setAttribute("sex", shiroKit.getSex());
-		System.out.println( shiroKit.getUser().toString());
+		LogManager.getInstance().saveLog(LogTaskFactory.getLoginSuccessTimerTask(shiroKit.getUser().getId(),
+				user.getUsername(), request.getRemoteHost()));
 		return "index1";
 	}
 }

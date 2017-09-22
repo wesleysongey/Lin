@@ -68,12 +68,7 @@ public class PageController {
 		return "welcome";
 	}
 
-	@RequestMapping(value = "/logout" , method = {RequestMethod.GET})
-	public String logout(){
-		SecurityUtils.getSubject().logout();
-		System.out.println("to logout");
-		return "login2";
-	}
+	
 	@RequestMapping(value = "/userpage" , method = {RequestMethod.GET})
 	public String userpage(HttpServletRequest request){
 		System.out.println("to userpage");

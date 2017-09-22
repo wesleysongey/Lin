@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.SecurityUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,8 @@ import com.du.lin.constant.Constant;
 import com.du.lin.dao.DeptMapper;
 import com.du.lin.dao.RoleMapper;
 import com.du.lin.dao.UserMapper;
+import com.du.lin.log.LogManager;
+import com.du.lin.log.LogTaskFactory;
 import com.du.lin.shiro.ShiroKit;
 import com.du.lin.utils.LinTools;
 import com.du.lin.utils.MD5Util;
@@ -48,7 +51,6 @@ public class UserController {
 	@Autowired
 	private DeptMapper deptMapper;
 	
-	@BizLog("获取用户列表")
 	@ResponseBody
 	@RequestMapping(value="/userlist" , method={RequestMethod.POST})
 	public String list(){
@@ -150,6 +152,14 @@ public class UserController {
 		int result = userMapper.updateByPrimaryKeySelective(user);
 		System.out.println("setpassword result:" + result);
 		return ""+result;
+	}
+	
+	@RequestMapping(value = "/logout" , method = {RequestMethod.GET})
+	public String logout(HttpServletRequest request){
+		LogManager.getInstance().saveLog(LogTaskFactory.getLogoutTimerTask(shiroKit.getUser().getId(), shiroKit.getUsername(),request.getRemoteHost() ));
+		SecurityUtils.getSubject().logout();
+		System.out.println("to logout");
+		return "login2";
 	}
 	
 	
