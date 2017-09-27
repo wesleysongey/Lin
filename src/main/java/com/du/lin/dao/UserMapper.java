@@ -19,6 +19,8 @@ public interface UserMapper {
     ShiroUser selectByPrimaryKey(Integer id);
 
     ShiroUser selectByUsername(String username);
+    
+    List<ShiroUser> selectByDeptid(int deptid);
 
     int updateByPrimaryKeySelective(ShiroUser record);
     

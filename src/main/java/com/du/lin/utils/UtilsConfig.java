@@ -11,4 +11,9 @@ public class UtilsConfig {
 	public Gson gson(){
 		return new Gson();
 	}
+	@Bean
+	public TreeDataUtil treeDataUtil(){
+		return new TreeDataUtil();
+	}
+	
 }

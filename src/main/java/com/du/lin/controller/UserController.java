@@ -157,7 +157,11 @@ public class UserController {
 	@RequestMapping(value = "/logout" , method = {RequestMethod.GET})
 	public String logout(HttpServletRequest request){
 		LogManager.getInstance().saveLog(LogTaskFactory.getLogoutTimerTask(shiroKit.getUser().getId(), shiroKit.getUsername(),request.getRemoteHost() ));
-		SecurityUtils.getSubject().logout();
+		try {
+			SecurityUtils.getSubject().logout();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		System.out.println("to logout");
 		return "login2";
 	}

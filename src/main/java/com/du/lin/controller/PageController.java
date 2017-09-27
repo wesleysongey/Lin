@@ -98,6 +98,14 @@ public class PageController {
 		return "menugrid";
 	}
 	
+	@RequestMapping(value="/noticepage",method={RequestMethod.GET})
+	public String noticePage(HttpServletRequest request){
+		System.out.println("noticePage");
+		return "noticegrid";
+	}
+	
+	
+	
 
 	
 }

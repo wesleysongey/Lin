@@ -58,6 +58,7 @@ function del(id){
 }
 function modify(){
 	
+	console.log($("#changefrom").serialize());
 	
 	$.ajax({
 		url: "/setuser",
