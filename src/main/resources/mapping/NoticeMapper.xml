@@ -28,6 +28,15 @@
     
     from notice
   </select>
+  
+  <select id="getTop15Notices" resultMap="BaseResultMap" >
+    select 
+    
+    <include refid="Base_Column_List" />
+    
+    from notice order by createtime desc limit 0,15
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from notice
     where id = #{id,jdbcType=INTEGER}

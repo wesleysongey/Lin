@@ -10,6 +10,8 @@ public interface NoticeMapper {
 	
 	List<Notice> getAllNotice();
 	
+	List<Notice> getTop15Notices();
+	
     int deleteByPrimaryKey(Integer id);
 
     int insert(Notice record);

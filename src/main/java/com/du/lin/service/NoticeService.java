@@ -8,6 +8,11 @@ import com.du.lin.bean.ShowNotice;
 public interface NoticeService {
 	
 	public List<Notice> getAllNotice();
+	/**
+	 * 主页显示的15个Notice
+	 * @return
+	 */
+	public List<Notice> getIndexNotice();
 	
 	public List<ShowNotice> getAllShowNotice();
 	

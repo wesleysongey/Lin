@@ -27,7 +27,7 @@ public class NoticeController {
 	@ResponseBody
 	@RequestMapping(value="/noticelist" , method={RequestMethod.POST})
 	public String noticeList(){
-		 List<Notice> list = noticeService.getAllNotice();
+		 List<Notice> list = noticeService.getIndexNotice();
 		 return gson.toJson(list);
 	}
 	

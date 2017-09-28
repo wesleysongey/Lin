@@ -28,6 +28,8 @@ public class NoticeServiceImpl implements NoticeService{
 	public List<Notice> getAllNotice() {
 		return noticeMapper.getAllNotice();
 	}
+	
+	
 
 	@Override
 	public int sendSystemNotice(String body) {
@@ -49,12 +51,19 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public List<ShowNotice> getAllShowNotice() {
-		List<Notice> list = this.getAllNotice();
+		List<Notice> list = this.getIndexNotice();
 		List<ShowNotice> showList = new ArrayList<ShowNotice>();
 		for(Notice notice : list){
 			showList.add(beanUtil.toShowNotice(notice));
 		}
 		return showList;
+	}
+
+
+
+	@Override
+	public List<Notice> getIndexNotice() {
+		return noticeMapper.getTop15Notices();
 	}
 
 
