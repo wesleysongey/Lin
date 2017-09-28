@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.du.lin.bean.Notice;
+import com.du.lin.constant.Constant;
 import com.du.lin.dao.NoticeMapper;
 import com.du.lin.service.NoticeService;
 import com.google.gson.Gson;
@@ -35,14 +36,15 @@ public class NoticeController {
 	public String addNotice(HttpServletRequest request){
 		String messagetype = request.getParameter("messagetype");
 		String body = request.getParameter("body");
+		int result = Constant.RESULT_DEFAULT_ADD_NOTICE;
 		if ("1".endsWith(messagetype)) {
 			String recive = request.getParameter("recive");	
-			noticeService.sendConmonNotice(body, recive);
+			result = noticeService.sendConmonNotice(body, recive);
 		}else{
-			noticeService.sendSystemNotice(body);
+			result = noticeService.sendSystemNotice(body);
 		}
 		
-		return null ;
+		return String.valueOf(result) ;
 	}
 	
 	

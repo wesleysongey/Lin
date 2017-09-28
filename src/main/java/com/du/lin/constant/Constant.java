@@ -13,6 +13,13 @@ public interface Constant {
 	 * 设置密码原密码不正确时返回结果
 	 */
 	String RESULT_SET_PASSWORD_NO_MATCH = "3";
-	
+	/**
+	 * 添加部门，部门已经存在了
+	 */
 	String RESULT_ADD_DEPT_ALREADY_EXISTS = "3";
+	/**
+	 * 添加通知的默认结果
+	 */
+	int RESULT_DEFAULT_ADD_NOTICE = 0;
+	
 }

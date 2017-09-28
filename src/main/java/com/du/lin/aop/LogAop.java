@@ -17,6 +17,7 @@ import com.du.lin.bean.User;
 import com.du.lin.log.LogManager;
 import com.du.lin.log.LogTaskFactory;
 import com.du.lin.shiro.ShiroKit;
+import com.du.lin.utils.Userinfo;
 
 @Aspect
 @Component
@@ -46,7 +47,7 @@ public class LogAop {
 
 	private void handle(ProceedingJoinPoint point) throws NoSuchMethodException, SecurityException {
 		//如果用户未登录则不记录日志
-		User user = shiroKit.getUser();
+		User user = Userinfo.getUser();
 		if (user == null) {
 			return ;
 		}

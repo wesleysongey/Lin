@@ -29,8 +29,10 @@ import com.du.lin.dao.UserMapper;
 import com.du.lin.log.LogManager;
 import com.du.lin.log.LogTaskFactory;
 import com.du.lin.shiro.ShiroKit;
+import com.du.lin.utils.BeanUtil;
 import com.du.lin.utils.LinTools;
 import com.du.lin.utils.MD5Util;
+import com.du.lin.utils.Userinfo;
 import com.google.gson.Gson;
 
 @Controller
@@ -50,6 +52,8 @@ public class UserController {
 	private RoleMapper roleMapper;
 	@Autowired
 	private DeptMapper deptMapper;
+	@Autowired
+	private BeanUtil beanUtil;
 	
 	@ResponseBody
 	@RequestMapping(value="/userlist" , method={RequestMethod.POST})
@@ -57,7 +61,7 @@ public class UserController {
 		List<ShiroUser> userList = userMapper.getUserList();
 		List<User> users = new ArrayList<User>();
 		for (ShiroUser user : userList) {
-			users.add(shiroKit.toUser(user));
+			users.add(beanUtil.toUser(user));
 		}
 		
 	
@@ -139,7 +143,7 @@ public class UserController {
 		String oldpassword = request.getParameter("oldpassword");
 		System.out.println(oldpassword);
 		System.out.println(password);
-		ShiroUser user = userMapper.selectByPrimaryKey(shiroKit.getUser().getId());
+		ShiroUser user = userMapper.selectByPrimaryKey(Userinfo.getUser().getId());
 		System.out.println(user.getPassword());
 		System.out.println(MD5Util.encrypt(oldpassword));
 		if (!user.getPassword().equals(MD5Util.encrypt(oldpassword))) {
@@ -147,7 +151,7 @@ public class UserController {
 		}
 
 		user = new ShiroUser();         
-		user.setId(shiroKit.getUser().getId());
+		user.setId(Userinfo.getUser().getId());
 		user.setPassword(MD5Util.encrypt(password));
 		int result = userMapper.updateByPrimaryKeySelective(user);
 		System.out.println("setpassword result:" + result);
@@ -156,8 +160,8 @@ public class UserController {
 	
 	@RequestMapping(value = "/logout" , method = {RequestMethod.GET})
 	public String logout(HttpServletRequest request){
-		LogManager.getInstance().saveLog(LogTaskFactory.getLogoutTimerTask(shiroKit.getUser().getId(), shiroKit.getUsername(),request.getRemoteHost() ));
 		try {
+			LogManager.getInstance().saveLog(LogTaskFactory.getLogoutTimerTask(Userinfo.getUser().getId(), Userinfo.getUsername(),request.getRemoteHost() ));
 			SecurityUtils.getSubject().logout();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -16,4 +16,9 @@ public class UtilsConfig {
 		return new TreeDataUtil();
 	}
 	
+	@Bean
+	public BeanUtil beanUtil(){
+		return new BeanUtil();
+	}
+	
 }

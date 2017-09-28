@@ -1,5 +1,7 @@
 package com.du.lin.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
@@ -12,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.du.lin.bean.ShiroUser;
+import com.du.lin.bean.ShowNotice;
 import com.du.lin.bean.User;
 import com.du.lin.log.LogManager;
 import com.du.lin.log.LogTaskFactory;
+import com.du.lin.service.NoticeService;
 import com.du.lin.shiro.ShiroKit;
 import com.du.lin.utils.LinTools;
 import com.du.lin.utils.MD5Util;
+import com.du.lin.utils.Userinfo;
 
 @Controller
 public class LoginController {
@@ -25,6 +30,10 @@ public class LoginController {
 	private LinTools linTools;
 	@Autowired
 	private ShiroKit shiroKit;
+	
+	@Autowired
+	private NoticeService noticeService;
+	
 
 	@RequestMapping(value = "/login", method = { RequestMethod.POST })
 	public String login(HttpServletRequest request, ShiroUser user) {
@@ -54,10 +63,16 @@ public class LoginController {
 			return "error";
 		}
 
+		//右侧要现实的通知
+		List<ShowNotice> list = noticeService.getAllShowNotice();
+		System.out.println(list);
+		request.setAttribute("noticelist",list );
+		
+		
 		request.setAttribute("username", user.getUsername());
 		request.setAttribute("tip", ((User) subject.getPrincipal()).getRoleTip());
-		request.setAttribute("sex", shiroKit.getSex());
-		LogManager.getInstance().saveLog(LogTaskFactory.getLoginSuccessTimerTask(shiroKit.getUser().getId(),
+		request.setAttribute("sex", Userinfo.getSex());
+		LogManager.getInstance().saveLog(LogTaskFactory.getLoginSuccessTimerTask(Userinfo.getUser().getId(),
 				user.getUsername(), request.getRemoteHost()));
 		return "index1";
 	}
