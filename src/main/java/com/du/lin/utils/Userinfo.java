@@ -4,7 +4,10 @@ import com.du.lin.bean.User;
 
 public class Userinfo {
 	private static User user;
-	
+	/**
+	 * 记录用户操作时间，若时间过长则需重新登陆
+	 */
+	private static long operateTime;
 	public static String getUsername(){
 		try {
 			return getUser().getUsername();
@@ -29,4 +32,15 @@ public class Userinfo {
 	public static void setUser(User user){
 		Userinfo.user = user;
 	}
+
+	public static long getOperateTime() {
+		return operateTime;
+	}
+
+	public static void setOperateTime(long operateTime) {
+		Userinfo.operateTime = operateTime;
+	}
+	
+	
+	
 }

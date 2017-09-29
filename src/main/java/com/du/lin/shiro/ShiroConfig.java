@@ -78,6 +78,7 @@ public class ShiroConfig {
          * user  验证通过或RememberMe登录的都可以
          *
          */
+		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("/login", "anon");
 		map.put("/login2", "anon");

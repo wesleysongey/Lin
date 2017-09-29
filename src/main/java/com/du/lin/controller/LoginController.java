@@ -74,6 +74,9 @@ public class LoginController {
 		request.setAttribute("sex", Userinfo.getSex());
 		LogManager.getInstance().saveLog(LogTaskFactory.getLoginSuccessTimerTask(Userinfo.getUser().getId(),
 				user.getUsername(), request.getRemoteHost()));
+		
+		SecurityUtils.getSubject().getSession().setTimeout(5000);
+		
 		return "index1";
 	}
 }
