@@ -8,6 +8,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.ShowNotice;
 import com.du.lin.bean.User;
+import com.du.lin.constant.Constant;
 import com.du.lin.log.LogManager;
 import com.du.lin.log.LogTaskFactory;
 import com.du.lin.service.NoticeService;
@@ -26,11 +29,11 @@ import com.du.lin.utils.Userinfo;
 
 @Controller
 public class LoginController {
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private LinTools linTools;
-	@Autowired
-	private ShiroKit shiroKit;
-	
 	@Autowired
 	private NoticeService noticeService;
 	
@@ -47,6 +50,7 @@ public class LoginController {
 			// 校验验证码是否正确
 			if (kaptchaRecevied == null || !kaptchaRecevied.equals(kaptchaExpected)) {
 				request.setAttribute("msg", "验证码错误");
+				request.setAttribute("status", Constant.ERROR_CODE_VERICATION_CODE_ERROR);
 				return "error";// 返回验证码错误
 			}
 
@@ -56,8 +60,10 @@ public class LoginController {
 		try {
 			subject.login(token);
 		} catch (AuthenticationException e) {
-			System.out.println("登录失败");
+			log.warn("登陆失败");
+			request.setAttribute("status", Constant.ERROR_CODE_USERNAME_PASSWORD_MISMATCH);
 			request.setAttribute("msg", "账号或密码错误");
+			
 			LogManager.getInstance().saveLog(
 					LogTaskFactory.getLoginFailTimerTask(user.getUsername(), "账号与密码不匹配", request.getRemoteHost()));
 			return "error";
@@ -65,7 +71,6 @@ public class LoginController {
 
 		//右侧要现实的通知
 		List<ShowNotice> list = noticeService.getAllShowNotice();
-		System.out.println(list);
 		request.setAttribute("noticelist",list );
 		
 		
@@ -75,7 +80,6 @@ public class LoginController {
 		LogManager.getInstance().saveLog(LogTaskFactory.getLoginSuccessTimerTask(Userinfo.getUser().getId(),
 				user.getUsername(), request.getRemoteHost()));
 		
-		SecurityUtils.getSubject().getSession().setTimeout(5000);
 		
 		return "index1";
 	}

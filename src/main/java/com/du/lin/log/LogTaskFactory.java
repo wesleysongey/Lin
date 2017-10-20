@@ -22,7 +22,7 @@ public class LogTaskFactory {
 			
 			@Override
 			public void run() {
-				OperationLog operLog = LogFactory.getOperationLogInstance(userid, className, logName, LogType.BUSSINESS, message, methodNmae, LogState.SUCCESS);
+				OperationLog operLog = LogFactory.newOperationLogInstance(userid, className, logName, LogType.BUSSINESS, message, methodNmae, LogState.SUCCESS);
 				try {
 					operationLogMapper.insert(operLog);
 				} catch (Exception e) {
@@ -38,7 +38,7 @@ public class LogTaskFactory {
 			
 			@Override
 			public void run() {
-				OperationLog operLog = LogFactory.getOperationLogInstance(userid, className, null, LogType.BUSSINESS, message, methodNmae, LogState.FAIL);
+				OperationLog operLog = LogFactory.newOperationLogInstance(userid, className, null, LogType.BUSSINESS, message, methodNmae, LogState.FAIL);
 				try {
 					operationLogMapper.insert(operLog);
 				} catch (Exception e) {
@@ -54,7 +54,7 @@ public class LogTaskFactory {
 			
 			@Override
 			public void run() {
-				LoginLog loginLog = LogFactory.getLoginLogIntstance(userid, LogType.LOGIN, LogState.SUCCESS, username, ip);
+				LoginLog loginLog = LogFactory.newLoginLogIntstance(userid, LogType.LOGIN, LogState.SUCCESS, username, ip);
 				try {
 					loginLogMapper.insert(loginLog);
 				} catch (Exception e) {
@@ -69,7 +69,7 @@ public class LogTaskFactory {
 			
 			@Override
 			public void run() {
-				LoginLog loginLog = LogFactory.getLoginLogIntstance( null , LogType.LOGIN_FAIL, LogState.SUCCESS, "用户名：" + username + ",原因：" + message, ip);
+				LoginLog loginLog = LogFactory.newLoginLogIntstance( null , LogType.LOGIN_FAIL, LogState.SUCCESS, "用户名：" + username + ",原因：" + message, ip);
 				try {
 					loginLogMapper.insert(loginLog);
 				} catch (Exception e) {
@@ -83,7 +83,7 @@ public class LogTaskFactory {
 			
 			@Override
 			public void run() {
-				LoginLog loginLog = LogFactory.getLoginLogIntstance( userid , LogType.EXIT, LogState.SUCCESS, "用户名：" + username + ",退出", ip);
+				LoginLog loginLog = LogFactory.newLoginLogIntstance( userid , LogType.EXIT, LogState.SUCCESS,username, ip);
 				try {
 					System.out.println((loginLogMapper == null) + "");
 					loginLogMapper.insert(loginLog);

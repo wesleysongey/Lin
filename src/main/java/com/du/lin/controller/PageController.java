@@ -1,79 +1,98 @@
 package com.du.lin.controller;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import com.du.lin.utils.BeanUtil;
-import com.du.lin.utils.LinTools;
+import com.du.lin.utils.ExcelUtil;
 import com.du.lin.utils.Userinfo;
 
-import org.apache.shiro.SecurityUtils;
+import org.apache.hadoop.mapred.gethistory_jsp;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.du.lin.bean.Dept;
-import com.du.lin.bean.Notice;
-import com.du.lin.bean.ShowNotice;
+import com.du.lin.bean.LoginLog;
+import com.du.lin.bean.OperationLog;
+import com.du.lin.config.properties.LinProperties;
 import com.du.lin.dao.DeptMapper;
-import com.du.lin.service.NoticeService;
-import com.du.lin.shiro.ShiroKit;
+import com.du.lin.dao.LoginLogMapper;
+import com.du.lin.dao.OperationLogMapper;
+import com.du.lin.service.LoginLogService;
 
 @Controller
-public class PageController {
-	@Autowired
-	private ShiroKit shiroKit;
+public class PageController extends BaseController{
+
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
+	
 	@Autowired
 	private DeptMapper deptMapper;
-
-
+	@Autowired
+	private LinProperties linProperties;
+	@Autowired
+	private LoginLogService service;
 	
-	@RequestMapping(value="/test",method={RequestMethod.GET,RequestMethod.POST})
-	public String test(HttpServletRequest request){
-		System.out.println("test");
-		request.setAttribute("test", "<br/><br/>");
-		return "test";
+	@Autowired
+	private ExcelUtil excelUtil;
+	
+	@RequestMapping(value="/test",method={RequestMethod.GET})
+	public String test(HttpServletRequest request , HttpServletResponse response){
+		log.info("test page");
+		System.out.println(service.getAllShowLoginLog());
+		
+		return "llll";
 	}
 	
 	
 	@RequestMapping(value="/",method={RequestMethod.GET,RequestMethod.POST})
-	public String home(){
-		System.out.println("home");
+	public String home(HttpServletRequest request){
+		log.info("home page");
+		request.setAttribute("kaptcha", linProperties.isKptchaswich());
+		
 		 return "login2";
 	}
 	@RequestMapping(value="/login",method={RequestMethod.GET})
-	public String login(){
+	public String login(HttpServletRequest request){
+		request.setAttribute("kaptcha", linProperties.isKptchaswich());
 		return "login2";
 	}
 
 	
 	@RequestMapping(value="/login2",method={RequestMethod.GET})
-	public String login2(){
-		System.out.println("to login2");
+	public String login2(HttpServletRequest request){
+		log.info("login page");
+		request.setAttribute("kaptcha", linProperties.isKptchaswich());
 		return "login2";
 	}
 	
 	@RequestMapping(value="/index1",method={RequestMethod.GET})
 	public String index1(HttpServletRequest request){
-		System.out.println("to index1");
+		
 		return "index1";
 	}
 	
 	
 	@RequestMapping(value="/welcome",method={RequestMethod.GET})
 	public String welcome(){
-		System.out.println("to welcome");
+		log.info("welcome page");
 		return "welcome";
 	}
 
 	
 	@RequestMapping(value = "/userpage" , method = {RequestMethod.GET})
 	public String userpage(HttpServletRequest request){
-		System.out.println("to userpage");
 		List<Dept> list = deptMapper.getAllDept();
 		request.setAttribute("depts", list);
 		return "usergrid";
@@ -82,7 +101,6 @@ public class PageController {
 	
 	@RequestMapping(value="/setpassword",method={RequestMethod.GET})
 	public String setPassword(HttpServletRequest request){
-		System.out.println("setpassword");
 		request.setAttribute("username", Userinfo.getUsername() );
 		request.setAttribute("sex", Userinfo.getSex() );
 		return "changepassword";
@@ -90,20 +108,36 @@ public class PageController {
 	
 	@RequestMapping(value="/deptpage",method={RequestMethod.GET})
 	public String deptPage(HttpServletRequest request){
-		System.out.println("deptpage");
+		log.info("dept page");
 		return "deptgrid";
 	}
 	
 	@RequestMapping(value="/menupage",method={RequestMethod.GET})
 	public String menuPage(HttpServletRequest request){
-		System.out.println("menupage");
 		return "menugrid";
 	}
 	
 	@RequestMapping(value="/noticepage",method={RequestMethod.GET})
 	public String noticePage(HttpServletRequest request){
-		System.out.println("noticePage");
+		log.info("notice page");
 		return "noticegrid";
+	}
+	
+	@RequestMapping(value="/introduction",method={RequestMethod.GET})
+	public String introduction(HttpServletRequest request){
+		log.info("introduction page");
+		return "introduction";
+	}
+	
+	@RequestMapping(value="/loginlogpage",method={RequestMethod.GET})
+	public String loginLogPage(HttpServletRequest request){
+		log.info("login Log page");
+		return "login_log_grid";
+	}
+	@RequestMapping(value="/operationlogpage",method={RequestMethod.GET})
+	public String operationLogPage(HttpServletRequest request){
+		log.info("login Log page");
+		return "operation_log_grid";
 	}
 	
 	

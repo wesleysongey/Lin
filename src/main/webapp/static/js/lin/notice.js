@@ -1,4 +1,4 @@
-var messagetype;
+var messagetype = 0;
 $(function() {
 
 	$("#messagetype").change(function() {
@@ -33,15 +33,14 @@ function submitform() {
 		alert("未输入内容");
 		return;
 	}
-	var checked = getChecked();
-	if (messagetype == 1) {
-		if (checked == "") {
-			alert("请选择接受通知的对象");
-			return;
-		}
-	}
-	var val = $("#noticform").serialize() + "&recive=" + getChecked();
-
+//	var checked = getChecked();
+//	if (messagetype == 1) {
+//		if (checked == "") {
+//			alert("请选择接受通知的对象");
+//			return;
+//		}
+//	}
+	var val = $("#noticform").serialize();
 	$.ajax({
 		url : "/addnotice",
 		data : val,

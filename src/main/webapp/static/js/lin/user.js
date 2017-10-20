@@ -127,7 +127,7 @@ function buildgrid(deptinfo){
 				mtype: "POST",
 				height: "100%",
 				autowidth: true,
-				shrinkToFit: true,
+//				shrinkToFit: true,
 				rowNum: 10,
 				rowList: [10, 20, 30],
 				colNames: ['用户名','性别', '部门', '角色','操作'],

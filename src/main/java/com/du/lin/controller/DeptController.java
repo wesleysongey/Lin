@@ -30,7 +30,6 @@ public class DeptController {
 	@ResponseBody
 	@RequestMapping(value="/deptlistforadd" , method={RequestMethod.POST})
 	public String deptListForAdd(){
-		System.out.println("deptlistforadd");
 		List<Dept> list = deptMapper.getAllDept();
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < list.size(); i++) {
@@ -42,20 +41,17 @@ public class DeptController {
 	@ResponseBody
 	@RequestMapping(value="/deptlist" , method={RequestMethod.POST})
 	public String deptList(){
-		System.out.println("get deptlist");
 		List<Dept> list = deptMapper.getAllDept();
-		System.out.println(gson.toJson(list));
 		return gson.toJson(list);
 	}
 	@BizLog("添加部门")
 	@ResponseBody
 	@RequestMapping(value="/adddept" , method={RequestMethod.POST})
 	public String addDept(HttpServletRequest request){
-		System.out.println("adddept");
 		String deptName = request.getParameter("name");
 		Dept dept = deptMapper.selectByName(deptName);
 		if (dept != null) {
-			return Constant.RESULT_ADD_DEPT_ALREADY_EXISTS;
+			return Constant.ERROR_ADD_DEPT_ALREADY_EXISTS;
 		}
 		dept = new Dept();
 		dept.setName(deptName);
@@ -67,7 +63,6 @@ public class DeptController {
 	@ResponseBody
 	@RequestMapping(value="/setdept" , method={RequestMethod.POST})
 	public String setDept(HttpServletRequest request){
-		System.out.println("setdept");
 		String deptid = request.getParameter("deptid");
 		String deptname = request.getParameter("deptname");
 		Dept dept = new Dept();
@@ -80,8 +75,10 @@ public class DeptController {
 	@ResponseBody
 	@RequestMapping(value="/deletedept" , method={RequestMethod.POST})
 	public String deleteDept(HttpServletRequest request){
-		System.out.println("deletedept");
 		String deptid = request.getParameter("id");
+		if ("1".endsWith(deptid)) {
+			return Constant.ERROR_CAN_NOT_DELETE_DEFAULT_DEPT;
+		}
 		int setUserResult = userMapper.updateByDeptidSelective(Integer.parseInt(deptid));
 		int result = deptMapper.deleteByPrimaryKey(Integer.parseInt(deptid));
 		return "" + result;

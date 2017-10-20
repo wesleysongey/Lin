@@ -13,7 +13,7 @@ public class LogFactory {
 	
 	private static LoginLog loginLog;
 	
-	public static OperationLog getOperationLogInstance(int userid , String classname ,String logname,
+	public static OperationLog newOperationLogInstance(int userid , String classname ,String logname,
 			LogType logtype, String message , String method,LogState state											
 			){
 		operLog = new OperationLog();
@@ -28,14 +28,14 @@ public class LogFactory {
 		return operLog;
 	}
 	
-	public static LoginLog getLoginLogIntstance(Integer userid , LogType logType , LogState logState ,String message , String ip){
+	public static LoginLog newLoginLogIntstance(Integer userid , LogType logType , LogState logState ,String message , String ip){
 		loginLog = new LoginLog();
-		loginLog.setCreatetime(new Date());
 		loginLog.setIp(ip);
 		loginLog.setLogname(logType.getMessage());
 		loginLog.setMessage(message);
 		loginLog.setState(logState.getMessage());
 		loginLog.setUserid(userid);
+		loginLog.setCreatetime(new Date());
 		return loginLog;
 	}
 	

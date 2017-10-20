@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.du.lin.annotation.BizLog;
 import com.du.lin.bean.Notice;
 import com.du.lin.constant.Constant;
 import com.du.lin.dao.NoticeMapper;
@@ -30,7 +31,7 @@ public class NoticeController {
 		 List<Notice> list = noticeService.getIndexNotice();
 		 return gson.toJson(list);
 	}
-	
+	@BizLog("添加通知")
 	@ResponseBody
 	@RequestMapping(value="/addnotice" , method={RequestMethod.POST})
 	public String addNotice(HttpServletRequest request){

@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TimerTask;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +41,7 @@ import com.google.gson.Gson;
 @Controller
 public class UserController {
 	
-	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private Gson gson;
@@ -64,7 +67,7 @@ public class UserController {
 			users.add(beanUtil.toUser(user));
 		}
 		
-	
+		
 		return gson.toJson(users);
 		
 		
@@ -74,7 +77,6 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/adduser" , method={RequestMethod.POST})
 	public void addUser(HttpServletRequest request ){
-		System.out.println("addUser");
 		if (!shiroKit.hasRole("ROLE_ADMIN")) {
 			System.out.println("没有权限");
 			return;
@@ -84,12 +86,7 @@ public class UserController {
 		String avator = request.getParameter("avator");
 		String dept = request.getParameter("dept");
 		String role = request.getParameter("roleTip");
-		
-		System.out.println(username);
-		System.out.println(avator);
-		System.out.println(dept);
-		System.out.println(role);
-		
+	
 		ShiroUser user = new ShiroUser();
 		user.setUsername(username);
 		user.setPassword(MD5Util.encrypt("111111"));
@@ -115,7 +112,6 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/deleteuser" , method=RequestMethod.POST)
 	public String deleteUser(HttpServletRequest request){
-		System.out.println("deleteUser");
 		String id = request.getParameter("id");
 		int userresult = userMapper.deleteByPrimaryKey(Integer.parseInt(id));
 		return ""+userresult;
@@ -125,7 +121,6 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/setuser" , method=RequestMethod.POST)
 	public String setuser(HttpServletRequest request){
-		System.out.println("setuser");
 		ShiroUser user = new ShiroUser();
 		user.setId(Integer.parseInt(request.getParameter("changeid")));
 		user.setDeptid(Integer.parseInt(request.getParameter("changedept")));
@@ -138,36 +133,37 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/rsetpassword" , method={RequestMethod.POST})
 	public String setPassword(HttpServletRequest request){
-		System.out.println("setpasswork post");
 		String password = request.getParameter("password");
 		String oldpassword = request.getParameter("oldpassword");
-		System.out.println(oldpassword);
-		System.out.println(password);
+
 		ShiroUser user = userMapper.selectByPrimaryKey(Userinfo.getUser().getId());
-		System.out.println(user.getPassword());
-		System.out.println(MD5Util.encrypt(oldpassword));
+		
 		if (!user.getPassword().equals(MD5Util.encrypt(oldpassword))) {
-			return Constant.RESULT_SET_PASSWORD_NO_MATCH;
+			return Constant.ERROR_SET_PASSWORD_NO_MATCH;
 		}
 
 		user = new ShiroUser();         
 		user.setId(Userinfo.getUser().getId());
 		user.setPassword(MD5Util.encrypt(password));
 		int result = userMapper.updateByPrimaryKeySelective(user);
-		System.out.println("setpassword result:" + result);
 		return ""+result;
 	}
 	
 	@RequestMapping(value = "/logout" , method = {RequestMethod.GET})
 	public String logout(HttpServletRequest request){
+		
 		try {
-			LogManager.getInstance().saveLog(LogTaskFactory.getLogoutTimerTask(Userinfo.getUser().getId(), Userinfo.getUsername(),request.getRemoteHost() ));
+			int id = Userinfo.getUser().getId();
+			String username = Userinfo.getUsername();
+			String ip = request.getRemoteHost();
+			TimerTask task = LogTaskFactory.getLogoutTimerTask(id, username, ip);
+			LogManager.getInstance().saveLog(task);
 			SecurityUtils.getSubject().logout();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("to logout");
-		return "login2";
+		log.info("用户登出");
+		return "redirect:/";
 	}
 	
 	

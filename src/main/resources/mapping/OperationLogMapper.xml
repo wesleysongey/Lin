@@ -21,9 +21,15 @@
     from operation_log
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectAll" resultMap="BaseResultMap"  >
+    select * from operation_log
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from operation_log
     where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteAll"  >
+    delete from operation_log
   </delete>
   <insert id="insert" parameterType="com.du.lin.bean.OperationLog" >
     insert into operation_log (id, logtype, logname, 

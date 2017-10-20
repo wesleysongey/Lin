@@ -5,7 +5,11 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
+/**
+ * 业务标签类
+ * @author Lin
+ *
+ */
 
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)

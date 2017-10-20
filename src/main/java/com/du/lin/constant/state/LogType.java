@@ -1,9 +1,9 @@
 package com.du.lin.constant.state;
 
 public enum LogType {
-	LOGIN("登陆日志"),
-	LOGIN_FAIL("登陆失败日志"),
-	EXIT("退出日志"),
+	LOGIN("登陆"),
+	LOGIN_FAIL("登陆失败"),
+	EXIT("退出"),
 	BUSSINESS("业务日志"),
 	EXCEPTION("异常日志");
 	

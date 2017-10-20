@@ -31,8 +31,10 @@
 
     <div class="middle-box text-center animated fadeInDown">
         <h1 th:text="${status}" ></h1>
+        <h1 th:if="${status} == null " >999</h1>
         <h3 class="font-bold">出错啦！</h3>
         <h3 class="font-bold" th:text="${msg}"></h3>
+        <h3 class="font-bold" th:if="${msg}==null ">未知错误</h3>
         <h3 class="font-bold" > <span id="second" ></span>
     <span> <a th:href="@{/login2}" > 返回登录 </a> </span>  </h3>
         <h3 class="font-bold" th:text="${'error:' + error}"></h3>

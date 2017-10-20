@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="logname" property="logname" jdbcType="VARCHAR" />
     <result column="userid" property="userid" jdbcType="INTEGER" />
-    <result column="createtime" property="createtime" jdbcType="DATE" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="state" property="state" jdbcType="VARCHAR" />
     <result column="ip" property="ip" jdbcType="VARCHAR" />
   </resultMap>
@@ -26,16 +26,23 @@
     from login_log
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectAll" resultMap="ResultMapWithBLOBs"  >
+    select * from login_log order by createtime desc
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from login_log
     where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteAll"  >
+    delete from login_log
   </delete>
   <insert id="insert" parameterType="com.du.lin.bean.LoginLog" >
     insert into login_log (id, logname, userid, 
       createtime, state, ip, 
       message)
     values (#{id,jdbcType=INTEGER}, #{logname,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
-      #{createtime,jdbcType=DATE}, #{state,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
       #{message,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.du.lin.bean.LoginLog" >
@@ -74,7 +81,7 @@
         #{userid,jdbcType=INTEGER},
       </if>
       <if test="createtime != null" >
-        #{createtime,jdbcType=DATE},
+        #{createtime,jdbcType=TIMESTAMP},
       </if>
       <if test="state != null" >
         #{state,jdbcType=VARCHAR},
@@ -97,7 +104,7 @@
         userid = #{userid,jdbcType=INTEGER},
       </if>
       <if test="createtime != null" >
-        createtime = #{createtime,jdbcType=DATE},
+        createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
       <if test="state != null" >
         state = #{state,jdbcType=VARCHAR},
@@ -115,7 +122,7 @@
     update login_log
     set logname = #{logname,jdbcType=VARCHAR},
       userid = #{userid,jdbcType=INTEGER},
-      createtime = #{createtime,jdbcType=DATE},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
       state = #{state,jdbcType=VARCHAR},
       ip = #{ip,jdbcType=VARCHAR},
       message = #{message,jdbcType=LONGVARCHAR}
@@ -125,7 +132,7 @@
     update login_log
     set logname = #{logname,jdbcType=VARCHAR},
       userid = #{userid,jdbcType=INTEGER},
-      createtime = #{createtime,jdbcType=DATE},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
       state = #{state,jdbcType=VARCHAR},
       ip = #{ip,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

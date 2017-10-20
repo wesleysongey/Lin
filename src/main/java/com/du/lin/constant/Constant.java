@@ -6,20 +6,46 @@ public interface Constant {
 	 */
 	int DEFAULT_ROLE_ID = 2;
 	/**
-	 * 默认部门id 即未分配
-	 */
-	int DEFAULT_DEPT_ID = 0;
-	/**
 	 * 设置密码原密码不正确时返回结果
 	 */
-	String RESULT_SET_PASSWORD_NO_MATCH = "3";
+	String ERROR_SET_PASSWORD_NO_MATCH = "3";
 	/**
 	 * 添加部门，部门已经存在了
 	 */
-	String RESULT_ADD_DEPT_ALREADY_EXISTS = "3";
+	String ERROR_ADD_DEPT_ALREADY_EXISTS = "3";
+	/**
+	 * 不能删除默认部门
+	 */
+	String ERROR_CAN_NOT_DELETE_DEFAULT_DEPT = "4";
+	
+	/**
+	 * 错误代码
+	 * 删除登陆日志失败
+	 * 也可能是日志为空
+	 */
+	String ERROR_DELETE_LOGINLOG_FAIL = "005";
+	
 	/**
 	 * 添加通知的默认结果
 	 */
 	int RESULT_DEFAULT_ADD_NOTICE = 0;
-	
+	/**
+	 * 错误代码
+	 * 账号密码不匹配
+	 */
+	String ERROR_CODE_USERNAME_PASSWORD_MISMATCH = "201";
+	/**
+	 * 错误代码
+	 * 验证码错误
+	 */
+	String ERROR_CODE_VERICATION_CODE_ERROR = "301";
+	/**
+	 * 错误代码
+	 * 没有权限
+	 */
+	String ERROR_CODE_NO_PERMISION = "101";
+	/**
+	 * 操作成功代码
+	 */
+	String OPERATION_SUCCESS_CODE = "000";
 }

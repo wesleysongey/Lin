@@ -12,7 +12,7 @@ public class LinTools {
 	private LinProperties linProperties;
 	
 	public boolean getKaptchaSwich(){
-		return linProperties.getKaptchaSwich();
+		return linProperties.isKptchaswich();
 	}
 	
 	public String getSalt(){

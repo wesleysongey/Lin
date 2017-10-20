@@ -22,8 +22,7 @@ import com.du.lin.utils.Userinfo;
 @Aspect
 @Component
 public class LogAop {
-	@Autowired
-	private ShiroKit shiroKit;
+
 	
 	@Pointcut("@annotation(com.du.lin.annotation.BizLog)")
 	public void logCut() {
@@ -68,7 +67,7 @@ public class LogAop {
 		String logName = bizLog.value();
 
 		LogManager.getInstance()
-				.saveLog(LogTaskFactory.getOperationSuccessTimerTask(user.getId(), className , logName, methodName, null));
+				.saveLog(LogTaskFactory.getOperationSuccessTimerTask(user.getId(), className , logName, methodName, Userinfo.getUsername()));
 
 	}
 
