@@ -74,6 +74,7 @@ public class PageController extends BaseController{
 	public String login2(HttpServletRequest request){
 		log.info("login page");
 		request.setAttribute("kaptcha", linProperties.isKptchaswich());
+		
 		return "login2";
 	}
 	

@@ -44,7 +44,6 @@ public class LogController2 extends BaseController{
 	@RequestMapping(value="/loginloglist1" , method={RequestMethod.POST})
 	private String loginLogList(HttpServletRequest request){
 		
-		System.out.println("adfa");
 		List<ShowLog> logs = loginLogService.getAllShowLoginLog();
 		return gson.toJson(logs);
 	}
