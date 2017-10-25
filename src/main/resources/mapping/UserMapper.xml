@@ -25,6 +25,12 @@
     from user
     where username = #{username}
   </select>
+  <select id="selectByDeptid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where deptid = #{deptid}
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user
@@ -110,6 +116,10 @@
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByDeptidSelective" parameterType="java.lang.Integer" >
+    update user set deptid = 1
+   	where deptid = #{deptid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.du.lin.bean.ShiroUser" >
     update user

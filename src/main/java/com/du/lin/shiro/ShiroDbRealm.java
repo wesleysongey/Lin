@@ -17,11 +17,12 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.du.lin.bean.Role;
 import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.User;
 import com.du.lin.dao.RoleMapper;
 import com.du.lin.dao.UserMapper;
+import com.du.lin.utils.BeanUtil;
+import com.du.lin.utils.Userinfo;
 
 
 
@@ -32,7 +33,7 @@ public class ShiroDbRealm extends AuthorizingRealm{
 	@Resource
 	private RoleMapper roleMapper;
 	@Autowired
-	private ShiroKit shiroKit;
+	private BeanUtil beanUtil;
 	
 	/**
 	 * 授权
@@ -51,10 +52,11 @@ public class ShiroDbRealm extends AuthorizingRealm{
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationtoken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authenticationtoken;
 		ShiroUser dbUser = userMapper.selectByUsername(token.getUsername());
-		User user =shiroKit.toUser(dbUser);
+		User user =beanUtil.toUser(dbUser);
+		Userinfo.setUser(user);
 		if (dbUser == null){
 			throw new CredentialsException();
-		}
+		}    
 		SimpleAuthenticationInfo authinfo = new SimpleAuthenticationInfo(user, 
 				dbUser.getPassword(), ByteSource.Util.bytes(dbUser.getSalt()), getName());
 		return authinfo;
