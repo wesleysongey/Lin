@@ -1,9 +1,9 @@
 package com.du.lin.controller;
 
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.du.lin.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,52 +11,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.du.lin.annotation.BizLog;
-import com.du.lin.bean.Dept;
-import com.du.lin.constant.Constant;
-import com.du.lin.dao.DeptMapper;
-import com.du.lin.dao.UserMapper;
-import com.google.gson.Gson;
+
 
 @Controller
 public class DeptController {
+
 	@Autowired
-	private DeptMapper deptMapper;
-	@Autowired
-	private Gson gson;
-	@Autowired
-	private UserMapper userMapper;
-	
+	private DeptService service;
 	
 	@ResponseBody
 	@RequestMapping(value="/deptlistforadd" , method={RequestMethod.POST})
 	public String deptListForAdd(){
-		List<Dept> list = deptMapper.getAllDept();
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < list.size(); i++) {
-			sb.append(list.get(i).getId() + ":" + list.get(i).getName() + ";");
-		}
-		return sb.substring(0, sb.length()-1);
+		return service.deptListForAdd();
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/deptlist" , method={RequestMethod.POST})
-	public String deptList(){
-		List<Dept> list = deptMapper.getAllDept();
-		return gson.toJson(list);
+	public String deptList(HttpServletRequest request){
+		String page = request.getParameter("page"); // 取得当前页数,注意这是jqgrid自身的参数
+		String rows = request.getParameter("rows"); // 取得每页显示行数，,注意这是jqgrid自身的参数
+		return service.getAllDeptJson(Integer.parseInt(page) , Integer.parseInt(rows));
 	}
 	@BizLog("添加部门")
 	@ResponseBody
 	@RequestMapping(value="/adddept" , method={RequestMethod.POST})
 	public String addDept(HttpServletRequest request){
 		String deptName = request.getParameter("name");
-		Dept dept = deptMapper.selectByName(deptName);
-		if (dept != null) {
-			return Constant.ERROR_ADD_DEPT_ALREADY_EXISTS;
-		}
-		dept = new Dept();
-		dept.setName(deptName);
-		int result = deptMapper.insert(dept);
-		return result+"";
+
+		return service.addDept(deptName);
 	}
 	
 	@BizLog("修改部门信息")
@@ -65,23 +47,14 @@ public class DeptController {
 	public String setDept(HttpServletRequest request){
 		String deptid = request.getParameter("deptid");
 		String deptname = request.getParameter("deptname");
-		Dept dept = new Dept();
-		dept.setId(Integer.parseInt(deptid));
-		dept.setName(deptname);
-		int result = deptMapper.updateByPrimaryKeySelective(dept);
-		return "" + result;
+		return service.modifyDept(deptid , deptname);
 	}
 	@BizLog("删除部门")
 	@ResponseBody
 	@RequestMapping(value="/deletedept" , method={RequestMethod.POST})
 	public String deleteDept(HttpServletRequest request){
 		String deptid = request.getParameter("id");
-		if ("1".endsWith(deptid)) {
-			return Constant.ERROR_CAN_NOT_DELETE_DEFAULT_DEPT;
-		}
-		int setUserResult = userMapper.updateByDeptidSelective(Integer.parseInt(deptid));
-		int result = deptMapper.deleteByPrimaryKey(Integer.parseInt(deptid));
-		return "" + result;
+		return service.deleteDept(deptid);
 	}
 	
 

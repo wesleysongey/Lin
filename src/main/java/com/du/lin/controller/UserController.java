@@ -31,8 +31,10 @@ import com.du.lin.dao.RoleMapper;
 import com.du.lin.dao.UserMapper;
 import com.du.lin.log.LogManager;
 import com.du.lin.log.LogTaskFactory;
+import com.du.lin.service.UserService;
 import com.du.lin.shiro.ShiroKit;
 import com.du.lin.utils.BeanUtil;
+import com.du.lin.utils.JqgridUtil;
 import com.du.lin.utils.LinTools;
 import com.du.lin.utils.MD5Util;
 import com.du.lin.utils.Userinfo;
@@ -43,32 +45,20 @@ public class UserController {
 	
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
-	@Autowired
-	private Gson gson;
-	@Autowired
-	private UserMapper userMapper;
+
 	@Autowired
 	private ShiroKit shiroKit;
+
 	@Autowired
-	private LinTools linTools;
-	@Autowired
-	private RoleMapper roleMapper;
-	@Autowired
-	private DeptMapper deptMapper;
-	@Autowired
-	private BeanUtil beanUtil;
+	private UserService service;
 	
 	@ResponseBody
 	@RequestMapping(value="/userlist" , method={RequestMethod.POST})
-	public String list(){
-		List<ShiroUser> userList = userMapper.getUserList();
-		List<User> users = new ArrayList<User>();
-		for (ShiroUser user : userList) {
-			users.add(beanUtil.toUser(user));
-		}
+	public String list(HttpServletRequest request){
+		String page = request.getParameter("page"); // 取得当前页数,注意这是jqgrid自身的参数   
+	    String rows = request.getParameter("rows"); //
 		
-		
-		return gson.toJson(users);
+		return service.getAllUserJson(Integer.parseInt(page) , Integer.parseInt(rows));
 		
 		
 	}
@@ -87,25 +77,18 @@ public class UserController {
 		String dept = request.getParameter("dept");
 		String role = request.getParameter("roleTip");
 	
-		ShiroUser user = new ShiroUser();
-		user.setUsername(username);
-		user.setPassword(MD5Util.encrypt("111111"));
-		user.setAvator(avator);
-		user.setDeptid(Integer.parseInt(dept));
-		user.setRoleid(Integer.parseInt(role));
-		user.setSalt(linTools.getSalt());
-		int result = userMapper.insert(user);
+		service.addUser(username, avator, dept, role);
+		
 	}
+	
+	
 	@BizLog("用户密码重置")
 	@ResponseBody
 	@RequestMapping(value="/resetpassword" , method=RequestMethod.POST)
 	public String resetPassword(HttpServletRequest request){
 		String id = request.getParameter("id");
-		ShiroUser user = new ShiroUser();
-		user.setId(Integer.parseInt(id));
-		user.setPassword(MD5Util.encrypt("111111"));
-		int result = userMapper.updateByPrimaryKeySelective(user);
-		return ""+result;
+
+		return service.resetPassword(Integer.parseInt(id));
 	}
 	
 	@BizLog("删除用户")
@@ -113,41 +96,32 @@ public class UserController {
 	@RequestMapping(value="/deleteuser" , method=RequestMethod.POST)
 	public String deleteUser(HttpServletRequest request){
 		String id = request.getParameter("id");
-		int userresult = userMapper.deleteByPrimaryKey(Integer.parseInt(id));
-		return ""+userresult;
+		return service.deleteUser(Integer.parseInt(id));
 	}
 	
 	@BizLog("用户信息修改")
 	@ResponseBody
 	@RequestMapping(value="/setuser" , method=RequestMethod.POST)
 	public String setuser(HttpServletRequest request){
-		ShiroUser user = new ShiroUser();
-		user.setId(Integer.parseInt(request.getParameter("changeid")));
-		user.setDeptid(Integer.parseInt(request.getParameter("changedept")));
-		user.setRoleid(Integer.parseInt(request.getParameter("changerole")));
-		int result = userMapper.updateByPrimaryKeySelective(user);
-		return "" + result;
+		
+		String newId = request.getParameter("changeid");
+		String newDeptId = request.getParameter("changedept");
+		String newRoleId = request.getParameter("changerole");
+		
+		return service.modifyInfo(newId, newDeptId, newRoleId);
 	}
 	
 	@BizLog("用户修改密码")
 	@ResponseBody
 	@RequestMapping(value="/rsetpassword" , method={RequestMethod.POST})
 	public String setPassword(HttpServletRequest request){
-		String password = request.getParameter("password");
-		String oldpassword = request.getParameter("oldpassword");
-
-		ShiroUser user = userMapper.selectByPrimaryKey(Userinfo.getUser().getId());
-		
-		if (!user.getPassword().equals(MD5Util.encrypt(oldpassword))) {
-			return Constant.ERROR_SET_PASSWORD_NO_MATCH;
-		}
-
-		user = new ShiroUser();         
-		user.setId(Userinfo.getUser().getId());
-		user.setPassword(MD5Util.encrypt(password));
-		int result = userMapper.updateByPrimaryKeySelective(user);
-		return ""+result;
+		String newPassword = request.getParameter("password");
+		String oldPassword = request.getParameter("oldpassword");
+		return service.changePassword(oldPassword, newPassword);
 	}
+	
+	
+	
 	
 	@RequestMapping(value = "/logout" , method = {RequestMethod.GET})
 	public String logout(HttpServletRequest request){

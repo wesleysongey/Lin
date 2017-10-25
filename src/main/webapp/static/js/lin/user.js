@@ -128,7 +128,14 @@ function buildgrid(deptinfo){
 				height: "100%",
 				autowidth: true,
 //				shrinkToFit: true,
-				rowNum: 10,
+            rownumbers : true,
+            jsonReader: {
+                root:"dataList",
+                page:"currentPage",
+                total:"totalPage",          //   很重要 定义了 后台分页参数的名字。
+                records:"totalCount"
+            },
+            rowNum: 10,
 				rowList: [10, 20, 30],
 				colNames: ['用户名','性别', '部门', '角色','操作'],
 				colModel: [

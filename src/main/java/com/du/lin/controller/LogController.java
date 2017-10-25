@@ -19,10 +19,11 @@ import com.du.lin.annotation.BizLog;
 import com.du.lin.bean.ShowLog;
 import com.du.lin.constant.Constant;
 import com.du.lin.service.LoginLogService;
-
+import com.du.lin.service.OperationLogService;
 import com.du.lin.service.impl.OperationLogServiceImpl;
 
 import com.du.lin.utils.ExcelUtil;
+import com.du.lin.utils.JqgridUtil;
 import com.google.gson.Gson;
 
 @Controller
@@ -31,28 +32,34 @@ public class LogController extends BaseController{
 	private LoginLogService loginLogService;
 	
 	@Resource
-	private OperationLogServiceImpl operationLogService;
+	private OperationLogService operationLogService;
 	
 	@Autowired
 	private Gson gson;
 	@Autowired
 	private ExcelUtil excelUtil;
-	
+	@Autowired
+	private JqgridUtil jqgirdUtil;
 	
 	@ResponseBody
 	@RequestMapping(value="/loginloglist" , method={RequestMethod.POST})
 	private String loginLogList(HttpServletRequest request){
-		
-		System.out.println("adfa");
-		List<ShowLog> logs = loginLogService.getAllShowLoginLog();
-		return gson.toJson(logs);
+		 String page = request.getParameter("page"); // 取得当前页数,注意这是jqgrid自身的参数   
+	      String rows = request.getParameter("rows"); // 取得每页显示行数，,注意这是jqgrid自身的参数   
+//	      System.out.println(page);  
+//	      System.out.println(rows); 
+		return loginLogService.getShowLogJson(Integer.parseInt(page), Integer.parseInt(rows));
+	
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/operationloglist" , method={RequestMethod.POST})
 	private String operationLogList(HttpServletRequest request){
-		System.out.println((operationLogService == null) + "");
-		return gson.toJson(operationLogService.getAllShowLog());
+		  String page = request.getParameter("page"); // 取得当前页数,注意这是jqgrid自身的参数   
+	      String rows = request.getParameter("rows"); // 取得每页显示行数，,注意这是jqgrid自身的参数   
+//	      System.out.println(page);  
+//	      System.out.println(rows); 
+		return operationLogService.getShowLogJson(Integer.parseInt(page), Integer.parseInt(rows));
 	}
 	
 	

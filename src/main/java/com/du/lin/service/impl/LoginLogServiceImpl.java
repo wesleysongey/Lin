@@ -11,6 +11,7 @@ import com.du.lin.constant.Constant;
 import com.du.lin.dao.LoginLogMapper;
 import com.du.lin.service.LoginLogService;
 import com.du.lin.utils.BeanUtil;
+import com.du.lin.utils.JqgridUtil;
 
 @Service
 public class LoginLogServiceImpl implements LoginLogService {
@@ -19,7 +20,8 @@ public class LoginLogServiceImpl implements LoginLogService {
 	private LoginLogMapper loginLogMapper;
 	@Autowired
 	private BeanUtil beanUtil;
-
+	@Autowired
+	private JqgridUtil jqgridUtil;
 	@Override
 	public List<LoginLog> getAllLoginLog() {
 
@@ -39,6 +41,17 @@ public class LoginLogServiceImpl implements LoginLogService {
 		}else{
 			return Constant.ERROR_DELETE_LOGINLOG_FAIL;
 		}
+	}
+	
+	@Override
+	public String getShowLogJson(int page, int count) {
+		List<ShowLog> all = getAllShowLoginLog();
+		int toIndex = count * page;
+		if (all.size() < toIndex) {
+			toIndex = all.size();
+		}
+		List<ShowLog> list = all.subList(count * (page - 1), toIndex);
+		return jqgridUtil.getJson(list, page + "", all.size() , count);
 	}
 
 }

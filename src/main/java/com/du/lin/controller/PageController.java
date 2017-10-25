@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.du.lin.utils.ExcelUtil;
 import com.du.lin.utils.Userinfo;
+import com.google.gson.Gson;
 
 import org.apache.hadoop.mapred.gethistory_jsp;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.du.lin.bean.Dept;
 import com.du.lin.bean.LoginLog;
@@ -30,6 +32,7 @@ import com.du.lin.dao.DeptMapper;
 import com.du.lin.dao.LoginLogMapper;
 import com.du.lin.dao.OperationLogMapper;
 import com.du.lin.service.LoginLogService;
+import com.du.lin.service.OperationLogService;
 
 @Controller
 public class PageController extends BaseController{
@@ -42,17 +45,17 @@ public class PageController extends BaseController{
 	@Autowired
 	private LinProperties linProperties;
 	@Autowired
-	private LoginLogService service;
+	private OperationLogService service;
 	
 	@Autowired
 	private ExcelUtil excelUtil;
-	
+	@ResponseBody
 	@RequestMapping(value="/test",method={RequestMethod.GET})
 	public String test(HttpServletRequest request , HttpServletResponse response){
 		log.info("test page");
-		System.out.println(service.getAllShowLoginLog());
 		
-		return "llll";
+		
+		return service.getShowLogJson(2, 10);
 	}
 	
 	

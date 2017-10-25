@@ -46,8 +46,8 @@ public class ExcelUtil {
 			sheet.addCell(new Label(1, 0, "操作", wcf));
 			sheet.addCell(new Label(2, 0, "时间", wcf));
 			sheet.setColumnView(0, 40);
-			sheet.setColumnView(1, 10);
-			sheet.setColumnView(2, 20);
+			sheet.setColumnView(1, 20);
+			sheet.setColumnView(2, 30);
 			for (int row = 0; row < list.size(); row++) {
 				sheet.addCell(new Label(0, row+1, list.get(row).getUsername()));
 				sheet.addCell(new Label(1, row+1, list.get(row).getLogname()));

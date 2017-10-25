@@ -14,6 +14,6 @@ public interface LoginLogService {
 	
 	public String deleteALLLoginLog();
 	
-	
+	public String getShowLogJson(int page, int count);
 	
 }

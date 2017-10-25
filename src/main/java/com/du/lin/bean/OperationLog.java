@@ -92,4 +92,13 @@ public class OperationLog {
     public void setMessage(String message) {
         this.message = message == null ? null : message.trim();
     }
+
+	@Override
+	public String toString() {
+		return "OperationLog [id=" + id + ", logtype=" + logtype + ", logname=" + logname + ", userid=" + userid
+				+ ", classname=" + classname + ", method=" + method + ", createtime=" + createtime + ", state=" + state
+				+ ", message=" + message + "]";
+	}
+    
+    
 }

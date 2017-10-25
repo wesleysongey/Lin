@@ -18,8 +18,15 @@ $(function() {
 			height : "100%",
 			autowidth : true,
 			shrinkToFit : true,
+			rownumbers : true,        // 必须为true
 			rowNum : 10,
-			rowList : [ 10, 20, 30 ],
+			jsonReader: {  
+                 root:"dataList", 
+                 page:"currentPage",
+                 total:"totalPage",          //   很重要 定义了 后台分页参数的名字。
+                 records:"totalCount"
+             },
+			rowList : [ 10 , 20 , 30 ],
 			colNames : [ '用户名', '操作','时间' ],
 			colModel : [
 				{
@@ -38,7 +45,7 @@ $(function() {
 					name : 'createtime',
 					index : 'createtime',
 					width : 100,
-					sortable : false
+					sortable : true
 				}
 			],
 			pager : "#pager_list_2",

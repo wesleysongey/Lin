@@ -75,6 +75,17 @@ public class BeanUtil {
 		return user;
 	}
 	
+	public List<User> toUserList(List<ShiroUser> userList){
+		
+		List<User> users = new ArrayList<User>();
+		for (ShiroUser user : userList) {
+			users.add(toUser(user));
+		}
+		return users;
+	}
+	
+	
+	
 	public ShowLog loginLogToShowLog(LoginLog log){
 		ShowLog showLoginLog = new ShowLog();
 		showLoginLog.setLogname(log.getLogname());
@@ -96,7 +107,6 @@ public class BeanUtil {
 		if (loglist== null || loglist.size() ==0) {
 			return result;
 		}
-		System.out.println(loglist.size() + "aaaa");
 		for(LoginLog loginLog : loglist){
 			result.add(loginLogToShowLog(loginLog));
 		}

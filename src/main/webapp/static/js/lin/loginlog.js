@@ -16,9 +16,16 @@ $(function() {
 			datatype : "json",
 			mtype : "POST",
 			height : "100%",
+			rownumbers : true,        // 必须为true
 			autowidth : true,
 			shrinkToFit : true,
 			rowNum : 10,
+			jsonReader: {  
+                root:"dataList", 
+                page:"currentPage",
+                total:"totalPage",          //   很重要 定义了 后台分页参数的名字。
+                records:"totalCount"
+            },
 			rowList : [ 10, 20, 30 ],
 			colNames : [ '用户名', '操作','时间' ],
 			colModel : [

@@ -13,8 +13,11 @@ public interface OperationLogService {
 
 	public List<ShowLog> getAllShowLog();
 	
+	public List<ShowLog> getShowLogList(int page , int count);
+	
 	public String deleteALLLog();
 	
+	public String getShowLogJson(int page , int count);
 	
 	
 }
