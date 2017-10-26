@@ -1,5 +1,8 @@
 package com.du.lin.constant;
 
+/**
+ * 常量
+ */
 public interface Constant {
 	/**
 	 * 默认角色id 即用户

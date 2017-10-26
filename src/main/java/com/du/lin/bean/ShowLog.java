@@ -2,6 +2,10 @@ package com.du.lin.bean;
 
 import java.util.Date;
 
+/**
+ * 用于前后端传输数据
+ * 包括业务日志和登陆日志
+ */
 public class ShowLog {
 
 	private String logname;

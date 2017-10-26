@@ -2,6 +2,9 @@ package com.du.lin.bean;
 
 import java.util.Date;
 
+/**
+ * 业务操作日志
+ */
 public class OperationLog {
     private Integer id;
 

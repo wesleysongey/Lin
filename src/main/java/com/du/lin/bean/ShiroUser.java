@@ -1,5 +1,8 @@
 package com.du.lin.bean;
 
+/**
+ * 用于数据库操作
+ */
 public class ShiroUser {
     private Integer id;
 

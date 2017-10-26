@@ -1,5 +1,8 @@
 package com.du.lin.constant.state;
 
+/**
+ * 通知类型
+ */
 public enum NoticeType {
 	System("系统通知"),
 	Conmon("普通通知")

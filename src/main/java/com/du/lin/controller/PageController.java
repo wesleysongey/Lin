@@ -47,8 +47,7 @@ public class PageController extends BaseController{
 	@Autowired
 	private OperationLogService service;
 	
-	@Autowired
-	private ExcelUtil excelUtil;
+
 	@ResponseBody
 	@RequestMapping(value="/test",method={RequestMethod.GET})
 	public String test(HttpServletRequest request , HttpServletResponse response){

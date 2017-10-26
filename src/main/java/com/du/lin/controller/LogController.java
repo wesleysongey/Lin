@@ -28,18 +28,12 @@ import com.google.gson.Gson;
 
 @Controller
 public class LogController extends BaseController{
-	@Resource
-	private LoginLogService loginLogService;
-	
-	@Resource
-	private OperationLogService operationLogService;
-	
 	@Autowired
-	private Gson gson;
+	private LoginLogService loginLogService;
+	@Autowired
+	private OperationLogService operationLogService;
 	@Autowired
 	private ExcelUtil excelUtil;
-	@Autowired
-	private JqgridUtil jqgirdUtil;
 	
 	@ResponseBody
 	@RequestMapping(value="/loginloglist" , method={RequestMethod.POST})

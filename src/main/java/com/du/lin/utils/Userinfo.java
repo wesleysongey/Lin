@@ -2,6 +2,9 @@ package com.du.lin.utils;
 
 import com.du.lin.bean.User;
 
+/**
+ * 用户信息类 可从中获取当前登陆用的信息
+ */
 public class Userinfo {
 	private static User user;
 	/**
