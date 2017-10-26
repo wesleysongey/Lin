@@ -1,2 +1,2 @@
 # Lin
-springboot + thymeleaf + shiro + redis
+springboot + thymeleaf + shiro + redis1
