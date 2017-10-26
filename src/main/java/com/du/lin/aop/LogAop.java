@@ -19,6 +19,9 @@ import com.du.lin.log.LogTaskFactory;
 import com.du.lin.shiro.ShiroKit;
 import com.du.lin.utils.Userinfo;
 
+/**
+ * 业务切面
+ */
 @Aspect
 @Component
 public class LogAop {

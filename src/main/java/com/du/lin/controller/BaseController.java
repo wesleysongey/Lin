@@ -9,7 +9,11 @@ import java.io.OutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 public class BaseController{
-	
+	/**
+	 * 下载文件
+	 * @param response
+	 * @param file
+	 */
 	protected void downloadFile(HttpServletResponse response , File file) {
 		
 		response.setHeader("content-type", "application/octet-stream");

@@ -1,5 +1,10 @@
 package com.du.lin.bean;
 
+/**
+ * 用于前后端数据交换
+ * 封装了用户信息、部门、角色
+ *
+ */
 public class User {
     private Integer id;
 

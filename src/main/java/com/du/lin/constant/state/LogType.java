@@ -1,5 +1,8 @@
 package com.du.lin.constant.state;
 
+/**
+ * 日志类型
+ */
 public enum LogType {
 	LOGIN("登陆"),
 	LOGIN_FAIL("登陆失败"),

@@ -18,7 +18,11 @@ public class DeptController {
 
 	@Autowired
 	private DeptService service;
-	
+
+	/**
+	 * 添加用户或修改用户信息时，需要传到前台当前所有的部门信息，thymeleaf解析显示
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/deptlistforadd" , method={RequestMethod.POST})
 	public String deptListForAdd(){

@@ -20,13 +20,24 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+
+/**
+ * Excel工具类
+ */
 @Component
 public class ExcelUtil {
 	@Autowired
 	private LoginLogService loginLogService;
 	@Autowired
 	private OperationLogService operationLogService;
-	
+
+	/**
+	 * 生成excel文件 在D:\
+	 * 1生成登陆日志
+	 * 2生成操作日志
+	 * @param logType
+	 * @return
+	 */
 	public File getExcel(int logType){
 		List<ShowLog> list = null;
 		if (logType == 1) {
