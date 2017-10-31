@@ -11,11 +11,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.du.lin.bean.*;
+import com.du.lin.service.NoticeService;
 import com.du.lin.utils.ExcelUtil;
 import com.du.lin.utils.Userinfo;
 import com.google.gson.Gson;
 
 import org.apache.hadoop.mapred.gethistory_jsp;
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.du.lin.bean.Dept;
-import com.du.lin.bean.LoginLog;
-import com.du.lin.bean.OperationLog;
 import com.du.lin.config.properties.LinProperties;
 import com.du.lin.dao.DeptMapper;
 import com.du.lin.dao.LoginLogMapper;
@@ -46,7 +46,8 @@ public class PageController extends BaseController{
 	private LinProperties linProperties;
 	@Autowired
 	private OperationLogService service;
-	
+	@Autowired
+	private NoticeService noticeService;
 
 	@ResponseBody
 	@RequestMapping(value="/test",method={RequestMethod.GET})
@@ -61,9 +62,19 @@ public class PageController extends BaseController{
 	@RequestMapping(value="/",method={RequestMethod.GET,RequestMethod.POST})
 	public String home(HttpServletRequest request){
 		log.info("home page");
-		request.setAttribute("kaptcha", linProperties.isKptchaswich());
-		
-		 return "login2";
+		if (!SecurityUtils.getSubject().isAuthenticated())
+		{
+			request.setAttribute("kaptcha", linProperties.isKptchaswich());
+			return "login2";
+		}
+			List<ShowNotice> list = noticeService.getAllShowNotice();
+			request.setAttribute("noticelist",list );
+			request.setAttribute("username", Userinfo.getUsername());
+			request.setAttribute("tip", ((User) SecurityUtils.getSubject().getPrincipal()).getRoleTip());
+			request.setAttribute("sex", Userinfo.getSex());
+			return "index1";
+
+
 	}
 	@RequestMapping(value="/login",method={RequestMethod.GET})
 	public String login(HttpServletRequest request){
