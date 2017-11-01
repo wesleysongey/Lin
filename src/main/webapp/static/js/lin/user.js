@@ -25,16 +25,20 @@ $(function () {
 			$("#loading").hide();
 		}
 	});
-	
-	
-
-
-
 
 
 			});
 
+function deldialog(id) {
+    initdialog("确定要删除吗？" , "确定" , "关闭" , function () {
+		del(id);
+    } , function () {});
+    show_dialog();
+}
+
+
 function del(id){
+
 	var jsondata = {"id" : id};
 	$.ajax({
 		url: "/deleteuser",
@@ -44,20 +48,24 @@ function del(id){
 			console.log(data);
 			if(data == "1"){
 				$("#table_list_2").trigger("reloadGrid");
-				alert("删除完成");				
+				initdialog("删除完成" , "" , "关闭" , null , function () {});
+				show_dialog();
 			}else{
-				alert("出现错误，请重试");
+				showdialog("出现错误，请重试","","关闭" , null ,function () {})
 			}
 		},
 		error: function(){
-			alert("出现错误，请重试");
+            showdialog("出现错误，请重试","","关闭" , null ,function () {})
 		}
 	});
 
 
 }
 function modify(){
-	
+
+
+
+
 	console.log($("#changefrom").serialize());
 	
 	$.ajax({
@@ -66,22 +74,26 @@ function modify(){
 		data: $("#changefrom").serialize(),
 		success: function(data){
 			if(data == 1){
-				alert("修改完成");
+                showdialog("修改完成","","关闭" , null ,function () {})
 				$("#table_list_2").trigger("reloadGrid");
 				changedialogdismiss();
 			}else{
-				alert("出现错误，请重试");
+                showdialog("出现错误，请重试","","关闭" , null ,function () {})
 			}
 			
 		},
 		error: function(){
-			alert("出现错误，请重试");
+            showdialog("出现错误，请重试","","关闭" , null ,function () {})
 		}
 	});
 }
 
 
-
+function resetpassworkdialog(id){
+    showdialog("确定要重置此用户密码吗？","确定","关闭" , function () {
+		resetpasswork(id);
+    } ,function () {});
+}
 
 function resetpasswork(id){
 
@@ -93,13 +105,13 @@ function resetpasswork(id){
 		success: function(data , stutas){
 			console.log(data);
 			if(data == "1"){
-				alert("密码重置完成");				
+                showdialog("密码重置完成","","关闭" , null ,function () {})
 			}else{
-				alert("出现错误，请重试");
+                showdialog("出现错误，请重试","","关闭" , null ,function () {})
 			}
 		},
 		error: function(){
-			alert("出现错误，请重试");
+            showdialog("出现错误，请重试","","关闭" , null ,function () {})
 		}
 	});
 
@@ -199,8 +211,8 @@ function buildgrid(deptinfo){
 				        	   for (var int = 0; int < ids.length; int++) {
 				        		   var id = ids[int];
 				        		   var modify = "<a href='#' style='color:#f60' onclick='changedialogshow(" + id + ")'>修改</a>";  //这里的onclick就是调用了上面的javascript函数 Modify(id)
-				        		   var del = "<a href='#'  style='color:#f60' onclick='del(" + id + ")' >删除</a>";   
-				        		   var resetpasswork = "<a href='#'  style='color:#f60' onclick='resetpasswork(" + id + ")' >重置密码</a>";   
+				        		   var del = "<a href='#'  style='color:#f60' onclick='deldialog(" + id + ")' >删除</a>";
+				        		   var resetpasswork = "<a href='#'  style='color:#f60' onclick='resetpassworkdialog(" + id + ")' >重置密码</a>";
 				        		   var result = $("#table_list_2").jqGrid("setRowData", id, {handle: modify + "&nbsp &nbsp" + del + "&nbsp &nbsp" + resetpasswork});
 				        	   }
 				           }
@@ -224,3 +236,5 @@ function buildgrid(deptinfo){
 	});
 
 }
+
+

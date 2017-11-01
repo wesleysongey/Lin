@@ -12,12 +12,7 @@ public class Userinfo {
 	 */
 	private static long operateTime;
 	public static String getUsername(){
-		try {
 			return getUser().getUsername();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "";
-		}
 	}
 	
 	public static User getUser(){

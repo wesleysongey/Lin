@@ -1,10 +1,6 @@
 package com.du.lin.controller;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.du.lin.bean.*;
 import com.du.lin.service.NoticeService;
 import com.du.lin.utils.ExcelUtil;
+import com.du.lin.utils.FileUtil;
 import com.du.lin.utils.Userinfo;
 import com.google.gson.Gson;
 
@@ -34,6 +31,8 @@ import com.du.lin.dao.OperationLogMapper;
 import com.du.lin.service.LoginLogService;
 import com.du.lin.service.OperationLogService;
 
+import static java.io.FileDescriptor.out;
+
 @Controller
 public class PageController extends BaseController{
 
@@ -49,20 +48,23 @@ public class PageController extends BaseController{
 	@Autowired
 	private NoticeService noticeService;
 
-	@ResponseBody
 	@RequestMapping(value="/test",method={RequestMethod.GET})
-	public String test(HttpServletRequest request , HttpServletResponse response){
+	public String test(HttpServletRequest request , HttpServletResponse response) throws IOException {
 		log.info("test page");
-		
-		
-		return service.getShowLogJson(2, 10);
+		return "test";
+		}
+
+
+
+	@RequestMapping(value="/2",method={RequestMethod.GET})
+	public String test1(HttpServletRequest request){
+		return "2";
 	}
-	
 	
 	@RequestMapping(value="/",method={RequestMethod.GET,RequestMethod.POST})
 	public String home(HttpServletRequest request){
 		log.info("home page");
-		if (!SecurityUtils.getSubject().isAuthenticated())
+		if (!SecurityUtils.getSubject().isAuthenticated() || Userinfo.getUser() == null)
 		{
 			request.setAttribute("kaptcha", linProperties.isKptchaswich());
 			return "login2";

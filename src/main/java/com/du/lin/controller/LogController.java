@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 
 @Controller
 public class LogController extends BaseController{
+
 	@Autowired
 	private LoginLogService loginLogService;
 	@Autowired
@@ -61,7 +62,7 @@ public class LogController extends BaseController{
 	private String downLoginLogExcel(HttpServletRequest request , HttpServletResponse response, @RequestParam("type") int type){
 		
 		if (SecurityUtils.getSubject().hasRole("ROLE_ADMIN")) {
-			downloadFile(response, excelUtil.getExcel(type));		
+			downloadFile(response, excelUtil.getExcel(type));
 			return null;
 		}
 		request.setAttribute("msg", "没有权限");
@@ -69,7 +70,8 @@ public class LogController extends BaseController{
 		return "error";
 		
 	}
-	
+
+
 	@ResponseBody
 	@RequestMapping(value="/clearloginlog" , method={RequestMethod.POST})
 	private String clearLoginLog(HttpServletRequest request , HttpServletResponse response, @RequestParam("type") int type){

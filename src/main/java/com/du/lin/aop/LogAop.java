@@ -26,52 +26,52 @@ import com.du.lin.utils.Userinfo;
 @Component
 public class LogAop {
 
-	
-	@Pointcut("@annotation(com.du.lin.annotation.BizLog)")
-	public void logCut() {
 
-	}
+    @Pointcut("@annotation(com.du.lin.annotation.BizLog)")
+    public void logCut() {
 
-	@Around("logCut()")
-	public Object test(ProceedingJoinPoint point) throws Throwable {
+    }
 
-		// 执行方法
-		Object result = point.proceed();
+    @Around("logCut()")
+    public Object test(ProceedingJoinPoint point) throws Throwable {
 
-		try {
-			handle(point);
-		} catch (Exception e) {
-			System.out.println("日志记录出错");
-		}
+        // 执行方法
+        Object result = point.proceed();
 
-		return result;
-	}
+        try {
+            handle(point);
+        } catch (Exception e) {
+            System.out.println("日志记录出错");
+        }
 
-	private void handle(ProceedingJoinPoint point) throws NoSuchMethodException, SecurityException {
-		//如果用户未登录则不记录日志
-		User user = Userinfo.getUser();
-		if (user == null) {
-			return ;
-		}
-		
-		Signature sign = point.getSignature();
-		MethodSignature msign = null;
-		if (!(sign instanceof MethodSignature)) {
-			throw new IllegalArgumentException("只可用于方法");
-		}
-		// 获取方法名
-		msign = (MethodSignature) sign;
-		Object target = point.getTarget();
-		Method method = target.getClass().getMethod(msign.getName(), msign.getParameterTypes());
-		String methodName = method.getName();
-		String className = target.getClass().getName();
-		// 获取注解
-		BizLog bizLog = method.getAnnotation(BizLog.class);
-		String logName = bizLog.value();
+        return result;
+    }
 
-		LogManager.getInstance()
-				.saveLog(LogTaskFactory.getOperationSuccessTimerTask(user.getId(), className , logName, methodName, Userinfo.getUsername()));
+    private void handle(ProceedingJoinPoint point) throws NoSuchMethodException, SecurityException {
+        //如果用户未登录则不记录日志
+        User user = Userinfo.getUser();
+        if (user == null) {
+            return;
+        }
 
-	}
+        Signature sign = point.getSignature();
+        MethodSignature msign = null;
+        if (!(sign instanceof MethodSignature)) {
+            throw new IllegalArgumentException("只可用于方法");
+        }
+        // 获取方法名
+        msign = (MethodSignature) sign;
+        Object target = point.getTarget();
+        Method method = target.getClass().getMethod(msign.getName(), msign.getParameterTypes());
+        String methodName = method.getName();
+        String className = target.getClass().getName();
+        // 获取注解
+        BizLog bizLog = method.getAnnotation(BizLog.class);
+        String logName = bizLog.value();
+
+        LogManager.getInstance()
+                .saveLog(LogTaskFactory.getOperationSuccessTimerTask(user.getId(), className, logName, methodName, Userinfo.getUsername()));
+
+    }
 
 }
