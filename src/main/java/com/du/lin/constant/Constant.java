@@ -20,7 +20,15 @@ public interface Constant {
 	 * 不能删除默认部门
 	 */
 	String ERROR_CAN_NOT_DELETE_DEFAULT_DEPT = "4";
-	
+	/**
+	 * 删除便签错误
+	 * 可能是id传递错误
+	 */
+	String ERROR_DELETE_MEMO = "006";
+	/**
+	 * 添加便签错误
+	 */
+	String ERROR_ADD_MEMO = "007";
 	/**
 	 * 错误代码
 	 * 删除登陆日志失败
@@ -51,4 +59,8 @@ public interface Constant {
 	 * 操作成功代码
 	 */
 	String OPERATION_SUCCESS_CODE = "000";
+	/**
+	 *用户缓存
+	 */
+	String USER_CACHE_VALUE = "usercache";
 }

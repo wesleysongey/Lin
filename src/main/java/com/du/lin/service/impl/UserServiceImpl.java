@@ -5,6 +5,8 @@ import java.util.List;
 import com.du.lin.bean.ShowLog;
 import com.du.lin.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.du.lin.bean.ShiroUser;
@@ -26,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	private JqgridUtil jqgridUtil;
 	@Autowired
 	private Gson gson;
-	
+
 	@Override
 	public List<User> getAllUser() {
 
@@ -64,6 +66,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String modifyInfo(String newId, String newDeptId, String newRoleId) {
+
 		ShiroUser user = new ShiroUser();
 		user.setId(Integer.parseInt(newId));
 		user.setDeptid(Integer.parseInt(newDeptId));

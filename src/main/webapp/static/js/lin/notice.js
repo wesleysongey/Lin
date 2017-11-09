@@ -50,7 +50,8 @@ function submitform() {
 			$("#body").val("");
 			if (data > 0) {
 				alert("发送成功");
-			} else {
+                parent.location.reload();
+            } else {
 				alert("系统错误，请稍后重试");
 			}
 

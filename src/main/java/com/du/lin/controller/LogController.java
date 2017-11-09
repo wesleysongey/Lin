@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 
 @Controller
 public class LogController extends BaseController{
+
 	@Autowired
 	private LoginLogService loginLogService;
 	@Autowired
@@ -37,31 +38,28 @@ public class LogController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/loginloglist" , method={RequestMethod.POST})
-	private String loginLogList(HttpServletRequest request){
+	public String loginLogList(HttpServletRequest request){
 		 String page = request.getParameter("page"); // 取得当前页数,注意这是jqgrid自身的参数   
 	      String rows = request.getParameter("rows"); // 取得每页显示行数，,注意这是jqgrid自身的参数   
-//	      System.out.println(page);  
-//	      System.out.println(rows); 
+
 		return loginLogService.getShowLogJson(Integer.parseInt(page), Integer.parseInt(rows));
 	
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/operationloglist" , method={RequestMethod.POST})
-	private String operationLogList(HttpServletRequest request){
+	public String operationLogList(HttpServletRequest request){
 		  String page = request.getParameter("page"); // 取得当前页数,注意这是jqgrid自身的参数   
 	      String rows = request.getParameter("rows"); // 取得每页显示行数，,注意这是jqgrid自身的参数   
-//	      System.out.println(page);  
-//	      System.out.println(rows); 
 		return operationLogService.getShowLogJson(Integer.parseInt(page), Integer.parseInt(rows));
 	}
 	
-	
+	@BizLog("下载日志")
 	@RequestMapping(value="/downloginlogexcel" , method={RequestMethod.GET} )
-	private String downLoginLogExcel(HttpServletRequest request , HttpServletResponse response, @RequestParam("type") int type){
+	public String downLoginLogExcel(HttpServletRequest request , HttpServletResponse response, @RequestParam("type") int type){
 		
 		if (SecurityUtils.getSubject().hasRole("ROLE_ADMIN")) {
-			downloadFile(response, excelUtil.getExcel(type));		
+			downloadFile(response, excelUtil.getExcel(type));
 			return null;
 		}
 		request.setAttribute("msg", "没有权限");
@@ -69,10 +67,11 @@ public class LogController extends BaseController{
 		return "error";
 		
 	}
-	
+
+	@BizLog("清除日志")
 	@ResponseBody
 	@RequestMapping(value="/clearloginlog" , method={RequestMethod.POST})
-	private String clearLoginLog(HttpServletRequest request , HttpServletResponse response, @RequestParam("type") int type){
+	public String clearLoginLog(HttpServletRequest request , HttpServletResponse response, @RequestParam("type") int type){
 		if (!SecurityUtils.getSubject().hasRole("ROLE_ADMIN")) {
 			return Constant.ERROR_CODE_NO_PERMISION;
 		}

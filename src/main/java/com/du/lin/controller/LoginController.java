@@ -81,6 +81,6 @@ public class LoginController {
 				user.getUsername(), request.getRemoteHost()));
 		
 		
-		return "index1";
+		return "redirect:/";
 	}
 }

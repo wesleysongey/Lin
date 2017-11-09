@@ -56,7 +56,7 @@ $(function() {
 
 
 					var modify = "<a href='#' style='color:#f60' onclick='changedialogshow(" + id + ")'>修改信息</a>"; //这里的onclick就是调用了上面的javascript函数 Modify(id)
-					var del = "<a href='#'  style='color:#f60' onclick='del(" + id + ")' >解散部门</a>";
+					var del = "<a href='#'  style='color:#f60' onclick='deldialog(" + id + ")' >解散部门</a>";
 					if (bodys[int].name == "未分配") {
 						del = "";
 						modify = "";
@@ -91,7 +91,11 @@ $(function() {
 
 
 });
-
+function deldialog(id) {
+    showdialog("确定要解散此部门吗？","确定","关闭" , function () {
+		del(id);
+    } ,function () {})
+}
 function del(id) {
 	var jsondata = {
 		"id" : id
@@ -104,15 +108,15 @@ function del(id) {
 			console.log(data);
 			if (data == "1") {
 				$("#table_list_2").trigger("reloadGrid");
-				alert("删除完成");
+                showdialog("部门解散成功","","关闭" , null ,function () {})
 			} else if (data == "4") {
-				alert("不能删除默认部门");
+                showdialog("不能删除默认部门","","关闭" , null ,function () {})
 			} else {
-				alert("出现错误，请重试");
+                showdialog("出现错误，请重试","","关闭" , null ,function () {})
 			}
 		},
 		error : function() {
-			alert("出现错误，请重试");
+            showdialog("出现错误，请重试","","关闭" , null ,function () {})
 		}
 	});
 
@@ -125,16 +129,16 @@ function modify() {
 		data : $("#changefrom").serialize(),
 		success : function(data) {
 			if (data == 1) {
-				alert("修改完成");
+                showdialog("修改完成","","关闭" , null ,function () {})
 				$("#table_list_2").trigger("reloadGrid");
 				changedialogdismiss();
 			} else {
-				alert("出现错误，请重试");
+                showdialog("出现错误，请重试","","关闭" , null ,function () {})
 			}
 
 		},
 		error : function() {
-			alert("出现错误，请重试");
+            showdialog("出现错误，请重试","","关闭" , null ,function () {})
 		}
 	});
 }
@@ -142,28 +146,7 @@ function modify() {
 
 
 
-function resetpasswork(id) {
-	var jsondata = {
-		"id" : id
-	};
-	$.ajax({
-		url : "/resetpassword",
-		type : "POST",
-		data : jsondata,
-		success : function(data, stutas) {
-			console.log(data);
-			if (data == "1") {
-				alert("密码重置完成");
-			} else {
-				alert("出现错误，请重试");
-			}
-		},
-		error : function() {
-			alert("出现错误，请重试");
-		}
-	});
 
-}
 
 
 function changedialogdismiss() {

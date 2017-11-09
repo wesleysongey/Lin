@@ -2,10 +2,13 @@ $(function() {
 
 	
 	$("#btndown").click(function() {
+
 		downfile();
 	});
 	$("#btnclear").click(function() {
-		clearlog();
+        showdialog("确定要清除登陆日志？","确定","关闭" , function () {
+            clearlog();
+        } ,function () {});
 	});
 
 	$.jgrid.defaults.styleUI = 'Bootstrap';
@@ -116,13 +119,13 @@ function clearlog() {
 			$("#table_list_2").trigger("reloadGrid");
 			console.log(data);
 			if (data == 000) {
-				alert("日志清除完成");
+                showdialog("操作日志清除完成","","关闭" , null,function () {});
 			} else if (data == 005) {
-				alert("日志清除失败，或者数据库中无日志");
+                showdialog("日志清除失败，或者数据库中无日志","","关闭" , null,function () {});
 			}
 		},
 		error : function() {
-			alert("日志清除失败");
+            showdialog("日志清除失败","","关闭" , null,function () {});
 		}
 	});
 }
