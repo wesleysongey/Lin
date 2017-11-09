@@ -30,10 +30,11 @@ $(function () {
 			});
 
 function deldialog(id) {
-    initdialog("确定要删除吗？" , "确定" , "关闭" , function () {
-		del(id);
-    } , function () {});
-    show_dialog();
+//    initdialog("确定要删除吗？" , "确定" , "关闭" , function () {
+//		del(id);
+//    } , function () {});
+//    show_dialog();
+	deletealert("" , "确定要删除吗？" , function(){del(id)});
 }
 
 
@@ -48,14 +49,13 @@ function del(id){
 			console.log(data);
 			if(data == "1"){
 				$("#table_list_2").trigger("reloadGrid");
-				initdialog("删除完成" , "" , "关闭" , null , function () {});
-				show_dialog();
+				successalert("" , "删除用户完成");
 			}else{
-				showdialog("出现错误，请重试","","关闭" , null ,function () {})
+				errorsalert("" , "删除用户失败");
 			}
 		},
 		error: function(){
-            showdialog("出现错误，请重试","","关闭" , null ,function () {})
+			errorsalert("" , "出现错误，请重试");
 		}
 	});
 
@@ -74,25 +74,26 @@ function modify(){
 		data: $("#changefrom").serialize(),
 		success: function(data){
 			if(data == 1){
-                showdialog("修改完成","","关闭" , null ,function () {})
+				successalert("" , "用户信息修改完成");
 				$("#table_list_2").trigger("reloadGrid");
 				changedialogdismiss();
 			}else{
-                showdialog("出现错误，请重试","","关闭" , null ,function () {})
+				errorsalert("" , "出现错误，请重试");
 			}
 			
 		},
 		error: function(){
-            showdialog("出现错误，请重试","","关闭" , null ,function () {})
+			errorsalert("" , "出现错误，请重试");
 		}
 	});
 }
 
 
 function resetpassworkdialog(id){
-    showdialog("确定要重置此用户密码吗？","确定","关闭" , function () {
-		resetpasswork(id);
-    } ,function () {});
+//    showdialog("确定要重置此用户密码吗？","确定","关闭" , function () {
+//		resetpasswork(id);
+//    } ,function () {});
+    updatealert("" , "确定要重置此用户密码吗？" , function(){resetpasswork(id)});
 }
 
 function resetpasswork(id){
@@ -104,14 +105,15 @@ function resetpasswork(id){
 		data: jsondata,
 		success: function(data , stutas){
 			console.log(data);
+			successalert("" , "用户密码重置完成");
 			if(data == "1"){
-                showdialog("密码重置完成","","关闭" , null ,function () {})
+				successalert("" , "用户密码重置完成");
 			}else{
-                showdialog("出现错误，请重试","","关闭" , null ,function () {})
+				errorsalert("" , "出现错误，请重试");
 			}
 		},
 		error: function(){
-            showdialog("出现错误，请重试","","关闭" , null ,function () {})
+			errorsalert("" , "出现错误，请重试");
 		}
 	});
 

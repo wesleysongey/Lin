@@ -6,9 +6,25 @@ $(function() {
 		downfile();
 	});
 	$("#btnclear").click(function() {
-        showdialog("确定要清除登陆日志？","确定","关闭" , function () {
-            clearlog();
-        } ,function () {});
+        swal({
+            "title": "",
+            "text": "确定要清除操作日志？",
+            "type": "warning",
+            "showCancelButton": true,
+            "confirmButtonColor": "#DD6B55",
+            "confirmButtonText": "清除操作日志！",
+            "cancelButtonText": "让我再考虑一下…",
+            "closeOnConfirm": false,
+            "closeOnCancel": false
+        },  function (isConfirm) {
+            if (isConfirm) {
+            	clearlog();
+            } else {
+                swal("", "您取消了操作！", "error");
+            }
+        }
+        );
+          
 	});
 
 	$.jgrid.defaults.styleUI = 'Bootstrap';
@@ -119,13 +135,13 @@ function clearlog() {
 			$("#table_list_2").trigger("reloadGrid");
 			console.log(data);
 			if (data == 000) {
-                showdialog("操作日志清除完成","","关闭" , null,function () {});
+				 successalert("" , "操作日志清除完成" );
 			} else if (data == 005) {
-                showdialog("日志清除失败，或者数据库中无日志","","关闭" , null,function () {});
+				erroralert("" , "日志清除失败，或者数据库中无日志" );
 			}
 		},
 		error : function() {
-            showdialog("日志清除失败","","关闭" , null,function () {});
+			erroralert("" , "日志清除失败" );
 		}
 	});
 }

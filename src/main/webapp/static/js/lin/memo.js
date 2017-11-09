@@ -18,12 +18,12 @@ $(function(){
 function addmemo(){
     title = $("#title").val();
     if(title == ""){
-    	showdialog("标题不能为空","","关闭" , null ,function () {})
+    	erroralert("" , "标题不能为空" );
         return;
     }
     text = $("#text").val();
     if(text == ""){
-    	showdialog("内容不能为空","","关闭" , null ,function () {})
+    	erroralert("" , "内容不能为空" );
         return;
     }
 
@@ -38,13 +38,13 @@ function addmemo(){
         },
         success: function (data) {
             if(data == "000"){
-            	alert("便签保存完成");
+            	successalert("","便签保存完成");
             	window.location.reload();
             }
             $("#adddialog").hide("slow");
         },
         error: function () {
-        	showdialog("保存失败","","关闭",null,function(){});
+        	erroralert("" , "便签保存失败" );
             $("#adddialog").hide("slow");
         }
     });
@@ -54,9 +54,24 @@ function addmemo(){
  }
 
 function deletememodialog(obj){
-	showdialog("确定要删除此便签吗？","确定","关闭",function(){
-		deletememo(obj);
-	},function(){});
+    swal({
+        "title": "",
+        "text": "确定要删除此便签吗？",
+        "type": "warning",
+        "showCancelButton": true,
+        "confirmButtonColor": "#DD6B55",
+        "confirmButtonText": "确定删除此便签！",
+        "cancelButtonText": "让我再考虑一下…",
+        "closeOnConfirm": false,
+        "closeOnCancel": false
+    },  function (isConfirm) {
+        if (isConfirm) {
+        	deletememo(obj);
+        } else {
+            swal("", "您取消了操作！", "error");
+        }
+    }
+    );
 }
 
 function deletememo(obj){
@@ -68,12 +83,12 @@ function deletememo(obj){
 		data:{"id":id},
 		success: function(data){
 			if(data == "000"){
-				alert("删除完成");
+				successalert("", "删除完成");
 				window.location.reload();
 			}
 		},
 		error:function(){
-			alert("删除失败");
+			erroralert("" , "删除失败");
 		}
 	});
 	

@@ -1,3 +1,9 @@
+$(function(){
+	$("#bb").click(function(){
+		deletealert("正常title", "正常text" , function(){successalert("删除", "删除啦啦啦")});
+	});
+});
+
 
 
 function show_dialog() {
@@ -57,4 +63,74 @@ function initdialog(bodytext , button1 , button2 ,button1function , button2funct
 
 }
 
+function nromalalert(title , text){
+	swal({
+		"title":title,
+		"text":text
+	});
+}
+
+function successalert(title , text){
+	swal({
+		"title":title,
+		"text":text,
+		"type":"success"
+	});
+}
+
+function erroralert(title , text){
+	swal({
+		"title":title,
+		"text":text,
+		"type":"error"
+	});
+}
+function warningalert(title , text){
+	swal({
+		"title":title,
+		"text":text,
+		"type":"warning"
+	});
+}
+
+function deletealert(title , text , func1){
+	 swal({
+         "title": title,
+         "text": text,
+         "type": "warning",
+         "showCancelButton": true,
+         "confirmButtonColor": "#DD6B55",
+         "confirmButtonText": "是的，我要删除！",
+         "cancelButtonText": "让我再考虑一下…",
+         "closeOnConfirm": false,
+         "closeOnCancel": false
+     },  function (isConfirm) {
+         if (isConfirm) {
+             func1();
+         } else {
+             swal("", "您取消了删除操作！", "error");
+         }
+     }
+     );
+}
+function updatealert(title , text , func1){
+	swal({
+		"title": title,
+		"text": text,
+		"type": "warning",
+		"showCancelButton": true,
+		"confirmButtonColor": "#DD6B55",
+		"confirmButtonText": "是的！",
+		"cancelButtonText": "再考虑一下…",
+		"closeOnConfirm": false,
+		"closeOnCancel": false
+	},  function (isConfirm) {
+		if (isConfirm) {
+			func1();
+		} else {
+			swal("", "您取消了当前操作！", "error");
+		}
+	}
+	);
+}
 

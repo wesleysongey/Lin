@@ -92,9 +92,13 @@ $(function() {
 
 });
 function deldialog(id) {
-    showdialog("确定要解散此部门吗？","确定","关闭" , function () {
-		del(id);
-    } ,function () {})
+//    showdialog("确定要解散此部门吗？","确定","关闭" , function () {
+//		del(id);
+//    } ,function () {})
+    
+    deletealert("" , "确定要解散此部门吗？" , function(){del(id);});
+    
+    
 }
 function del(id) {
 	var jsondata = {
@@ -108,15 +112,15 @@ function del(id) {
 			console.log(data);
 			if (data == "1") {
 				$("#table_list_2").trigger("reloadGrid");
-                showdialog("部门解散成功","","关闭" , null ,function () {})
+                successalert("" , "部门解散成功!");
 			} else if (data == "4") {
-                showdialog("不能删除默认部门","","关闭" , null ,function () {})
+                warningalert("" , "不能删除默认部门!");
 			} else {
-                showdialog("出现错误，请重试","","关闭" , null ,function () {})
+                erroralert("" , "出现错误，请重试!");
 			}
 		},
 		error : function() {
-            showdialog("出现错误，请重试","","关闭" , null ,function () {})
+			erroralert("" , "出现错误，请重试!");
 		}
 	});
 
@@ -129,16 +133,16 @@ function modify() {
 		data : $("#changefrom").serialize(),
 		success : function(data) {
 			if (data == 1) {
-                showdialog("修改完成","","关闭" , null ,function () {})
+                 successalert("" , "部门信息修改完成!");
 				$("#table_list_2").trigger("reloadGrid");
 				changedialogdismiss();
 			} else {
-                showdialog("出现错误，请重试","","关闭" , null ,function () {})
+				erroralert("" , "出现错误，请重试!");
 			}
 
 		},
 		error : function() {
-            showdialog("出现错误，请重试","","关闭" , null ,function () {})
+			erroralert("" , "出现错误，请重试!");
 		}
 	});
 }

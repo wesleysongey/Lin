@@ -72,7 +72,11 @@ public class UserController {
 			return;
 		}
 		
-		String username = request.getParameter("username");
+		String username = request.getParameter("username").trim();
+		if ("".endsWith(username)) {
+			return;
+		}
+		
 		String avator = request.getParameter("avator");
 		String dept = request.getParameter("dept");
 		String role = request.getParameter("roleTip");

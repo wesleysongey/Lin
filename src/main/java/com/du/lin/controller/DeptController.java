@@ -40,8 +40,10 @@ public class DeptController {
 	@ResponseBody
 	@RequestMapping(value="/adddept" , method={RequestMethod.POST})
 	public String addDept(HttpServletRequest request){
-		String deptName = request.getParameter("name");
-
+		String deptName = request.getParameter("name").trim();
+		if ("".endsWith(deptName)) {
+			return "";
+		}
 		return service.addDept(deptName);
 	}
 	
