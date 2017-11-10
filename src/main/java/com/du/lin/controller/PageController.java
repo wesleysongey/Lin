@@ -29,136 +29,120 @@ import com.du.lin.dao.DeptMapper;
 import com.du.lin.dao.LoginLogMapper;
 import com.du.lin.dao.OperationLogMapper;
 import com.du.lin.service.LoginLogService;
+import com.du.lin.service.MenuService;
 import com.du.lin.service.OperationLogService;
 
 import static java.io.FileDescriptor.out;
 
 @Controller
-public class PageController extends BaseController{
+public class PageController extends BaseController {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
-	
-	
+
 	@Autowired
 	private DeptMapper deptMapper;
 	@Autowired
 	private LinProperties linProperties;
 	@Autowired
-	private OperationLogService service;
-	@Autowired
-	private NoticeService noticeService;
+	private MenuService service;
 
-	@RequestMapping(value="/test",method={RequestMethod.GET})
-	public String test(HttpServletRequest request , HttpServletResponse response) throws IOException {
+
+	@ResponseBody
+	@RequestMapping(value = "/test", method = { RequestMethod.GET })
+	public String test(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		log.info("test page");
-		return "test";
-		}
+		
+		
+		
+		return new Gson().toJson(service.getUserMenu());
+	}
 
-
-
-	@RequestMapping(value="/2",method={RequestMethod.GET})
-	public String test1(HttpServletRequest request){
+	@RequestMapping(value = "/2", method = { RequestMethod.GET })
+	public String test1(HttpServletRequest request) {
 		return "2";
 	}
-	
-	@RequestMapping(value="/",method={RequestMethod.GET,RequestMethod.POST})
-	public String home(HttpServletRequest request){
-		log.info("home page");
-		if (!SecurityUtils.getSubject().isAuthenticated() || Userinfo.getUser() == null)
-		{
-			request.setAttribute("kaptcha", linProperties.isKptchaswich());
-			return "login2";
-		}
-			List<ShowNotice> list = noticeService.getAllShowNotice();
-			request.setAttribute("noticelist",list );
-			request.setAttribute("username", Userinfo.getUsername());
-			request.setAttribute("tip", ((User) SecurityUtils.getSubject().getPrincipal()).getRoleTip());
-			request.setAttribute("sex", Userinfo.getSex());
-			return "index1";
 
 
-	}
-	@RequestMapping(value="/login",method={RequestMethod.GET})
-	public String login(HttpServletRequest request){
+
+	@RequestMapping(value = "/login", method = { RequestMethod.GET })
+	public String login(HttpServletRequest request) {
 		request.setAttribute("kaptcha", linProperties.isKptchaswich());
 		return "login2";
 	}
 
-	
-	@RequestMapping(value="/login2",method={RequestMethod.GET})
-	public String login2(HttpServletRequest request){
+	@RequestMapping(value = "/login2", method = { RequestMethod.GET })
+	public String login2(HttpServletRequest request) {
 		log.info("login page");
 		request.setAttribute("kaptcha", linProperties.isKptchaswich());
-		
+
 		return "login2";
 	}
-	
-	@RequestMapping(value="/index1",method={RequestMethod.GET})
-	public String index1(HttpServletRequest request){
-		
+
+	@RequestMapping(value = "/index1", method = { RequestMethod.GET })
+	public String index1(HttpServletRequest request) {
+
 		return "index1";
 	}
-	
-	
-	@RequestMapping(value="/welcome",method={RequestMethod.GET})
-	public String welcome(){
+
+	@RequestMapping(value = "/welcome", method = { RequestMethod.GET })
+	public String welcome() {
 		log.info("welcome page");
 		return "welcome";
 	}
 
-	
-	@RequestMapping(value = "/userpage" , method = {RequestMethod.GET})
-	public String userpage(HttpServletRequest request){
+	@RequestMapping(value = "/userpage", method = { RequestMethod.GET })
+	public String userpage(HttpServletRequest request) {
 		List<Dept> list = deptMapper.getAllDept();
 		request.setAttribute("depts", list);
 		return "usergrid";
 	}
-	
-	
-	@RequestMapping(value="/setpassword",method={RequestMethod.GET})
-	public String setPassword(HttpServletRequest request){
-		request.setAttribute("username", Userinfo.getUsername() );
-		request.setAttribute("sex", Userinfo.getSex() );
+
+	@RequestMapping(value = "/setpassword", method = { RequestMethod.GET })
+	public String setPassword(HttpServletRequest request) {
+		request.setAttribute("username", Userinfo.getUsername());
+		request.setAttribute("sex", Userinfo.getSex());
 		return "changepassword";
 	}
-	
-	@RequestMapping(value="/deptpage",method={RequestMethod.GET})
-	public String deptPage(HttpServletRequest request){
+
+	@RequestMapping(value = "/deptpage", method = { RequestMethod.GET })
+	public String deptPage(HttpServletRequest request) {
 		log.info("dept page");
 		return "deptgrid";
 	}
-	
-	@RequestMapping(value="/menupage",method={RequestMethod.GET})
-	public String menuPage(HttpServletRequest request){
+
+	@RequestMapping(value = "/menupage", method = { RequestMethod.GET })
+	public String menuPage(HttpServletRequest request) {
 		return "menugrid";
 	}
-	
-	@RequestMapping(value="/noticepage",method={RequestMethod.GET})
-	public String noticePage(HttpServletRequest request){
+
+	@RequestMapping(value = "/noticepage", method = { RequestMethod.GET })
+	public String noticePage(HttpServletRequest request) {
 		log.info("notice page");
 		return "noticegrid";
 	}
-	
-	@RequestMapping(value="/introduction",method={RequestMethod.GET})
-	public String introduction(HttpServletRequest request){
+
+	@RequestMapping(value = "/introduction", method = { RequestMethod.GET })
+	public String introduction(HttpServletRequest request) {
 		log.info("introduction page");
 		return "introduction";
 	}
-	
-	@RequestMapping(value="/loginlogpage",method={RequestMethod.GET})
-	public String loginLogPage(HttpServletRequest request){
+
+	@RequestMapping(value = "/loginlogpage", method = { RequestMethod.GET })
+	public String loginLogPage(HttpServletRequest request) {
 		log.info("login Log page");
 		return "login_log_grid";
 	}
-	@RequestMapping(value="/operationlogpage",method={RequestMethod.GET})
-	public String operationLogPage(HttpServletRequest request){
+
+	@RequestMapping(value = "/operationlogpage", method = { RequestMethod.GET })
+	public String operationLogPage(HttpServletRequest request) {
 		log.info("login Log page");
 		return "operation_log_grid";
 	}
-
-
 	
-	
+	@RequestMapping(value = "/rolepage", method = { RequestMethod.GET })
+	public String rolePage(HttpServletRequest request) {
+		log.info("role page");
+		return "rolegrid";
+	}
 
-	
 }

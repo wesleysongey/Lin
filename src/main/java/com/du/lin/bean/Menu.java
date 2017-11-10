@@ -5,7 +5,7 @@ public class Menu {
 
     private String code;
 
-    private String pcode;
+    private Integer parentid;
 
     private String name;
 
@@ -35,12 +35,12 @@ public class Menu {
         this.code = code == null ? null : code.trim();
     }
 
-    public String getPcode() {
-        return pcode;
+    public Integer getParentid() {
+        return parentid;
     }
 
-    public void setPcode(String pcode) {
-        this.pcode = pcode == null ? null : pcode.trim();
+    public void setParentid(Integer parentid) {
+        this.parentid = parentid;
     }
 
     public String getName() {
@@ -90,4 +90,13 @@ public class Menu {
     public void setTips(String tips) {
         this.tips = tips == null ? null : tips.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Menu [id=" + id + ", code=" + code + ", parentid=" + parentid + ", name=" + name + ", icon=" + icon
+				+ ", url=" + url + ", num=" + num + ", levels=" + levels + ", tips=" + tips + "]";
+	}
+    
+    
+    
 }

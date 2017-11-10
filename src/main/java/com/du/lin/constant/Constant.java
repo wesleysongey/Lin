@@ -5,9 +5,26 @@ package com.du.lin.constant;
  */
 public interface Constant {
 	/**
+	 *用户缓存
+	 */
+	String USER_CACHE_VALUE = "usercache";
+	
+	/**
+	 * 添加通知的默认结果
+	 */
+	int RESULT_DEFAULT_ADD_NOTICE = 0;
+	/**
 	 * 默认角色id 即用户
 	 */
 	int DEFAULT_ROLE_ID = 2;
+	/**
+	 * 操作成功代码
+	 */
+	String OPERATION_SUCCESS_CODE = "000";
+	/**
+	 * 未知错误代码
+	 */
+	String UNKNOWN_ERROR_CODE = "555";
 	/**
 	 * 设置密码原密码不正确时返回结果
 	 */
@@ -35,11 +52,7 @@ public interface Constant {
 	 * 也可能是日志为空
 	 */
 	String ERROR_DELETE_LOGINLOG_FAIL = "005";
-	
-	/**
-	 * 添加通知的默认结果
-	 */
-	int RESULT_DEFAULT_ADD_NOTICE = 0;
+
 	/**
 	 * 错误代码
 	 * 账号密码不匹配
@@ -56,11 +69,19 @@ public interface Constant {
 	 */
 	String ERROR_CODE_NO_PERMISION = "101";
 	/**
-	 * 操作成功代码
+	 * 错误代码
+	 * 添加角色时，数据库中已经存在相同的roles
 	 */
-	String OPERATION_SUCCESS_CODE = "000";
+	String ERROR_CODE_ROLES_EXIST = "008";
 	/**
-	 *用户缓存
+	 * 错误代码
+	 * 添加角色时，数据库中已经存在相同的tips
 	 */
-	String USER_CACHE_VALUE = "usercache";
+	String ERROR_CODE_TIPS_EXIST = "009";
+	/**
+	 * 错误代码
+	 * 添加角色时，roles包含特殊字符
+	 */
+	String ERROR_CODE_NOT_MATCHE = "010";
+
 }

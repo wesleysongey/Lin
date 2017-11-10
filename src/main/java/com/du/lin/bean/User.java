@@ -22,9 +22,21 @@ public class User {
 
     private String role;
     
+    private int roleid;
+    
+    
+    
     
 
-    public Integer getId() {
+    public int getRoleid() {
+		return roleid;
+	}
+
+	public void setRoleid(int roleid) {
+		this.roleid = roleid;
+	}
+
+	public Integer getId() {
         return id;
     }
 

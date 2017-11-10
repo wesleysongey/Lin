@@ -39,6 +39,9 @@ public class Userinfo {
 		Userinfo.operateTime = operateTime;
 	}
 	
+	public static int getRoleid(){
+		return getUser().getRoleid();
+	}
 	
 	
 }

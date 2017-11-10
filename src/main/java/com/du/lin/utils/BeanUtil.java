@@ -14,6 +14,7 @@ import com.du.lin.bean.Role;
 import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.ShowLog;
 import com.du.lin.bean.ShowNotice;
+import com.du.lin.bean.ShowRole;
 import com.du.lin.bean.User;
 import com.du.lin.constant.state.NoticeType;
 import com.du.lin.dao.DeptMapper;
@@ -79,6 +80,7 @@ public class BeanUtil {
 		user.setPassword(shiroUser.getPassword());
 		Role role = roleMapper.selectByPrimaryKey(shiroUser.getRoleid());
 		user.setRole(role.getRoles());
+		user.setRoleid(shiroUser.getRoleid());
 		user.setRoleTip(role.getTips());
 		user.setSalt(shiroUser.getSalt());
 		user.setUsername(shiroUser.getUsername());
@@ -157,4 +159,7 @@ public class BeanUtil {
 		}
 		return result;
 	}
+	
+
+	
 }

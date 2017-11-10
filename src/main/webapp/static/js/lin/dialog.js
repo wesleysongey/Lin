@@ -78,7 +78,7 @@ function successalert(title , text){
 	});
 }
 
-function erroralert(title , text){
+function errorsalert(title , text){
 	swal({
 		"title":title,
 		"text":text,

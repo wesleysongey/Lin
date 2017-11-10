@@ -19,11 +19,26 @@
     select 
     <include refid="Base_Column_List" />
     from role
+    where tips = #{tips}
+  </select>
+  <select id="selectByRoles" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
     where roles = #{roles}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from role
     where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteFromRelationByRoleid" parameterType="java.lang.Integer" >
+    delete from role_menu_relation
+    where roleid = #{roleid}
   </delete>
   <insert id="insert"  useGeneratedKeys="true" keyProperty="id"  parameterType="com.du.lin.bean.Role" >
     insert into role (id, roles, tips

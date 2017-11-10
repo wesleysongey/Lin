@@ -1,0 +1,56 @@
+package com.du.lin.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.du.lin.bean.ShowRole;
+import com.du.lin.service.RoleService;
+import com.google.gson.Gson;
+
+@Controller
+public class RoleController {
+	@Autowired
+	private RoleService service;
+	@ResponseBody
+	@RequestMapping(value="showrolelist" , method={RequestMethod.POST})
+	public String getAllShowRole(HttpServletRequest request){
+		String page = request.getParameter("page"); // 取得当前页数,注意这是jqgrid自身的参数   
+	    String rows = request.getParameter("rows"); //
+		return service.getAllShowRoleJson(Integer.parseInt(page), Integer.parseInt(rows));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="addrole" , method={RequestMethod.POST})
+	public String addRole(HttpServletRequest request , @RequestParam("tips") String tips ,@RequestParam("roles") String roles){
+		String result = service.addRole(tips, roles);
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="setrole" , method={RequestMethod.POST})
+	public String setRole(HttpServletRequest request ,@RequestParam("changeid") int id,@RequestParam("tips") String tips ,@RequestParam("roles") String roles){
+		String result = service.setRole(id, tips, roles);
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="deleterole" , method={RequestMethod.POST})
+	public String deleteRole(HttpServletRequest request ,@RequestParam("id") int id){
+		String result = service.deleteRole(id);
+		 
+		return result;
+	}
+	
+	
+	
+}

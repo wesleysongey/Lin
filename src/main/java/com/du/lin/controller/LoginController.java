@@ -15,17 +15,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.du.lin.bean.Menu;
 import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.ShowNotice;
 import com.du.lin.bean.User;
 import com.du.lin.constant.Constant;
 import com.du.lin.log.LogManager;
 import com.du.lin.log.LogTaskFactory;
+import com.du.lin.service.MenuService;
 import com.du.lin.service.NoticeService;
 import com.du.lin.shiro.ShiroKit;
 import com.du.lin.utils.LinTools;
 import com.du.lin.utils.MD5Util;
 import com.du.lin.utils.Userinfo;
+import com.google.gson.Gson;
 
 @Controller
 public class LoginController {
@@ -36,7 +39,8 @@ public class LoginController {
 	private LinTools linTools;
 	@Autowired
 	private NoticeService noticeService;
-	
+	@Autowired
+	private MenuService menuService;
 
 	@RequestMapping(value = "/login", method = { RequestMethod.POST })
 	public String login(HttpServletRequest request, ShiroUser user) {
@@ -69,14 +73,7 @@ public class LoginController {
 			return "error";
 		}
 
-		//右侧要现实的通知
-		List<ShowNotice> list = noticeService.getAllShowNotice();
-		request.setAttribute("noticelist",list );
 		
-		
-		request.setAttribute("username", user.getUsername());
-		request.setAttribute("tip", ((User) subject.getPrincipal()).getRoleTip());
-		request.setAttribute("sex", Userinfo.getSex());
 		LogManager.getInstance().saveLog(LogTaskFactory.getLoginSuccessTimerTask(Userinfo.getUser().getId(),
 				user.getUsername(), request.getRemoteHost()));
 		

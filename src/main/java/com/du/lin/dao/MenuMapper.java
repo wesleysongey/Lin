@@ -2,11 +2,14 @@ package com.du.lin.dao;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Param;
 
 import com.du.lin.bean.Menu;
-@Repository
+
 public interface MenuMapper {
+	
+	List<Menu> selectMenuByRoleid(@Param("roleid") Integer roleid);
+	
     int deleteByPrimaryKey(Integer id);
 
     int insert(Menu record);
@@ -15,8 +18,6 @@ public interface MenuMapper {
 
     Menu selectByPrimaryKey(Integer id);
 
-    List<Menu> getAllMenu();
-    
     int updateByPrimaryKeySelective(Menu record);
 
     int updateByPrimaryKey(Menu record);
