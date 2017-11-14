@@ -25,11 +25,6 @@
     ②操作日志
     ③清空日志
     ④excel格式日志下载
-### 5.日志
-    ①登陆日志
-    ②操作日志
-    ③清空日志
-    ④excel格式日志下载
 ### 6.便签
     ①添加便签
     ②删除便签
@@ -73,3 +68,7 @@
 ![登陆日志界面](https://gitee.com/uploads/images/2017/1031/101349_a52daf1e_1308187.jpeg "4.jpg")
 修改密码
 ![修改密码](https://gitee.com/uploads/images/2017/1031/101358_06fd4a4d_1308187.jpeg "5.jpg")
+便签界面
+![便签](https://gitee.com/uploads/images/2017/1114/171803_a17f3992_1308187.png "便签.png")
+角色管理
+![角色管理](https://gitee.com/uploads/images/2017/1114/171836_8c089964_1308187.png "JUSE.png")
