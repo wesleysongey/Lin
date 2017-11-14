@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.du.lin.annotation.BizLog;
 import com.du.lin.bean.ShowRole;
 import com.du.lin.service.RoleService;
 import com.google.gson.Gson;
@@ -34,6 +35,7 @@ public class RoleController {
 		return service.getAllShowRoleJson(Integer.parseInt(page), Integer.parseInt(rows));
 	}
 	
+	@BizLog("添加角色")
 	@ResponseBody
 	@RequestMapping(value="addrole" , method={RequestMethod.POST})
 	public String addRole(HttpServletRequest request , @RequestParam("tips") String tips ,@RequestParam("roles") String roles){
@@ -41,7 +43,7 @@ public class RoleController {
 		
 		return result;
 	}
-	
+	@BizLog("修改角色信息")
 	@ResponseBody
 	@RequestMapping(value="setrole" , method={RequestMethod.POST})
 	public String setRole(HttpServletRequest request ,@RequestParam("changeid") int id,@RequestParam("tips") String tips ,@RequestParam("roles") String roles){
@@ -50,6 +52,7 @@ public class RoleController {
 		return result;
 	}
 	
+	@BizLog("删除角色")
 	@ResponseBody
 	@RequestMapping(value="deleterole" , method={RequestMethod.POST})
 	public String deleteRole(HttpServletRequest request ,@RequestParam("id") int id){
@@ -58,6 +61,7 @@ public class RoleController {
 		return result;
 	}
 	
+	@BizLog("配置菜单")
 	@ResponseBody
 	@RequestMapping(value="addrelation" , method={RequestMethod.POST})
 	public String addRelation(String roleid,String menus){

@@ -204,6 +204,11 @@ function buildgrid(deptinfo){
 				        		   var modify = "<a href='#' style='color:#f60' onclick='changedialogshow(" + id + ")'>修改信息</a>";  //这里的onclick就是调用了上面的javascript函数 Modify(id)
 				        		   var resetpasswork = "<a href='#'  style='color:#f60' onclick='showtreedialog(" + id + ")' >配置菜单</a>";
 				        		   var del = "<a href='#'  style='color:#f60' onclick='deldialog(" + id + ")' >删除角色</a>";
+				        		   
+				        		   if(id == 1 || id == 2){
+				        			   del = "";
+				        		   }
+				        		   
 				        		   var result = $("#table_list_2").jqGrid("setRowData", id, {handle: modify + "&nbsp &nbsp" + resetpasswork + "&nbsp &nbsp" + del});
 				        	   }
 				           }
