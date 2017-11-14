@@ -121,6 +121,10 @@
     update user set deptid = 1
    	where deptid = #{deptid,jdbcType=INTEGER}
   </update>
+  <update id="updateByRoleidSelective" parameterType="java.lang.Integer" >
+    update user set roleid = 2
+   	where roleid = #{roleid,jdbcType=INTEGER}
+  </update>
   <update id="updateByPrimaryKey" parameterType="com.du.lin.bean.ShiroUser" >
     update user
     set username = #{username,jdbcType=VARCHAR},

@@ -36,10 +36,7 @@
     delete from role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteFromRelationByRoleid" parameterType="java.lang.Integer" >
-    delete from role_menu_relation
-    where roleid = #{roleid}
-  </delete>
+
   <insert id="insert"  useGeneratedKeys="true" keyProperty="id"  parameterType="com.du.lin.bean.Role" >
     insert into role (id, roles, tips
       )

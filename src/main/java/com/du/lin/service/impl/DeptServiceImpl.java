@@ -33,7 +33,7 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public String deptListForAdd() {
+    public String deptListForUserAdd() {
         List<Dept> list = mapper.getAllDept();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
@@ -72,4 +72,9 @@ public class DeptServiceImpl implements DeptService {
         int result = mapper.deleteByPrimaryKey(Integer.parseInt(id));
         return result+"";
     }
+
+	@Override
+	public List<Dept> getAllDept() {
+		return mapper.getAllDept();
+	}
 }

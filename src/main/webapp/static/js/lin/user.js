@@ -1,4 +1,5 @@
 $(function () {
+	$("#loading").show();
 	$("#changesubmit").click(function(){
 		modify();
 	});
@@ -9,14 +10,14 @@ $(function () {
 
 	
 	$.ajax({
-		url:"/deptlistforadd",
+		url:"/rolelistforuseradd",
 		type:"POST",
 		beforeSend:function(){
-			$("#loading").show();
+			
 		},
 		success:function(data){
 			console.log(data);
-			buildgrid(data);
+			getdeptlistforuseradd(data);
 		},
 		error:function(){
 			console.log("error");
@@ -25,6 +26,10 @@ $(function () {
 			$("#loading").hide();
 		}
 	});
+	
+	
+	
+
 
 
 			});
@@ -133,7 +138,7 @@ function changedialogshow(id){
 	$("#changedialog").show(speed="slow");
 }
 
-function buildgrid(deptinfo){
+function buildgrid(deptinfo , roleinfo){
 	$("#table_list_2").jqGrid(
 			{
 				url : "/userlist",
@@ -187,7 +192,7 @@ function buildgrid(deptinfo){
 				        	   editable: true,
 				        	   edittype:"select",
 				        	   editoptions:{
-				        		   value:"2:用户;1:超级管理员"
+				        		   value:roleinfo
 				        	   },
 				        	   width: 100,
 				        	   sortable: false,
@@ -239,4 +244,23 @@ function buildgrid(deptinfo){
 
 }
 
+function getdeptlistforuseradd(roledata){
+	$.ajax({
+		url:"/deptlistforadd",
+		type:"POST",
+		beforeSend:function(){
+			
+		},
+		success:function(data){
+			console.log(data);
+			buildgrid(data , roledata);
+		},
+		error:function(){
+			console.log("error");
+		},
+		complete:function(){
+			$("#loading").hide();
+		}
+	});
+}
 

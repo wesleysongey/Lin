@@ -6,4 +6,5 @@ import com.du.lin.bean.Menu;
 
 public interface MenuService {
 	List<Menu> getUserMenu();
+	String menuTreeData();
 }

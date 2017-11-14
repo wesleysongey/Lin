@@ -83,5 +83,10 @@ public interface Constant {
 	 * 添加角色时，roles包含特殊字符
 	 */
 	String ERROR_CODE_NOT_MATCHE = "010";
+	/**
+	 * 错误代码
+	 * 添加角色时，roles包含特殊字符
+	 */
+	String ERROR_CODE_ADD_ROLE_MENU_RELATION_FAIL = "011";
 
 }

@@ -10,6 +10,8 @@ public interface MenuMapper {
 	
 	List<Menu> selectMenuByRoleid(@Param("roleid") Integer roleid);
 	
+	List<Menu> selectAll();
+	
     int deleteByPrimaryKey(Integer id);
 
     int insert(Menu record);
@@ -17,6 +19,8 @@ public interface MenuMapper {
     int insertSelective(Menu record);
 
     Menu selectByPrimaryKey(Integer id);
+    
+    Menu selectByName(String name);
 
     int updateByPrimaryKeySelective(Menu record);
 

@@ -24,7 +24,10 @@ public interface UserMapper {
 
     int updateByPrimaryKeySelective(ShiroUser record);
     
+    
     int updateByDeptidSelective(Integer deptid);
+    
+    int updateByRoleidSelective(Integer roleid);
 
     int updateByPrimaryKey(ShiroUser record);
 }

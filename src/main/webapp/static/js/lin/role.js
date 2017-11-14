@@ -4,6 +4,7 @@ $(function () {
 	});
 	
 	
+	
 	console.log("hello");
 	$.jgrid.defaults.styleUI = 'Bootstrap';
 
@@ -95,9 +96,14 @@ function modify(){
 	});
 }
 
+var roleidforterr = x;
 
-function resetpassworkdialog(id){
-    updatealert("" , "确定要重置此用户密码吗？" , function(){resetpasswork(id)});
+function showtreedialog(id){
+	roleidforterr = id;
+	showtree();
+	console.log(window.event.clientX)
+	console.log(window.event.clientY)
+	
 }
 
 function resetpasswork(id){
@@ -196,7 +202,7 @@ function buildgrid(deptinfo){
 				        	   for (var int = 0; int < ids.length; int++) {
 				        		   var id = ids[int];
 				        		   var modify = "<a href='#' style='color:#f60' onclick='changedialogshow(" + id + ")'>修改信息</a>";  //这里的onclick就是调用了上面的javascript函数 Modify(id)
-				        		   var resetpasswork = "<a href='#'  style='color:#f60' onclick='resetpassworkdialog(" + id + ")' >重置密码</a>";
+				        		   var resetpasswork = "<a href='#'  style='color:#f60' onclick='showtreedialog(" + id + ")' >配置菜单</a>";
 				        		   var del = "<a href='#'  style='color:#f60' onclick='deldialog(" + id + ")' >删除角色</a>";
 				        		   var result = $("#table_list_2").jqGrid("setRowData", id, {handle: modify + "&nbsp &nbsp" + resetpasswork + "&nbsp &nbsp" + del});
 				        	   }
@@ -222,4 +228,40 @@ function buildgrid(deptinfo){
 
 }
 
+function showtree(){
+	$("#menutree").show("slow");
+}
+function hidetree(){
+	$("#menutree").hide("slow");
+}
+function getChecked(){
+	var nodes = $('#tt').tree('getChecked');
+	var s = '';
+	for(var i=0; i<nodes.length; i++){
+		if (s != '') s += ',';
+		s += nodes[i].text;
+	}
+	return s;
+}
 
+
+function submittree(){
+	data = {"roleid":roleidforterr,"menus":getChecked()};
+	$.ajax({
+		url:"addrelation",
+		type:"post",
+		"data":data,
+		success: function(data){
+			if(data == 000){
+				successalert("","菜单配置完成");
+				hidetree();
+				$("#table_list_2").trigger("reloadGrid");
+			}else{
+				erroralert("" , "出现错误，请重试" );
+			}
+		},
+		error:function(){
+			erroralert("" , "出现错误，请重试" );
+		}
+	})
+}

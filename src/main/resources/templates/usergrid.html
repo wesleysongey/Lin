@@ -96,8 +96,9 @@
                         <td class="CaptionTD"><label for="role">角色</label></td>
                         <td class="DataTD">
                             <select class="form-control" name="changerole">
-                                <option value="2">用户</option>
-                                <option value="1">超级管理员</option>
+                                <option th:each="role:${roles}" th:value="${role.id}" th:text="${role.tips}"></option>
+                              <!--   <option value="2">用户</option>
+                                <option value="1">超级管理员</option> -->
                             </select>
                         </td>
                     </tr>

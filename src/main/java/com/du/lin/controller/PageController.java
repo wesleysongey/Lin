@@ -28,9 +28,11 @@ import com.du.lin.config.properties.LinProperties;
 import com.du.lin.dao.DeptMapper;
 import com.du.lin.dao.LoginLogMapper;
 import com.du.lin.dao.OperationLogMapper;
+import com.du.lin.service.DeptService;
 import com.du.lin.service.LoginLogService;
 import com.du.lin.service.MenuService;
 import com.du.lin.service.OperationLogService;
+import com.du.lin.service.RoleService;
 
 import static java.io.FileDescriptor.out;
 
@@ -39,22 +41,24 @@ public class PageController extends BaseController {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
+
 	@Autowired
-	private DeptMapper deptMapper;
+	private DeptService deptService;
 	@Autowired
 	private LinProperties linProperties;
 	@Autowired
 	private MenuService service;
+	@Autowired
+	private RoleService roleService;
 
 
-	@ResponseBody
 	@RequestMapping(value = "/test", method = { RequestMethod.GET })
 	public String test(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		log.info("test page");
 		
 		
 		
-		return new Gson().toJson(service.getUserMenu());
+		return "test";
 	}
 
 	@RequestMapping(value = "/2", method = { RequestMethod.GET })
@@ -92,8 +96,11 @@ public class PageController extends BaseController {
 
 	@RequestMapping(value = "/userpage", method = { RequestMethod.GET })
 	public String userpage(HttpServletRequest request) {
-		List<Dept> list = deptMapper.getAllDept();
-		request.setAttribute("depts", list);
+//		List<Dept> list = deptMapper.getAllDept();
+		List<Dept> deptList = deptService.getAllDept();
+		List<ShowRole> roleList = roleService.getAllShowRole();
+		request.setAttribute("depts", deptList);
+		request.setAttribute("roles", roleList);
 		return "usergrid";
 	}
 

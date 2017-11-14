@@ -1,6 +1,7 @@
 package com.du.lin.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,13 +9,17 @@ import org.apache.tomcat.util.bcel.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.du.lin.bean.Dept;
 import com.du.lin.bean.Menu;
 import com.du.lin.bean.Role;
+import com.du.lin.bean.RoleMenuRelation;
 import com.du.lin.bean.ShowRole;
 import com.du.lin.bean.User;
 import com.du.lin.constant.Constant;
 import com.du.lin.dao.MenuMapper;
 import com.du.lin.dao.RoleMapper;
+import com.du.lin.dao.RoleMenuRelationMapper;
+import com.du.lin.dao.UserMapper;
 import com.du.lin.service.RoleService;
 import com.du.lin.utils.BeanUtil;
 import com.du.lin.utils.JqgridUtil;
@@ -25,7 +30,11 @@ public class RoleServiceImpl implements RoleService{
 	@Autowired
 	private MenuMapper menuMapper;
 	@Autowired
+	private UserMapper userMapper;
+	@Autowired
 	private JqgridUtil jqgridUtil;
+	@Autowired
+	private RoleMenuRelationMapper rmrMapper;
 	
 	@Override
 	public List<ShowRole> getAllShowRole() {
@@ -136,10 +145,43 @@ public class RoleServiceImpl implements RoleService{
 	public String deleteRole(int id) {
 		int result = mapper.deleteByPrimaryKey(id);
 		if (result == 1) {
-			mapper.deleteFromRelationByRoleid(id);
+			rmrMapper.deleteByRoleid(id);
+			userMapper.updateByRoleidSelective(id);
 			return Constant.OPERATION_SUCCESS_CODE;
 		}
 		return Constant.UNKNOWN_ERROR_CODE;
+	}
+
+	@Override
+	public String roleListForUserAdd() {
+        List<Role> list = mapper.selectAll();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i).getId() + ":" + list.get(i).getTips() + ";");
+        }
+        return sb.substring(0, sb.length()-1);
+    
+	}
+
+	@Override
+	public String addRelation(int roleid, String menus) {
+		int size = 0;
+		List<String> menuList = Arrays.asList(menus.split(","));
+		rmrMapper.deleteByRoleid(roleid);
+		for (String string : menuList) {
+			Menu menu = menuMapper.selectByName(string);
+			if (menu != null) {
+				RoleMenuRelation rmr = new RoleMenuRelation();
+				rmr.setMenuid(menu.getId());
+				rmr.setRoleid(roleid);
+				rmrMapper.insert(rmr);
+				size++;
+			}
+		}
+		if (size == menuList.size()) {
+			return Constant.OPERATION_SUCCESS_CODE;
+		}
+		return Constant.ERROR_CODE_ADD_ROLE_MENU_RELATION_FAIL;
 	}
 
 }

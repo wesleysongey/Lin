@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoleMapper {
 	
-	int deleteFromRelationByRoleid(@Param("roleid")int roleid);
+
 	
 	List<Role> selectAll();
 	

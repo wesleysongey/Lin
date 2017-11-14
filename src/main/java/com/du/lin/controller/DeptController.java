@@ -26,7 +26,7 @@ public class DeptController {
 	@ResponseBody
 	@RequestMapping(value="/deptlistforadd" , method={RequestMethod.POST})
 	public String deptListForAdd(){
-		return service.deptListForAdd();
+		return service.deptListForUserAdd();
 	}
 	
 	@ResponseBody

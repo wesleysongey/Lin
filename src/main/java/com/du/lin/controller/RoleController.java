@@ -19,6 +19,13 @@ import com.google.gson.Gson;
 public class RoleController {
 	@Autowired
 	private RoleService service;
+	
+	@ResponseBody
+	@RequestMapping(value="/rolelistforuseradd" , method={RequestMethod.POST})
+	public String roleListForUserAdd(){
+		return service.roleListForUserAdd();
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="showrolelist" , method={RequestMethod.POST})
 	public String getAllShowRole(HttpServletRequest request){
@@ -51,6 +58,10 @@ public class RoleController {
 		return result;
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value="addrelation" , method={RequestMethod.POST})
+	public String addRelation(String roleid,String menus){
+		return service.addRelation(Integer.parseInt(roleid), menus);
+	}
 	
 }

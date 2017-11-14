@@ -45,7 +45,6 @@ public class HomeController {
 		request.setAttribute("noticelist", list);
 		
 		List<Menu> menuList = menuService.getUserMenu();
-		System.out.println(new Gson().toJson(menuList));
 		request.setAttribute("menulist", menuList);
 		
 		request.setAttribute("username", Userinfo.getUsername());
