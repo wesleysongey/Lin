@@ -38,8 +38,7 @@ public class ShiroConfig {
         securityManager.setRealm(this.shiroDbRealm());
         return securityManager;
     }
-    
-    
+ 
     @Bean
     public ShiroDbRealm shiroDbRealm(){
         return new ShiroDbRealm();
