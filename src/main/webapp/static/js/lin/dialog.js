@@ -1,8 +1,8 @@
-$(function(){
-	$("#bb").click(function(){
-		deletealert("正常title", "正常text" , function(){successalert("删除", "删除啦啦啦")});
-	});
-});
+//$(function(){
+//	$("#bb").click(function(){
+//		deletealert("正常title", "正常text" , function(){successalert("删除", "删除啦啦啦")});
+//	});
+//});
 
 
 

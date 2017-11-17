@@ -99,7 +99,6 @@ public class UserServiceImpl implements UserService {
 		}
 		List<User> list = all.subList(count * (page - 1), toIndex);
 		return jqgridUtil.getJson(list, page + "", all.size() , count);
-//		return gson.toJson(getAllUser());
 	}
 
 }

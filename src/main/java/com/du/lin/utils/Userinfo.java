@@ -42,6 +42,9 @@ public class Userinfo {
 	public static int getRoleid(){
 		return getUser().getRoleid();
 	}
+	public static int getUserid(){
+		return getUser().getId();
+	}
 	
 	
 }

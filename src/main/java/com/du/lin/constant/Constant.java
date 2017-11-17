@@ -5,6 +5,26 @@ package com.du.lin.constant;
  */
 public interface Constant {
 	/**
+	 * 请假isfinish
+	 * 允许
+	 */
+	int LEAVE_ACCEPTED_CODE = 1;
+	/**
+	 * 请假isfinish
+	 * 拒绝
+	 */
+	int LEAVE_UNACCEPTED_CODE = 0;
+	/**
+	 * 请假isfinish
+	 * 未作处理
+	 */
+	int LEAVE_UNKNOWN_CODE = 2;
+	/**
+	 * 请假isfinish
+	 * 撤回
+	 */
+	int LEAVE_WITHDRAW_CODE = 3;
+	/**
 	 *用户缓存
 	 */
 	String USER_CACHE_VALUE = "usercache";

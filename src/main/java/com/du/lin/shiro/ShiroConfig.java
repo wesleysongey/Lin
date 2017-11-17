@@ -13,9 +13,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ShiroConfig {
-
-	
-	
 	/**
 	 * 安全管理器
 	 * @param rememberMeManager
@@ -24,11 +21,8 @@ public class ShiroConfig {
 	@Bean
 	public DefaultWebSecurityManager securityManager(CookieRememberMeManager rememberMeManager){
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-		
 		securityManager.setRememberMeManager(rememberMeManager);
-		
 		securityManager.setRealm(this.shiroDbRealm());
-		
 		return securityManager;
 	}
 	

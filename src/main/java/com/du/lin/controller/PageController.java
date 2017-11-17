@@ -60,11 +60,16 @@ public class PageController extends BaseController {
 		
 		return "test";
 	}
-
-	@RequestMapping(value = "/2", method = { RequestMethod.GET })
-	public String test1(HttpServletRequest request) {
-		return "2";
+	
+	@RequestMapping(value = "/test2", method = { RequestMethod.GET })
+	public String test2(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		log.info("test2 page");
+		
+		
+		
+		return "test2";
 	}
+
 
 
 
@@ -143,13 +148,27 @@ public class PageController extends BaseController {
 	@RequestMapping(value = "/operationlogpage", method = { RequestMethod.GET })
 	public String operationLogPage(HttpServletRequest request) {
 		log.info("login Log page");
-		return "operation_log_grid";
+		return "operation_log_grid"; 
 	}
 	
 	@RequestMapping(value = "/rolepage", method = { RequestMethod.GET })
 	public String rolePage(HttpServletRequest request) {
 		log.info("role page");
 		return "rolegrid";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ttt", method = { RequestMethod.POST })
+	public String ttt(HttpServletRequest request , Date start , Date end) {
+		System.out.println(start.toLocaleString());
+		System.out.println(end.toLocaleString());
+		return "rolegrid";
+	}
+	
+	@RequestMapping(value = "/leavepage", method = { RequestMethod.GET })
+	public String leavePage(HttpServletRequest request , Date start , Date end) {
+
+		return "leavepage";
 	}
 
 }
