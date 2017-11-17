@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.du.lin.annotation.BizLog;
 import com.du.lin.bean.Leave;
 import com.du.lin.constant.Constant;
 import com.du.lin.dao.LeaveMapper;
@@ -24,7 +25,7 @@ public class LeaveController {
 	@Autowired
 	private LeaveService service;
 
-	
+	@BizLog("请假")
 	@ResponseBody
 	@RequestMapping(value="/addleave" , method={RequestMethod.POST})
 	public String addLeave(HttpServletRequest request , @RequestParam("type") String type , Date starttime , Date endtime , String reason ){
@@ -51,7 +52,7 @@ public class LeaveController {
 	    String rows = request.getParameter("rows"); //
 	    return service.getAllUserLeaveJson(Integer.parseInt(page), Integer.parseInt(rows));
 	}
-	
+	@BizLog("撤回请假")
 	@ResponseBody
 	@RequestMapping(value="withdrawleave" , method={RequestMethod.POST})
 	public String withdrawLeave(HttpServletRequest request , int  id){
