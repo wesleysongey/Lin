@@ -45,18 +45,35 @@ public class LeaveController {
 		String result = service.addLeave(leave);
 		return result;
 	}
+	
 	@ResponseBody
-	@RequestMapping(value="getuserleavelist" , method={RequestMethod.POST})
+	@RequestMapping(value="/getuserleavelist" , method={RequestMethod.POST})
 	public String getUserLeaveList(HttpServletRequest request){
 		String page = request.getParameter("page"); // 取得当前页数,注意这是jqgrid自身的参数   
 	    String rows = request.getParameter("rows"); //
 	    return service.getAllUserLeaveJson(Integer.parseInt(page), Integer.parseInt(rows));
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getoperationleavelist" , method={RequestMethod.POST})
+	public String getOperationLeaveList(HttpServletRequest request){
+		String page = request.getParameter("page"); // 取得当前页数,注意这是jqgrid自身的参数   
+		String rows = request.getParameter("rows"); //
+		return service.getAllLeaveJson(Integer.parseInt(page), Integer.parseInt(rows));
+	}
+	
 	@BizLog("撤回请假")
 	@ResponseBody
-	@RequestMapping(value="withdrawleave" , method={RequestMethod.POST})
+	@RequestMapping(value="/withdrawleave" , method={RequestMethod.POST})
 	public String withdrawLeave(HttpServletRequest request , int  id){
 		return service.withdrawLeave(id);
+	}
+	
+	@BizLog("审核请假")
+	@ResponseBody
+	@RequestMapping(value="/operationleave" , method={RequestMethod.POST})
+	public String operationLeave(HttpServletRequest request , @RequestParam("id")int  id , @RequestParam("finish") String finish){
+		return service.operationLeave(id, finish);
 	}
 	
 	

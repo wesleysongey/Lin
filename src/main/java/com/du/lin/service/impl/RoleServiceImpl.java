@@ -178,10 +178,7 @@ public class RoleServiceImpl implements RoleService{
 				size++;
 			}
 		}
-		if (size == menuList.size()) {
 			return Constant.OPERATION_SUCCESS_CODE;
-		}
-		return Constant.ERROR_CODE_ADD_ROLE_MENU_RELATION_FAIL;
 	}
 
 }

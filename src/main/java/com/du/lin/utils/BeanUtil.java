@@ -10,6 +10,8 @@ import com.du.lin.bean.Dept;
 import com.du.lin.bean.Leave;
 import com.du.lin.bean.LoginLog;
 import com.du.lin.bean.Notice;
+import com.du.lin.bean.OperationLeave;
+import com.du.lin.bean.OperationLeaveUser;
 import com.du.lin.bean.OperationLog;
 import com.du.lin.bean.Role;
 import com.du.lin.bean.ShiroUser;
@@ -21,6 +23,8 @@ import com.du.lin.bean.UserLeave;
 import com.du.lin.constant.Constant;
 import com.du.lin.constant.state.NoticeType;
 import com.du.lin.dao.DeptMapper;
+import com.du.lin.dao.OperationLeaveUserMapper;
+
 import com.du.lin.dao.RoleMapper;
 import com.du.lin.dao.UserMapper;
 
@@ -32,6 +36,8 @@ public class BeanUtil {
 	private DeptMapper deptMapper;
 	@Autowired
 	private RoleMapper roleMapper;
+	@Autowired
+	private OperationLeaveUserMapper oluMapper;
 
 	SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm");
 
@@ -193,6 +199,42 @@ public class BeanUtil {
 		return result;
 	}
 
+	public  OperationLeave leaveToOperationLeave(Leave leave){
+		OperationLeave result = new OperationLeave();
+		result.setId(leave.getId());
+		result.setCreatetime(sdf.format(leave.getCreatetime()));
+		result.setEndtime(sdf.format(leave.getEndtime()));
+		result.setStarttime(sdf.format(leave.getStarttime()));
+		result.setReason(leave.getReason());
+		result.setType(leave.getType());
+		result.setUsername(leave.getUsername());
+		
+		switch (leave.getIsfinish()) {
+		case Constant.LEAVE_UNKNOWN_CODE:
+			result.setIsfinish("未处理");
+			break;
+		case Constant.LEAVE_ACCEPTED_CODE:
+			result.setIsfinish("允许");
+			break;
+		case Constant.LEAVE_UNACCEPTED_CODE:
+			result.setIsfinish("拒绝");
+			break;
+		case Constant.LEAVE_WITHDRAW_CODE:
+			result.setIsfinish("已撤回");
+			break;
+		}
+		
+		if (leave.getIsfinish() == 2 || leave.getIsfinish() == 3) {
+			result.setOperationUsername("");
+			return result;
+		}
+		
+		OperationLeaveUser olu =  oluMapper.selectByLeaveid(leave.getId());
+		result.setOperationUsername(olu.getUsername());
+		return result;
+	}
+	
+	
 	public List<UserLeave> leaveListToUserLeaveList(List<Leave> list){
 		List<UserLeave> result = new ArrayList<UserLeave>();
 		if (list == null || list.size() == 0) {
@@ -200,6 +242,17 @@ public class BeanUtil {
 		}
 		for (Leave leave : list) {
 			result.add(leaveToUserLeave(leave));
+		}
+		return result;
+	}
+	
+	public List<OperationLeave> leaveListToOperationLeaveList(List<Leave> list){
+		List<OperationLeave> result = new ArrayList<OperationLeave>();
+		if (list == null || list.size() == 0) {
+			return result;
+		}
+		for (Leave leave : list) {
+			result.add(leaveToOperationLeave(leave));
 		}
 		return result;
 	}

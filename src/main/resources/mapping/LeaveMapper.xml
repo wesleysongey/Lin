@@ -21,11 +21,17 @@
     from leaves
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getAll" resultMap="BaseResultMap"  >
+    select 
+    *
+    from leaves order by createtime desc
+  </select>
   <select id="getListByUserid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from leaves
     where userid = #{userid,jdbcType=INTEGER}
+    order by createtime desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from leaves

@@ -9,6 +9,8 @@ public interface LeaveMapper {
 
     List<Leave> getListByUserid(Integer userid);
     
+    List<Leave> getAll();
+    
     int insert(Leave record);
 
     int insertSelective(Leave record);

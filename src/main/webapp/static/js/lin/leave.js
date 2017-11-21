@@ -155,9 +155,16 @@ function buildgrid() {
 			gridComplete : function() {
 				console.log("grid Complete");
 				var ids = $("#table_list_2").jqGrid("getDataIDs");
+				var bodys = $("#table_list_2").jqGrid("getRowData");
 				for (var int = 0; int < ids.length; int++) {
 					var id = ids[int];
 					var resetpasswork = "<a href='#'  style='color:#f60' onclick='withdrawdialog(" + id + ")' >撤回</a>";
+					
+					if(bodys[int].isfinish != "未处理"){
+						resetpasswork = "";
+					}
+					
+					
 					var result = $("#table_list_2").jqGrid("setRowData", id, {
 						handle : "&nbsp &nbsp" + resetpasswork
 					});

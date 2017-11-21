@@ -253,20 +253,21 @@ function getChecked(){
 function submittree(){
 	data = {"roleid":roleidforterr,"menus":getChecked()};
 	$.ajax({
-		url:"addrelation",
+		url:"/addrelation",
 		type:"post",
 		"data":data,
 		success: function(data){
+			console.log(data);
 			if(data == 000){
 				successalert("","菜单配置完成");
 				hidetree();
 				$("#table_list_2").trigger("reloadGrid");
 			}else{
-				erroralert("" , "出现错误，请重试" );
+				errorsalert("" , "出现错误，请重试" );
 			}
 		},
 		error:function(){
-			erroralert("" , "出现错误，请重试" );
+			errorsalert("" , "出现错误，请重试" );
 		}
 	})
 }

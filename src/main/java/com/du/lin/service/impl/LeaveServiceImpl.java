@@ -6,14 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.du.lin.bean.Leave;
+import com.du.lin.bean.OperationLeave;
+import com.du.lin.bean.OperationLeaveUser;
 import com.du.lin.bean.User;
 import com.du.lin.bean.UserLeave;
 import com.du.lin.constant.Constant;
 import com.du.lin.dao.LeaveMapper;
+import com.du.lin.dao.OperationLeaveUserMapper;
 import com.du.lin.service.LeaveService;
 import com.du.lin.utils.BeanUtil;
 import com.du.lin.utils.JqgridUtil;
 import com.du.lin.utils.Userinfo;
+import com.google.gson.Gson;
 @Service
 public class LeaveServiceImpl implements LeaveService{
 	@Autowired
@@ -22,6 +26,8 @@ public class LeaveServiceImpl implements LeaveService{
 	private JqgridUtil jqgridUtil;
 	@Autowired
 	private BeanUtil beanUtil;
+	@Autowired
+	private OperationLeaveUserMapper oluMapper;
 	
 	@Override
 	public String addLeave(Leave leave) {
@@ -61,6 +67,37 @@ public class LeaveServiceImpl implements LeaveService{
 			return Constant.OPERATION_SUCCESS_CODE;
 					
 		}
+		return Constant.UNKNOWN_ERROR_CODE;
+	}
+
+	@Override
+	public String getAllLeaveJson(int page, int count) {
+		List<Leave> dblist = mapper.getAll();
+		List<OperationLeave> list = beanUtil.leaveListToOperationLeaveList(dblist);
+		int toIndex = count * page;
+		if (list.size() < toIndex) {
+			toIndex = list.size();
+		}
+		List<OperationLeave> result = list.subList(count * (page - 1), toIndex);
+		return jqgridUtil.getJson(result, page + "", list.size() , count);
+	
+	}
+
+	@Override
+	public String operationLeave(int id, String finish) {
+		OperationLeaveUser olu = new OperationLeaveUser();
+		olu.setLeaveid(id);
+		olu.setUserid(Userinfo.getUserid());
+		olu.setUsername(Userinfo.getUsername());
+		int insertResult = oluMapper.insert(olu);
+		Leave leave = new Leave();
+		leave.setId(id);
+		leave.setIsfinish(Integer.parseInt(finish));
+		int updateResult = mapper.updateByPrimaryKeySelective(leave);
+		if ((insertResult + updateResult) == 2) {
+			return Constant.OPERATION_SUCCESS_CODE;
+		}
+		
 		return Constant.UNKNOWN_ERROR_CODE;
 	}
 

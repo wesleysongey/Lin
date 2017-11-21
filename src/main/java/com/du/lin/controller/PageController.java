@@ -170,5 +170,11 @@ public class PageController extends BaseController {
 
 		return "leavepage";
 	}
+	
+	@RequestMapping(value = "/operationleavepage", method = { RequestMethod.GET })
+	public String leaderLeavePage(HttpServletRequest request , Date start , Date end) {
+		
+		return "operationleavepage";
+	}
 
 }
