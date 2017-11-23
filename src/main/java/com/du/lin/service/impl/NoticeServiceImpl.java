@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.du.lin.bean.Notice;
 import com.du.lin.bean.ShowNotice;
 import com.du.lin.constant.state.NoticeType;
@@ -26,7 +27,7 @@ public class NoticeServiceImpl implements NoticeService{
 	
 	@Override
 	public List<Notice> getAllNotice() {
-		return noticeMapper.getAllNotice();
+		return noticeMapper.selectList(null);
 	}
 	
 	
@@ -40,7 +41,7 @@ public class NoticeServiceImpl implements NoticeService{
 		notice.setSenduserid(Userinfo.getUser().getId());
 		notice.setType(NoticeType.System.getName());
 
-		return noticeMapper.insertSelective(notice);
+		return noticeMapper.insert(notice);
 	}
 
 	@Override
@@ -63,7 +64,7 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public List<Notice> getIndexNotice() {
-		return noticeMapper.getTop15Notices();
+		return noticeMapper.selectList(new EntityWrapper<Notice>().orderBy("createtime").last("limit 0,15"));
 	}
 
 

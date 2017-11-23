@@ -6,9 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.du.lin.bean.Menu;
+import com.du.lin.bean.RoleMenuRelation;
 import com.du.lin.bean.TreeNode;
 import com.du.lin.dao.MenuMapper;
+import com.du.lin.dao.RoleMenuRelationMapper;
 import com.du.lin.service.MenuService;
 import com.du.lin.utils.Userinfo;
 import com.google.gson.Gson;
@@ -16,12 +19,20 @@ import com.google.gson.Gson;
 public class MenuServiceImpl implements MenuService{
     @Autowired
 	private MenuMapper mapper;
+    @Autowired
+    private RoleMenuRelationMapper relationMapper;
+    
 	@Autowired
     private Gson gson;
     
 	@Override
 	public List<Menu> getUserMenu() {
-		List<Menu> list = mapper.selectMenuByRoleid(Userinfo.getRoleid());
+		List<RoleMenuRelation> ralationList = relationMapper.selectList(new EntityWrapper<RoleMenuRelation>().eq("roleid", Userinfo.getRoleid()));
+		List<Menu> list = new ArrayList<Menu>();
+		
+		for (RoleMenuRelation roleMenuRelation : ralationList) {
+			list.add(mapper.selectById(roleMenuRelation.getMenuid()));
+		}
 		return list;
 	}
 
@@ -32,7 +43,7 @@ public class MenuServiceImpl implements MenuService{
 		node.setText("角色");
 		node.setState("closed");
 		List<TreeNode> childNode = new ArrayList<TreeNode>();
-		List<Menu> menuList = mapper.selectAll();
+		List<Menu> menuList = mapper.selectList(null);
 		for (int i = 0; i < menuList.size(); i++) {
 			TreeNode child = new TreeNode();
 			child.setId(11+i);

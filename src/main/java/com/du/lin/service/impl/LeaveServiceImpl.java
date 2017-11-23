@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.du.lin.bean.Leave;
 import com.du.lin.bean.OperationLeave;
 import com.du.lin.bean.OperationLeaveUser;
@@ -48,7 +49,7 @@ public class LeaveServiceImpl implements LeaveService{
 
 	@Override
 	public String getAllUserLeaveJson(int page , int count) {
-		List<Leave> dblist = mapper.getListByUserid(Userinfo.getUserid());
+		List<Leave> dblist = mapper.selectList(new EntityWrapper<Leave>().eq("userid", Userinfo.getUserid()).orderBy("createtime"));
 		List<UserLeave> list = beanUtil.leaveListToUserLeaveList(dblist);
 		int toIndex = count * page;
 		if (list.size() < toIndex) {
@@ -63,7 +64,7 @@ public class LeaveServiceImpl implements LeaveService{
 		Leave leave = new Leave();
 		leave.setId(id);
 		leave.setIsfinish(3);
-		if(mapper.updateByPrimaryKeySelective(leave) == 1){
+		if(mapper.updateById(leave) == 1){
 			return Constant.OPERATION_SUCCESS_CODE;
 					
 		}
@@ -72,7 +73,7 @@ public class LeaveServiceImpl implements LeaveService{
 
 	@Override
 	public String getAllLeaveJson(int page, int count) {
-		List<Leave> dblist = mapper.getAll();
+		List<Leave> dblist = mapper.selectList(new EntityWrapper<Leave>().orderBy("createtime"));
 		List<OperationLeave> list = beanUtil.leaveListToOperationLeaveList(dblist);
 		int toIndex = count * page;
 		if (list.size() < toIndex) {
@@ -93,7 +94,7 @@ public class LeaveServiceImpl implements LeaveService{
 		Leave leave = new Leave();
 		leave.setId(id);
 		leave.setIsfinish(Integer.parseInt(finish));
-		int updateResult = mapper.updateByPrimaryKeySelective(leave);
+		int updateResult = mapper.updateById(leave);
 		if ((insertResult + updateResult) == 2) {
 			return Constant.OPERATION_SUCCESS_CODE;
 		}

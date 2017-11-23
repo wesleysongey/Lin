@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.du.lin.bean.LoginLog;
 import com.du.lin.bean.OperationLog;
 import com.du.lin.bean.ShowLog;
@@ -27,7 +28,7 @@ public class OperationLogServiceImpl implements OperationLogService {
 
 	@Override
 	public List<OperationLog> getAllOperationLog() {
-		return mapper.selectAll();
+		return mapper.selectList(new EntityWrapper<OperationLog>().orderBy("createtime "));
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class OperationLogServiceImpl implements OperationLogService {
 
 	@Override
 	public String deleteALLLog() {
-		int result = mapper.deleteAll();
+		int result = mapper.delete(null);
 		if (result > 0) {
 			return Constant.OPERATION_SUCCESS_CODE;
 		} else {
@@ -45,10 +46,7 @@ public class OperationLogServiceImpl implements OperationLogService {
 		}
 	}
 
-	@Override
-	public List<ShowLog> getShowLogList(int page, int count) {
-		return beanUtil.operationLogListToShowLogList(mapper.selectList((page - 1) * count, count));
-	}
+
 
 	@Override
 	public String getShowLogJson(int page, int count) {

@@ -1,41 +1,66 @@
 package com.du.lin.bean;
 
-public class Role {
-    private Integer id;
 
-    private String roles;
+import java.io.Serializable;
 
-    private String tips;
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.activerecord.Model;
+import java.io.Serializable;
 
-    public Integer getId() {
-        return id;
-    }
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author lin
+ * @since 2017-11-23
+ */
+public class Role extends Model<Role> {
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private static final long serialVersionUID = 1L;
 
-    public String getRoles() {
-        return roles;
-    }
+	@TableId(value="id", type= IdType.AUTO)
+	private Integer id;
+	private String roles;
+	private String tips;
 
-    public void setRoles(String roles) {
-        this.roles = roles == null ? null : roles.trim();
-    }
 
-    public String getTips() {
-        return tips;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setTips(String tips) {
-        this.tips = tips == null ? null : tips.trim();
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+
+	public String getTips() {
+		return tips;
+	}
+
+	public void setTips(String tips) {
+		this.tips = tips;
+	}
+
+	@Override
+	protected Serializable pkVal() {
+		return this.id;
+	}
 
 	@Override
 	public String toString() {
-		return "Role [id=" + id + ", roles=" + roles + ", tips=" + tips + "]";
+		return "Role{" +
+			", id=" + id +
+			", roles=" + roles +
+			", tips=" + tips +
+			"}";
 	}
-    
-    
-    
 }

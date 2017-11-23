@@ -1,95 +1,127 @@
 package com.du.lin.bean;
 
+
+import java.io.Serializable;
+
+import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.activerecord.Model;
+import java.io.Serializable;
 
-public class Notice {
-    private Integer id;
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author lin
+ * @since 2017-11-23
+ */
+public class Notice extends Model<Notice> {
 
-    private String title;
+    private static final long serialVersionUID = 1L;
 
-    private String body;
+	@TableId(value="id", type= IdType.AUTO)
+	private Integer id;
+	private String title;
+	private String body;
+	private String message;
+	private Integer senduserid;
+	private String type;
+	private Date createtime;
+	private Integer recivedeptid;
+	private Integer reciveuserid;
 
-    private String message;
 
-    private Integer senduserid;
+	public Integer getId() {
+		return id;
+	}
 
-    private String type;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    private Date createtime;
+	public String getTitle() {
+		return title;
+	}
 
-    private Integer recivedeptid;
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    private Integer reciveuserid;
+	public String getBody() {
+		return body;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public void setBody(String body) {
+		this.body = body;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
+	public Integer getSenduserid() {
+		return senduserid;
+	}
 
-    public String getBody() {
-        return body;
-    }
+	public void setSenduserid(Integer senduserid) {
+		this.senduserid = senduserid;
+	}
 
-    public void setBody(String body) {
-        this.body = body == null ? null : body.trim();
-    }
+	public String getType() {
+		return type;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public void setMessage(String message) {
-        this.message = message == null ? null : message.trim();
-    }
+	public Date getCreatetime() {
+		return createtime;
+	}
 
-    public Integer getSenduserid() {
-        return senduserid;
-    }
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
 
-    public void setSenduserid(Integer senduserid) {
-        this.senduserid = senduserid;
-    }
+	public Integer getRecivedeptid() {
+		return recivedeptid;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public void setRecivedeptid(Integer recivedeptid) {
+		this.recivedeptid = recivedeptid;
+	}
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
-    }
+	public Integer getReciveuserid() {
+		return reciveuserid;
+	}
 
-    public Date getCreatetime() {
-        return createtime;
-    }
+	public void setReciveuserid(Integer reciveuserid) {
+		this.reciveuserid = reciveuserid;
+	}
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
+	@Override
+	protected Serializable pkVal() {
+		return this.id;
+	}
 
-    public Integer getRecivedeptid() {
-        return recivedeptid;
-    }
-
-    public void setRecivedeptid(Integer recivedeptid) {
-        this.recivedeptid = recivedeptid;
-    }
-
-    public Integer getReciveuserid() {
-        return reciveuserid;
-    }
-
-    public void setReciveuserid(Integer reciveuserid) {
-        this.reciveuserid = reciveuserid;
-    }
+	@Override
+	public String toString() {
+		return "Notice{" +
+			", id=" + id +
+			", title=" + title +
+			", body=" + body +
+			", message=" + message +
+			", senduserid=" + senduserid +
+			", type=" + type +
+			", createtime=" + createtime +
+			", recivedeptid=" + recivedeptid +
+			", reciveuserid=" + reciveuserid +
+			"}";
+	}
 }

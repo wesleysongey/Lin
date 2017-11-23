@@ -11,7 +11,7 @@
 	<artifactId>lin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>lin</name>
+	<name>LinPlus</name>
 	<properties>
 		<webVersion>3.0</webVersion>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -20,16 +20,18 @@
 		<kaptcha.version>2.3.2</kaptcha.version>
 	</properties>
 	<dependencies>
+		<!-- mybatis-plus begin -->
 		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>1.3.0</version>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatisplus-spring-boot-starter</artifactId>
+			<version>1.0.5</version>
 		</dependency>
-		<!--<dependency> -->
-		<!--<groupId>org.springframework.boot</groupId> -->
-		<!--<artifactId>spring-boot-starter-redis</artifactId> -->
-		<!--<version>1.4.7.RELEASE</version> -->
-		<!--</dependency> -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus</artifactId>
+			<version>2.1.4</version>
+		</dependency>
+		<!-- mybatis-plus end -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -78,11 +80,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
-		<dependency>
+		
+<!--  		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>0.9.1.2</version>
-		</dependency>
+		</dependency>-->
+		
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
@@ -120,6 +124,12 @@
     <groupId>org.slf4j</groupId>
     <artifactId>slf4j-api</artifactId>
 </dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 <!-- https://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl -->
 <dependency>
     <groupId>net.sourceforge.jexcelapi</groupId>

@@ -1,6 +1,8 @@
 package com.du.lin.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.du.lin.bean.Dept;
+import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.ShowLog;
 import com.du.lin.constant.Constant;
 import com.du.lin.dao.DeptMapper;
@@ -23,7 +25,7 @@ public class DeptServiceImpl implements DeptService {
     private JqgridUtil jqgridUtil;
     @Override
     public String getAllDeptJson(int page , int count) {
-        List<Dept> all = mapper.getAllDept();
+        List<Dept> all = mapper.selectList(null);
         int toIndex = count * page;
         if (all.size() < toIndex) {
             toIndex = all.size();
@@ -34,7 +36,7 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public String deptListForUserAdd() {
-        List<Dept> list = mapper.getAllDept();
+        List<Dept> list = mapper.selectList(null);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).getId() + ":" + list.get(i).getName() + ";");
@@ -44,7 +46,9 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public String addDept(String deptName) {
-        Dept dept = mapper.selectByName(deptName);
+    	Dept temp = new Dept();
+    	temp.setName(deptName);
+        Dept dept = mapper.selectOne(temp);
         if (dept != null) {
             return Constant.ERROR_ADD_DEPT_ALREADY_EXISTS;
         }
@@ -59,7 +63,7 @@ public class DeptServiceImpl implements DeptService {
         Dept dept = new Dept();
         dept.setId(Integer.parseInt(id));
         dept.setName(deptName);
-        int result = mapper.updateByPrimaryKeySelective(dept);
+        int result = mapper.updateById(dept);
         return result+"";
     }
 
@@ -68,13 +72,17 @@ public class DeptServiceImpl implements DeptService {
         if ("1".endsWith(id)) {
             return Constant.ERROR_CAN_NOT_DELETE_DEFAULT_DEPT;
         }
-        int setUserResult = userMapper.updateByDeptidSelective(Integer.parseInt(id));
-        int result = mapper.deleteByPrimaryKey(Integer.parseInt(id));
+        ShiroUser updateUser = new ShiroUser();
+        updateUser.setDeptid(1);
+        updateUser.setId(Integer.parseInt(id));
+//        int setUserResult = userMapper.updateByDeptidSelective(Integer.parseInt(id));
+        int setUserResult = userMapper.updateById(updateUser);
+        int result = mapper.deleteById(Integer.parseInt(id));
         return result+"";
     }
 
 	@Override
 	public List<Dept> getAllDept() {
-		return mapper.getAllDept();
+		return mapper.selectList(null);
 	}
 }

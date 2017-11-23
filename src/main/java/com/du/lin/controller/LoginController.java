@@ -67,7 +67,6 @@ public class LoginController {
 			log.warn("登陆失败");
 			request.setAttribute("status", Constant.ERROR_CODE_USERNAME_PASSWORD_MISMATCH);
 			request.setAttribute("msg", "账号或密码错误");
-			
 			LogManager.getInstance().saveLog(
 					LogTaskFactory.getLoginFailTimerTask(user.getUsername(), "账号与密码不匹配", request.getRemoteHost()));
 			return "error";

@@ -65,7 +65,7 @@ public class BeanUtil {
 			result.setAvatar("systemavatar");
 			result.setSendUsername("系统通知");
 		} else {
-			ShiroUser user = userMapper.selectByPrimaryKey(notice.getSenduserid());
+			ShiroUser user = userMapper.selectById(notice.getSenduserid());
 			result.setAvatar(user.getAvator().endsWith("0") ? "girl" : "boy");
 			result.setSendUsername(user.getUsername());
 		}
@@ -85,11 +85,11 @@ public class BeanUtil {
 		user.setAvator("0".equals(shiroUser.getAvator()) ? "女" : "男");
 		user.setId(shiroUser.getId());
 		int deptId = shiroUser.getDeptid();
-		Dept dept = deptMapper.selectByPrimaryKey(deptId);
+		Dept dept = deptMapper.selectById(deptId);
 		String deptName = dept.getName();
 		user.setDept(deptName);
 		user.setPassword(shiroUser.getPassword());
-		Role role = roleMapper.selectByPrimaryKey(shiroUser.getRoleid());
+		Role role = roleMapper.selectById(shiroUser.getRoleid());
 		user.setRole(role.getRoles());
 		user.setRoleid(shiroUser.getRoleid());
 		user.setRoleTip(role.getTips());
@@ -229,7 +229,9 @@ public class BeanUtil {
 			return result;
 		}
 		
-		OperationLeaveUser olu =  oluMapper.selectByLeaveid(leave.getId());
+		OperationLeaveUser temp = new OperationLeaveUser();
+		temp.setLeaveid(leave.getId());
+		OperationLeaveUser olu =  oluMapper.selectOne(temp);
 		result.setOperationUsername(olu.getUsername());
 		return result;
 	}

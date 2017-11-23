@@ -1,28 +1,17 @@
 package com.du.lin.dao;
 
-import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.du.lin.bean.Menu;
 
-public interface MenuMapper {
-	
-	List<Menu> selectMenuByRoleid(@Param("roleid") Integer roleid);
-	
-	List<Menu> selectAll();
-	
-    int deleteByPrimaryKey(Integer id);
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author lin
+ * @since 2017-11-23
+ */
+public interface MenuMapper extends BaseMapper<Menu> {
 
-    int insert(Menu record);
-
-    int insertSelective(Menu record);
-
-    Menu selectByPrimaryKey(Integer id);
-    
-    Menu selectByName(String name);
-
-    int updateByPrimaryKeySelective(Menu record);
-
-    int updateByPrimaryKey(Menu record);
 }

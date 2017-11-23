@@ -1,102 +1,126 @@
 package com.du.lin.bean;
 
-public class Menu {
-    private Integer id;
 
-    private String code;
+import java.io.Serializable;
 
-    private Integer parentid;
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.activerecord.Model;
+import java.io.Serializable;
 
-    private String name;
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author lin
+ * @since 2017-11-23
+ */
+public class Menu extends Model<Menu> {
 
-    private String icon;
+    private static final long serialVersionUID = 1L;
 
-    private String url;
+	@TableId(value="id", type= IdType.AUTO)
+	private Integer id;
+	private String code;
+	private Integer parentid;
+	private String name;
+	private String icon;
+	private String url;
+	private Integer num;
+	private Integer levels;
+	private String tips;
 
-    private Integer num;
 
-    private Integer levels;
+	public Integer getId() {
+		return id;
+	}
 
-    private String tips;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    public String getCode() {
-        return code;
-    }
+	public Integer getParentid() {
+		return parentid;
+	}
 
-    public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
-    }
+	public void setParentid(Integer parentid) {
+		this.parentid = parentid;
+	}
 
-    public Integer getParentid() {
-        return parentid;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setParentid(Integer parentid) {
-        this.parentid = parentid;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getIcon() {
+		return icon;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 
-    public String getIcon() {
-        return icon;
-    }
+	public String getUrl() {
+		return url;
+	}
 
-    public void setIcon(String icon) {
-        this.icon = icon == null ? null : icon.trim();
-    }
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public Integer getNum() {
+		return num;
+	}
 
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
-    }
+	public void setNum(Integer num) {
+		this.num = num;
+	}
 
-    public Integer getNum() {
-        return num;
-    }
+	public Integer getLevels() {
+		return levels;
+	}
 
-    public void setNum(Integer num) {
-        this.num = num;
-    }
+	public void setLevels(Integer levels) {
+		this.levels = levels;
+	}
 
-    public Integer getLevels() {
-        return levels;
-    }
+	public String getTips() {
+		return tips;
+	}
 
-    public void setLevels(Integer levels) {
-        this.levels = levels;
-    }
+	public void setTips(String tips) {
+		this.tips = tips;
+	}
 
-    public String getTips() {
-        return tips;
-    }
-
-    public void setTips(String tips) {
-        this.tips = tips == null ? null : tips.trim();
-    }
+	@Override
+	protected Serializable pkVal() {
+		return this.id;
+	}
 
 	@Override
 	public String toString() {
-		return "Menu [id=" + id + ", code=" + code + ", parentid=" + parentid + ", name=" + name + ", icon=" + icon
-				+ ", url=" + url + ", num=" + num + ", levels=" + levels + ", tips=" + tips + "]";
+		return "Menu{" +
+			", id=" + id +
+			", code=" + code +
+			", parentid=" + parentid +
+			", name=" + name +
+			", icon=" + icon +
+			", url=" + url +
+			", num=" + num +
+			", levels=" + levels +
+			", tips=" + tips +
+			"}";
 	}
-    
-    
-    
 }
