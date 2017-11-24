@@ -7,7 +7,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>中文名</title>
+<title>${model2}</title>
 
 <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
 <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet" />
@@ -27,7 +27,7 @@
 <script src="static/js/jquery-ui-1.10.4.min.js"></script>
 <script src="static/js/jquery-ui.custom.min.js"></script>
 <!-- 自定义js -->
-<script th:src="@{static/js/lin/thing.js}">   </script>
+<script th:src="@{static/js/lin/${model}.js}">   </script>
 <!-- 封装过的Sweet alert js -->
 <script th:src="@{static/js/lin/dialog.js}">   </script>
 

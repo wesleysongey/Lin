@@ -7,7 +7,7 @@ $(function() {
 function buildgrid() {
 	$("#table_list_2").jqGrid(
 		{
-			url : "/thing/list",
+			url : "/${model}/list",
 			datatype : "json",
 			mtype : "POST",
 			height : "100%",
@@ -22,13 +22,10 @@ function buildgrid() {
 			rowNum : 10,
 			rowList : [ 10, 20, 30 ],
 			colNames : [ 'id',
-						 'name',
-						 'text',
-						 'state',
-						 'name1',
-						 'name2',
-						 'name3',
-						  ],
+			#foreach($attr in $attrs)
+			 '$attr',
+			#end
+			  ],
 			colModel : [
 				{
 					name : 'id',
@@ -36,40 +33,17 @@ function buildgrid() {
 					editable : true,
 					hidden : true,
 				},
-								{
-					name : 'name',
-					index : 'name',
+				#foreach($attr in $attrs)
+				{
+					name : '$attr',
+					index : '$attr',
 					editable : true,
 				},
-								{
-					name : 'text',
-					index : 'text',
-					editable : true,
-				},
-								{
-					name : 'state',
-					index : 'state',
-					editable : true,
-				},
-								{
-					name : 'name1',
-					index : 'name1',
-					editable : true,
-				},
-								{
-					name : 'name2',
-					index : 'name2',
-					editable : true,
-				},
-								{
-					name : 'name3',
-					index : 'name3',
-					editable : true,
-				},
-							],
+				#end
+			],
 			pager : "#pager_list_2",
 			viewrecords : true,
-			editurl : "/thing/operation",
+			editurl : "/${model}/operation",
 			hidegrid : false,
 			gridComplete : function() {
 
