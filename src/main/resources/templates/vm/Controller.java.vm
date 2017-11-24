@@ -1,0 +1,23 @@
+package com.du.lin.controller;
+
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.du.lin.bean.Thing;
+import com.du.lin.service.IThingService;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+@Controller
+@RequestMapping("/thing")
+public class ThingController {
+	@Autowired
+	private IThingService service;
+	@RequestMapping("")
+	public String thing(HttpServletRequest request){
+		return "thingpage";
+	} 
+
+}
