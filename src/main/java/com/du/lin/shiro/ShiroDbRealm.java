@@ -57,7 +57,6 @@ public class ShiroDbRealm extends AuthorizingRealm{
 		temp.setUsername(token.getUsername());
 		ShiroUser dbUser = userMapper.selectOne(temp);
 		User user =beanUtil.toUser(dbUser);
-		Userinfo.setUser(user);
 		
 		if (dbUser == null){
 			throw new CredentialsException();

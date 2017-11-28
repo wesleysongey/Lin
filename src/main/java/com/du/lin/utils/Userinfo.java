@@ -1,12 +1,13 @@
 package com.du.lin.utils;
 
+import org.apache.shiro.SecurityUtils;
+
 import com.du.lin.bean.User;
 
 /**
  * 用户信息类 可从中获取当前登陆用的信息
  */
 public class Userinfo {
-	private static User user;
 	/**
 	 * 记录用户操作时间，若时间过长则需重新登陆
 	 */
@@ -16,7 +17,7 @@ public class Userinfo {
 	}
 	
 	public static User getUser(){
-			return Userinfo.user;
+			return (User) SecurityUtils.getSubject().getPrincipal();
 	}
 	
 	public static String getSex(){
@@ -26,10 +27,7 @@ public class Userinfo {
 			return getUser().getAvator().equals("女")?"girl":"boy";
 		}
 	}
-	
-	public static void setUser(User user){
-		Userinfo.user = user;
-	}
+
 
 	public static long getOperateTime() {
 		return operateTime;
