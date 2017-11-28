@@ -1,95 +1,127 @@
 package com.du.lin.bean;
 
+import java.io.Serializable;
+
+import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.activerecord.Model;
 
-public class Leave {
-    private Integer id;
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author lin
+ * @since 2017-11-23
+ */
+@TableName(value="leaves")
+public class Leave extends Model<Leave> {
 
-    private String type;
+    private static final long serialVersionUID = 1L;
 
-    private Date starttime;
+	@TableId(value="id", type= IdType.AUTO)
+	private Integer id;
+	private String type;
+	private Date starttime;
+	private Date endtime;
+	private String reason;
+	private Integer userid;
+	private String username;
+	private Integer isfinish;
+	private Date createtime;
 
-    private Date endtime;
 
-    private String reason;
+	public Integer getId() {
+		return id;
+	}
 
-    private Integer userid;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    private String username;
+	public String getType() {
+		return type;
+	}
 
-    private Integer isfinish;
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    private Date createtime;
+	public Date getStarttime() {
+		return starttime;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public void setStarttime(Date starttime) {
+		this.starttime = starttime;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Date getEndtime() {
+		return endtime;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public void setEndtime(Date endtime) {
+		this.endtime = endtime;
+	}
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
-    }
+	public String getReason() {
+		return reason;
+	}
 
-    public Date getStarttime() {
-        return starttime;
-    }
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
 
-    public void setStarttime(Date starttime) {
-        this.starttime = starttime;
-    }
+	public Integer getUserid() {
+		return userid;
+	}
 
-    public Date getEndtime() {
-        return endtime;
-    }
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
 
-    public void setEndtime(Date endtime) {
-        this.endtime = endtime;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public String getReason() {
-        return reason;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setReason(String reason) {
-        this.reason = reason == null ? null : reason.trim();
-    }
+	public Integer getIsfinish() {
+		return isfinish;
+	}
 
-    public Integer getUserid() {
-        return userid;
-    }
+	public void setIsfinish(Integer isfinish) {
+		this.isfinish = isfinish;
+	}
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+	public Date getCreatetime() {
+		return createtime;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
-    }
+	@Override
+	protected Serializable pkVal() {
+		return this.id;
+	}
 
-    public Integer getIsfinish() {
-        return isfinish;
-    }
-
-    public void setIsfinish(Integer isfinish) {
-        this.isfinish = isfinish;
-    }
-
-    public Date getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
+	@Override
+	public String toString() {
+		return "Leaves{" +
+			", id=" + id +
+			", type=" + type +
+			", starttime=" + starttime +
+			", endtime=" + endtime +
+			", reason=" + reason +
+			", userid=" + userid +
+			", username=" + username +
+			", isfinish=" + isfinish +
+			", createtime=" + createtime +
+			"}";
+	}
 }

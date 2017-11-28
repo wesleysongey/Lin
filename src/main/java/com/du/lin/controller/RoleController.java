@@ -1,6 +1,5 @@
 package com.du.lin.controller;
 
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.du.lin.annotation.BizLog;
-import com.du.lin.bean.ShowRole;
 import com.du.lin.service.RoleService;
-import com.google.gson.Gson;
 
 @Controller
 public class RoleController {

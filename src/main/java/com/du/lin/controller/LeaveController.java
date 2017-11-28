@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.du.lin.annotation.BizLog;
 import com.du.lin.bean.Leave;
 import com.du.lin.constant.Constant;
-import com.du.lin.dao.LeaveMapper;
 import com.du.lin.service.LeaveService;
 import com.du.lin.utils.Userinfo;
-import com.google.gson.Gson;
-import com.sun.mail.handlers.message_rfc822;
 
 @Controller
 public class LeaveController {

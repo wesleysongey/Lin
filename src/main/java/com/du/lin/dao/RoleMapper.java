@@ -1,32 +1,17 @@
 package com.du.lin.dao;
 
+
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.du.lin.bean.Role;
 
-import java.util.List;
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author lin
+ * @since 2017-11-23
+ */
+public interface RoleMapper extends BaseMapper<Role> {
 
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-
-@Repository
-public interface RoleMapper {
-	
-
-	
-	List<Role> selectAll();
-	
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(Role record);
-
-    int insertSelective(Role record);
-
-    Role selectByPrimaryKey(Integer id);
-    
-    Role selectByRoleTip(String tips);
-    
-    Role  selectByRoles(String roles);
-
-    int updateByPrimaryKeySelective(Role record);
-
-    int updateByPrimaryKey(Role record);
 }

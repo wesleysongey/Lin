@@ -22,7 +22,6 @@ import com.du.lin.bean.User;
 import com.du.lin.dao.RoleMapper;
 import com.du.lin.dao.UserMapper;
 import com.du.lin.utils.BeanUtil;
-import com.du.lin.utils.Userinfo;
 
 
 
@@ -51,9 +50,11 @@ public class ShiroDbRealm extends AuthorizingRealm{
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationtoken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authenticationtoken;
-		ShiroUser dbUser = userMapper.selectByUsername(token.getUsername());
+		ShiroUser temp = new ShiroUser();
+		temp.setUsername(token.getUsername());
+		ShiroUser dbUser = userMapper.selectOne(temp);
 		User user =beanUtil.toUser(dbUser);
-		Userinfo.setUser(user);
+		
 		if (dbUser == null){
 			throw new CredentialsException();
 		}    

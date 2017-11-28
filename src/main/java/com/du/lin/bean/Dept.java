@@ -1,41 +1,65 @@
 package com.du.lin.bean;
 
-public class Dept {
-    private Integer id;
 
-    private Integer num;
+import java.io.Serializable;
 
-    private String name;
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.activerecord.Model;
 
-    public Integer getId() {
-        return id;
-    }
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author lin
+ * @since 2017-11-23
+ */
+public class Dept extends Model<Dept> {
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private static final long serialVersionUID = 1L;
 
-    public Integer getNum() {
-        return num;
-    }
+	@TableId(value="id", type= IdType.AUTO)
+	private Integer id;
+	private Integer num;
+	private String name;
 
-    public void setNum(Integer num) {
-        this.num = num;
-    }
 
-    public String getName() {
-        return name;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getNum() {
+		return num;
+	}
+
+	public void setNum(Integer num) {
+		this.num = num;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	protected Serializable pkVal() {
+		return this.id;
+	}
 
 	@Override
 	public String toString() {
-		return "Dept [id=" + id + ", num=" + num + ", name=" + name + "]";
+		return "Dept{" +
+			", id=" + id +
+			", num=" + num +
+			", name=" + name +
+			"}";
 	}
-    
-    
-    
 }

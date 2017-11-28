@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.du.lin.bean.Memo;
 import com.du.lin.constant.Constant;
 import com.du.lin.dao.MemoMapper;
@@ -17,7 +18,11 @@ public class MemoServiceImpl implements MemoService{
 	
 	@Override
 	public String addMemo(String title, String text, String time) {
-		Memo memo = new Memo(title, text, time, Userinfo.getUser().getId());
+		Memo memo = new Memo();
+		memo.setTitle(title);
+		memo.setText(text);
+		memo.setTime(time);
+		memo.setUserid(Userinfo.getUserid());
 		int result = mapper.insert(memo);
 		if (result == 1) {
 			return Constant.OPERATION_SUCCESS_CODE;
@@ -27,12 +32,12 @@ public class MemoServiceImpl implements MemoService{
 
 	@Override
 	public List<Memo> getUserMemoList() {
-		return mapper.getAllByUserId(Userinfo.getUser().getId());
+		return mapper.selectList(new EntityWrapper<Memo>().eq("userid", Userinfo.getUserid()));
 	}
 
 	@Override
 	public String deleteMemo(int id) {
-		int result = mapper.deleteByPrimaryKey(id);
+		int result = mapper.deleteById(id);
 		if (result == 1) {
 			return Constant.OPERATION_SUCCESS_CODE;
 		}

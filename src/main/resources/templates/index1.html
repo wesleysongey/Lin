@@ -79,8 +79,8 @@
 					</a></li>
 -->
 					<li th:each="menu:${menulist}" >
-						<a class="J_menuItem" th:href="${menu.url}"> <i class="fa"
-							th:attrappend="class=${' ' + menu.icon}"></i> <span
+						<a class="J_menuItem" th:href="${menu.url}">
+						 <i class="fa" th:attrappend="class=${' ' + menu.icon}"></i> <span
 							class="nav-label" th:text="${menu.name}">我的便签</span>
 					</a>
 					</li>

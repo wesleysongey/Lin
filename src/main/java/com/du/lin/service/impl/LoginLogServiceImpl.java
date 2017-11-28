@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.du.lin.bean.LoginLog;
 import com.du.lin.bean.ShowLog;
 import com.du.lin.constant.Constant;
@@ -25,7 +26,7 @@ public class LoginLogServiceImpl implements LoginLogService {
 	@Override
 	public List<LoginLog> getAllLoginLog() {
 
-		return loginLogMapper.selectAll();
+		return loginLogMapper.selectList(new EntityWrapper<LoginLog>().orderBy("createtime"));
 	}
 
 	@Override
@@ -35,7 +36,7 @@ public class LoginLogServiceImpl implements LoginLogService {
 
 	@Override
 	public String deleteALLLoginLog() {
-		int result = loginLogMapper.deleteAll();
+		int result = loginLogMapper.delete(null);
 		if (result > 0) {
 			return Constant.OPERATION_SUCCESS_CODE;
 		}else{

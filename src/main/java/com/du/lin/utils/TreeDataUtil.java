@@ -3,9 +3,9 @@ package com.du.lin.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.logging.nologging.NoLoggingImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.du.lin.bean.Dept;
 import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.TreeNode;
@@ -24,7 +24,7 @@ public class TreeDataUtil {
 	private List<TreeNode> nodeList;
 	
 	public String getTreeDataForNotice(){
-		List<Dept> deptList = deptMapper.getAllDept();
+		List<Dept> deptList = deptMapper.selectList(null);
 		nodeList = new ArrayList<TreeNode>();
 		TreeNode node = null;
 		TreeNode childNode = null;
@@ -35,7 +35,8 @@ public class TreeDataUtil {
 			node = new TreeNode();
 			node.setId(i+1);
 			node.setText(dept.getName());
-			List<ShiroUser> userList = userMapper.selectByDeptid(dept.getId());
+//			List<ShiroUser> userList = userMapper.selectByDeptid(dept.getId());
+			List<ShiroUser> userList = userMapper.selectList(new EntityWrapper<ShiroUser>().eq("deptid", dept.getId()));
 			if (userList.size()>0) {
 				childNodeList = new ArrayList<TreeNode>();
 				for(int j=0;j< userList.size() ; j++ ){

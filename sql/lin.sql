@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2017-11-21 16:10:38
+Date: 2017-11-28 18:35:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,7 +24,7 @@ CREATE TABLE `dept` (
   `num` int(11) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of dept
@@ -50,7 +50,7 @@ CREATE TABLE `leaves` (
   `isfinish` int(11) NOT NULL,
   `createtime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leaves
@@ -69,11 +69,12 @@ CREATE TABLE `login_log` (
   `message` varchar(255) DEFAULT NULL,
   `ip` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=160 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of login_log
 -- ----------------------------
+INSERT INTO `login_log` VALUES ('63', '登陆', '2', '2017-11-28 18:33:08', '成功', 'ttt', '0:0:0:0:0:0:0:1');
 
 -- ----------------------------
 -- Table structure for memo
@@ -108,7 +109,7 @@ CREATE TABLE `menu` (
   `levels` int(11) DEFAULT NULL,
   `tips` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of menu
@@ -155,7 +156,7 @@ CREATE TABLE `operation_leave_user` (
   `userid` int(11) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of operation_leave_user
@@ -176,7 +177,7 @@ CREATE TABLE `operation_log` (
   `state` varchar(255) DEFAULT NULL,
   `message` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=273 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of operation_log
@@ -209,22 +210,55 @@ CREATE TABLE `role_menu_relation` (
   `roleid` int(11) NOT NULL,
   `menuid` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of role_menu_relation
 -- ----------------------------
-INSERT INTO `role_menu_relation` VALUES ('76', '1', '1');
-INSERT INTO `role_menu_relation` VALUES ('77', '1', '2');
-INSERT INTO `role_menu_relation` VALUES ('78', '1', '3');
-INSERT INTO `role_menu_relation` VALUES ('79', '1', '4');
-INSERT INTO `role_menu_relation` VALUES ('80', '1', '5');
-INSERT INTO `role_menu_relation` VALUES ('81', '1', '6');
-INSERT INTO `role_menu_relation` VALUES ('82', '1', '8');
-INSERT INTO `role_menu_relation` VALUES ('83', '1', '9');
-INSERT INTO `role_menu_relation` VALUES ('84', '1', '10');
 INSERT INTO `role_menu_relation` VALUES ('85', '2', '4');
 INSERT INTO `role_menu_relation` VALUES ('86', '2', '9');
+INSERT INTO `role_menu_relation` VALUES ('87', '18', '1');
+INSERT INTO `role_menu_relation` VALUES ('88', '18', '2');
+INSERT INTO `role_menu_relation` VALUES ('89', '18', '3');
+INSERT INTO `role_menu_relation` VALUES ('108', '1', '1');
+INSERT INTO `role_menu_relation` VALUES ('109', '1', '2');
+INSERT INTO `role_menu_relation` VALUES ('110', '1', '3');
+INSERT INTO `role_menu_relation` VALUES ('111', '1', '4');
+INSERT INTO `role_menu_relation` VALUES ('112', '1', '5');
+INSERT INTO `role_menu_relation` VALUES ('113', '1', '6');
+INSERT INTO `role_menu_relation` VALUES ('114', '1', '8');
+INSERT INTO `role_menu_relation` VALUES ('115', '1', '9');
+INSERT INTO `role_menu_relation` VALUES ('116', '1', '10');
+
+-- ----------------------------
+-- Table structure for thing
+-- ----------------------------
+DROP TABLE IF EXISTS `thing`;
+CREATE TABLE `thing` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `text` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `name1` varchar(255) DEFAULT NULL,
+  `name2` varchar(255) DEFAULT NULL,
+  `name3` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of thing
+-- ----------------------------
+INSERT INTO `thing` VALUES ('1', '1', '1', '1', '1', '1', '1');
+INSERT INTO `thing` VALUES ('2', '2', '2', '2', '2', '2', '2');
+INSERT INTO `thing` VALUES ('3', '4', '3', '3', '3', '3', '3');
+INSERT INTO `thing` VALUES ('4', '4', '4', '4', '4', '4', '4');
+INSERT INTO `thing` VALUES ('5', '5', '5', '5', '5', '5', '5');
+INSERT INTO `thing` VALUES ('6', '6', '6', '6', '6', '6', '6');
+INSERT INTO `thing` VALUES ('7', '7', '7', '7', '7', '7', '7');
+INSERT INTO `thing` VALUES ('8', '8', '8', '8', '8', '8', '8');
+INSERT INTO `thing` VALUES ('9', '9', '9', '9', '9', '9', '9');
+INSERT INTO `thing` VALUES ('10', '10', '10', '10', '10', '10', '10');
+INSERT INTO `thing` VALUES ('11', 'aaa', 'fds', 'fds', 'fd', 'fds', 'fdas');
 
 -- ----------------------------
 -- Table structure for user
@@ -239,10 +273,10 @@ CREATE TABLE `user` (
   `deptid` int(11) NOT NULL,
   `roleid` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('2', 'ttt', '9990775155c3518a0d7917f7780b24aa', '2', '1', '2', '1');
-INSERT INTO `user` VALUES ('4', 'admin', '96e79218965eb72c92a549dd5a330112', '4', '0', '1', '2');
+INSERT INTO `user` VALUES ('4', 'admin', '96e79218965eb72c92a549dd5a330112', '4', '0', '1', '18');

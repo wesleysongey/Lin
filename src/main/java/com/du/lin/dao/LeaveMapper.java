@@ -1,23 +1,16 @@
 package com.du.lin.dao;
 
-import java.util.List;
-
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.du.lin.bean.Leave;
 
-public interface LeaveMapper {
-    int deleteByPrimaryKey(Integer id);
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author lin
+ * @since 2017-11-23
+ */
+public interface LeaveMapper extends BaseMapper<Leave> {
 
-    List<Leave> getListByUserid(Integer userid);
-    
-    List<Leave> getAll();
-    
-    int insert(Leave record);
-
-    int insertSelective(Leave record);
-
-    Leave selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Leave record);
-
-    int updateByPrimaryKey(Leave record);
 }

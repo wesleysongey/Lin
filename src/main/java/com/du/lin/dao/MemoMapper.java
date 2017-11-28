@@ -1,25 +1,17 @@
 package com.du.lin.dao;
 
-import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.du.lin.bean.Memo;
-@Repository
-public interface MemoMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(Memo record);
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author lin
+ * @since 2017-11-23
+ */
+public interface MemoMapper extends BaseMapper<Memo> {
 
-    int insertSelective(Memo record);
-
-    Memo selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Memo record);
-
-    int updateByPrimaryKey(Memo record);
-    
-    List<Memo> getAllByUserId(@Param("userid") Integer userid);
-    
 }

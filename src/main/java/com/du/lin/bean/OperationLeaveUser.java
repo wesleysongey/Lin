@@ -1,43 +1,77 @@
 package com.du.lin.bean;
 
-public class OperationLeaveUser {
-    private Integer id;
 
-    private Integer leaveid;
 
-    private Integer userid;
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 
-    private String username;
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author lin
+ * @since 2017-11-23
+ */
+@TableName("operation_leave_user")
+public class OperationLeaveUser extends Model<OperationLeaveUser> {
 
-    public Integer getId() {
-        return id;
-    }
+    private static final long serialVersionUID = 1L;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@TableId(value="id", type= IdType.AUTO)
+	private Integer id;
+	private Integer leaveid;
+	private Integer userid;
+	private String username;
 
-    public Integer getLeaveid() {
-        return leaveid;
-    }
 
-    public void setLeaveid(Integer leaveid) {
-        this.leaveid = leaveid;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Integer getUserid() {
-        return userid;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+	public Integer getLeaveid() {
+		return leaveid;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setLeaveid(Integer leaveid) {
+		this.leaveid = leaveid;
+	}
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
-    }
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	@Override
+	protected Serializable pkVal() {
+		return this.id;
+	}
+
+	@Override
+	public String toString() {
+		return "OperationLeaveUser{" +
+			", id=" + id +
+			", leaveid=" + leaveid +
+			", userid=" + userid +
+			", username=" + username +
+			"}";
+	}
 }

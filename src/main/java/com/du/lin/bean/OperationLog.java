@@ -1,107 +1,128 @@
 package com.du.lin.bean;
 
+
+
+import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 
 /**
- * 业务操作日志
+ * <p>
+ * 
+ * </p>
+ *
+ * @author lin
+ * @since 2017-11-23
  */
-public class OperationLog {
-    private Integer id;
+@TableName("operation_log")
+public class OperationLog extends Model<OperationLog> {
 
-    private String logtype;
+    private static final long serialVersionUID = 1L;
 
-    private String logname;
+	@TableId(value="id", type= IdType.AUTO)
+	private Integer id;
+	private String logtype;
+	private String logname;
+	private Integer userid;
+	private String classname;
+	private String method;
+	private Date createtime;
+	private String state;
+	private String message;
 
-    private Integer userid;
 
-    private String classname;
+	public Integer getId() {
+		return id;
+	}
 
-    private String method;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    private Date createtime;
+	public String getLogtype() {
+		return logtype;
+	}
 
-    private String state;
+	public void setLogtype(String logtype) {
+		this.logtype = logtype;
+	}
 
-    private String message;
+	public String getLogname() {
+		return logname;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public void setLogname(String logname) {
+		this.logname = logname;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getUserid() {
+		return userid;
+	}
 
-    public String getLogtype() {
-        return logtype;
-    }
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
 
-    public void setLogtype(String logtype) {
-        this.logtype = logtype == null ? null : logtype.trim();
-    }
+	public String getClassname() {
+		return classname;
+	}
 
-    public String getLogname() {
-        return logname;
-    }
+	public void setClassname(String classname) {
+		this.classname = classname;
+	}
 
-    public void setLogname(String logname) {
-        this.logname = logname == null ? null : logname.trim();
-    }
+	public String getMethod() {
+		return method;
+	}
 
-    public Integer getUserid() {
-        return userid;
-    }
+	public void setMethod(String method) {
+		this.method = method;
+	}
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+	public Date getCreatetime() {
+		return createtime;
+	}
 
-    public String getClassname() {
-        return classname;
-    }
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
 
-    public void setClassname(String classname) {
-        this.classname = classname == null ? null : classname.trim();
-    }
+	public String getState() {
+		return state;
+	}
 
-    public String getMethod() {
-        return method;
-    }
+	public void setState(String state) {
+		this.state = state;
+	}
 
-    public void setMethod(String method) {
-        this.method = method == null ? null : method.trim();
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public Date getCreatetime() {
-        return createtime;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state == null ? null : state.trim();
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message == null ? null : message.trim();
-    }
+	@Override
+	protected Serializable pkVal() {
+		return this.id;
+	}
 
 	@Override
 	public String toString() {
-		return "OperationLog [id=" + id + ", logtype=" + logtype + ", logname=" + logname + ", userid=" + userid
-				+ ", classname=" + classname + ", method=" + method + ", createtime=" + createtime + ", state=" + state
-				+ ", message=" + message + "]";
+		return "OperationLog{" +
+			", id=" + id +
+			", logtype=" + logtype +
+			", logname=" + logname +
+			", userid=" + userid +
+			", classname=" + classname +
+			", method=" + method +
+			", createtime=" + createtime +
+			", state=" + state +
+			", message=" + message +
+			"}";
 	}
-    
-    
 }

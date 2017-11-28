@@ -1,5 +1,5 @@
 $(function() {
-
+	$.jgrid.defaults.styleUI = 'Bootstrap';
 	buildgrid();
 	initlaydate();
 	$(".radio-inline").change(function() {

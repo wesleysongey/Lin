@@ -1,7 +1,5 @@
 package com.du.lin.bean;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class ShowRole {
     private Integer id;

@@ -1,75 +1,108 @@
 package com.du.lin.bean;
 
+
+
+import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 
-public class LoginLog {
-    private Integer id;
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author lin
+ * @since 2017-11-23
+ */
+@TableName("login_log")
+public class LoginLog extends Model<LoginLog> {
 
-    private String logname;
+    private static final long serialVersionUID = 1L;
 
-    private Integer userid;
+	@TableId(value="id", type= IdType.AUTO)
+	private Integer id;
+	private String logname;
+	private Integer userid;
+	private Date createtime;
+	private String state;
+	private String message;
+	private String ip;
 
-    private Date createtime;
 
-    private String state;
+	public Integer getId() {
+		return id;
+	}
 
-    private String ip;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    private String message;
+	public String getLogname() {
+		return logname;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public void setLogname(String logname) {
+		this.logname = logname;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getUserid() {
+		return userid;
+	}
 
-    public String getLogname() {
-        return logname;
-    }
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
 
-    public void setLogname(String logname) {
-        this.logname = logname == null ? null : logname.trim();
-    }
+	public Date getCreatetime() {
+		return createtime;
+	}
 
-    public Integer getUserid() {
-        return userid;
-    }
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+	public String getState() {
+		return state;
+	}
 
-    public Date getCreatetime() {
-        return createtime;
-    }
+	public void setState(String state) {
+		this.state = state;
+	}
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public String getState() {
-        return state;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public void setState(String state) {
-        this.state = state == null ? null : state.trim();
-    }
+	public String getIp() {
+		return ip;
+	}
 
-    public String getIp() {
-        return ip;
-    }
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
 
-    public void setIp(String ip) {
-        this.ip = ip == null ? null : ip.trim();
-    }
+	@Override
+	protected Serializable pkVal() {
+		return this.id;
+	}
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message == null ? null : message.trim();
-    }
+	@Override
+	public String toString() {
+		return "LoginLog{" +
+			", id=" + id +
+			", logname=" + logname +
+			", userid=" + userid +
+			", createtime=" + createtime +
+			", state=" + state +
+			", message=" + message +
+			", ip=" + ip +
+			"}";
+	}
 }

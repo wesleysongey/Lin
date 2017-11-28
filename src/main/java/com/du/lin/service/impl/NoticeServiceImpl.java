@@ -7,12 +7,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.du.lin.bean.Notice;
 import com.du.lin.bean.ShowNotice;
 import com.du.lin.constant.state.NoticeType;
 import com.du.lin.dao.NoticeMapper;
 import com.du.lin.service.NoticeService;
-import com.du.lin.shiro.ShiroKit;
 import com.du.lin.utils.BeanUtil;
 import com.du.lin.utils.Userinfo;
 @Service
@@ -20,13 +20,11 @@ public class NoticeServiceImpl implements NoticeService{
 	@Autowired
 	private NoticeMapper noticeMapper;
 	@Autowired
-	private ShiroKit shiroKit;
-	@Autowired
 	private BeanUtil beanUtil;
 	
 	@Override
 	public List<Notice> getAllNotice() {
-		return noticeMapper.getAllNotice();
+		return noticeMapper.selectList(null);
 	}
 	
 	
@@ -40,7 +38,7 @@ public class NoticeServiceImpl implements NoticeService{
 		notice.setSenduserid(Userinfo.getUser().getId());
 		notice.setType(NoticeType.System.getName());
 
-		return noticeMapper.insertSelective(notice);
+		return noticeMapper.insert(notice);
 	}
 
 	@Override
@@ -63,7 +61,7 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public List<Notice> getIndexNotice() {
-		return noticeMapper.getTop15Notices();
+		return noticeMapper.selectList(new EntityWrapper<Notice>().orderBy("createtime").last("limit 0,15"));
 	}
 
 

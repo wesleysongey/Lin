@@ -2,26 +2,23 @@ package com.du.lin.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
-import org.apache.tomcat.util.bcel.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.du.lin.bean.Dept;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.du.lin.bean.Menu;
 import com.du.lin.bean.Role;
 import com.du.lin.bean.RoleMenuRelation;
+import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.ShowRole;
-import com.du.lin.bean.User;
 import com.du.lin.constant.Constant;
 import com.du.lin.dao.MenuMapper;
 import com.du.lin.dao.RoleMapper;
 import com.du.lin.dao.RoleMenuRelationMapper;
 import com.du.lin.dao.UserMapper;
 import com.du.lin.service.RoleService;
-import com.du.lin.utils.BeanUtil;
 import com.du.lin.utils.JqgridUtil;
 @Service
 public class RoleServiceImpl implements RoleService{
@@ -39,7 +36,7 @@ public class RoleServiceImpl implements RoleService{
 	@Override
 	public List<ShowRole> getAllShowRole() {
 		
-		List<Role> list = mapper.selectAll();
+		List<Role> list = mapper.selectList(null);
 		List<ShowRole> result = new ArrayList<ShowRole>();
 		for (Role role : list) {
 			StringBuilder menus = new StringBuilder();
@@ -47,7 +44,14 @@ public class RoleServiceImpl implements RoleService{
 			sr.setId(role.getId());
 			sr.setRoles(role.getRoles());
 			sr.setTips(role.getTips());
-			List<Menu> menuList = menuMapper.selectMenuByRoleid(role.getId());
+			
+			List<RoleMenuRelation> ralationList = rmrMapper.selectList(new EntityWrapper<RoleMenuRelation>().eq("roleid", role.getId()));
+			List<Menu> menuList = new ArrayList<Menu>();
+			
+			for (RoleMenuRelation roleMenuRelation : ralationList) {
+				menuList.add(menuMapper.selectById(roleMenuRelation.getMenuid()));
+			}
+			
 			if (menuList.size()>0) {
 				for (Menu menu : menuList) {
 					menus.append(menu.getName()).append(",");
@@ -95,14 +99,19 @@ public class RoleServiceImpl implements RoleService{
 		Role role = new Role();
 		role.setRoles(englisgName);
 		role.setTips(roleName);
-		if(mapper.selectByRoles(englisgName) != null){
+		
+		Role temp = new Role();
+		temp.setRoles(englisgName);
+		if(mapper.selectOne(temp) != null){
 			return Constant.ERROR_CODE_ROLES_EXIST;
 		}
-		if(mapper.selectByRoleTip(roleName) != null){
+		temp = new Role();
+		temp.setTips(roleName);
+		if(mapper.selectOne(temp) != null){
 			return Constant.ERROR_CODE_TIPS_EXIST;
 		}
 		
-		int result = mapper.insertSelective(role);
+		int result = mapper.insert(role);
 		if (result == 1) {
 			return Constant.OPERATION_SUCCESS_CODE;			
 		}
@@ -127,14 +136,16 @@ public class RoleServiceImpl implements RoleService{
 		role.setId(id);
 		role.setRoles(roles);
 		role.setTips(tips);
-		if(mapper.selectByRoles(roles) != null){
+
+		
+		if(mapper.selectList(new EntityWrapper<Role>().eq("roles", roles)).size() > 0){
 			return Constant.ERROR_CODE_ROLES_EXIST;
 		}
-		if(mapper.selectByRoleTip(tips) != null){
+		if(mapper.selectList(new EntityWrapper<Role>().eq("tips", tips)).size() > 0){
 			return Constant.ERROR_CODE_TIPS_EXIST;
 		}
 		
-		int result = mapper.updateByPrimaryKeySelective(role);
+		int result = mapper.updateById(role);
 		if (result == 1) {
 			return Constant.OPERATION_SUCCESS_CODE; 
 		}
@@ -143,10 +154,14 @@ public class RoleServiceImpl implements RoleService{
 
 	@Override
 	public String deleteRole(int id) {
-		int result = mapper.deleteByPrimaryKey(id);
+		int result = mapper.deleteById(id);
 		if (result == 1) {
-			rmrMapper.deleteByRoleid(id);
-			userMapper.updateByRoleidSelective(id);
+			rmrMapper.deleteById(id);
+//			userMapper.updateByRoleidSelective(id);
+			ShiroUser updateUser = new ShiroUser();
+			updateUser.setId(id);
+			updateUser.setRoleid(2);
+			userMapper.updateById(updateUser);
 			return Constant.OPERATION_SUCCESS_CODE;
 		}
 		return Constant.UNKNOWN_ERROR_CODE;
@@ -154,7 +169,7 @@ public class RoleServiceImpl implements RoleService{
 
 	@Override
 	public String roleListForUserAdd() {
-        List<Role> list = mapper.selectAll();
+        List<Role> list = mapper.selectList(null);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).getId() + ":" + list.get(i).getTips() + ";");
@@ -165,17 +180,28 @@ public class RoleServiceImpl implements RoleService{
 
 	@Override
 	public String addRelation(int roleid, String menus) {
-		int size = 0;
-		List<String> menuList = Arrays.asList(menus.split(","));
-		rmrMapper.deleteByRoleid(roleid);
+		List<String> menuList = null;
+		if (menus.contains(",")) {
+			menuList = Arrays.asList(menus.split(","));			
+		}else{
+			menuList = new ArrayList<String>();
+			menuList.add(menus);
+		}
+		if(roleid == 1){
+			if (!menuList.contains("角色管理")) {
+				menuList.add("角色管理");				
+			} 
+		}
+		rmrMapper.delete(new EntityWrapper<RoleMenuRelation>().eq("roleid", roleid));
 		for (String string : menuList) {
-			Menu menu = menuMapper.selectByName(string);
+			Menu temp = new Menu();
+			temp.setName(string);
+			Menu menu = menuMapper.selectOne(temp);
 			if (menu != null) {
 				RoleMenuRelation rmr = new RoleMenuRelation();
 				rmr.setMenuid(menu.getId());
 				rmr.setRoleid(roleid);
 				rmrMapper.insert(rmr);
-				size++;
 			}
 		}
 			return Constant.OPERATION_SUCCESS_CODE;

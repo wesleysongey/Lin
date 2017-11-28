@@ -13,6 +13,6 @@ public class LinApplication {
 		SpringApplication.run(LinApplication.class, args);
 		System.out.println("**********************************");
 		System.out.println("*      Lin start-up success      *");
-		System.out.println("**********************************");
+		System.out.println("**********************************"); 
 	}
 }

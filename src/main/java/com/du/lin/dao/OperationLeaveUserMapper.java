@@ -1,19 +1,17 @@
 package com.du.lin.dao;
 
+
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.du.lin.bean.OperationLeaveUser;
 
-public interface OperationLeaveUserMapper {
-    int deleteByPrimaryKey(Integer id);
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author lin
+ * @since 2017-11-23
+ */
+public interface OperationLeaveUserMapper extends BaseMapper<OperationLeaveUser> {
 
-    int insert(OperationLeaveUser record);
-
-    int insertSelective(OperationLeaveUser record);
-
-    OperationLeaveUser selectByPrimaryKey(Integer id);
-    
-    OperationLeaveUser selectByLeaveid(Integer leavid);
-
-    int updateByPrimaryKeySelective(OperationLeaveUser record);
-
-    int updateByPrimaryKey(OperationLeaveUser record);
 }

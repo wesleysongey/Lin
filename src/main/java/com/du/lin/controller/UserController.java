@@ -1,44 +1,26 @@
 package com.du.lin.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+
 import java.util.TimerTask;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.du.lin.annotation.BizLog;
-import com.du.lin.bean.Dept;
-import com.du.lin.bean.Role;
-import com.du.lin.bean.ShiroUser;
-import com.du.lin.bean.User;
-import com.du.lin.constant.Constant;
-import com.du.lin.dao.DeptMapper;
-import com.du.lin.dao.RoleMapper;
-import com.du.lin.dao.UserMapper;
+
 import com.du.lin.log.LogManager;
 import com.du.lin.log.LogTaskFactory;
 import com.du.lin.service.UserService;
 import com.du.lin.shiro.ShiroKit;
-import com.du.lin.utils.BeanUtil;
-import com.du.lin.utils.JqgridUtil;
-import com.du.lin.utils.LinTools;
-import com.du.lin.utils.MD5Util;
 import com.du.lin.utils.Userinfo;
-import com.google.gson.Gson;
 
 @Controller
 public class UserController {

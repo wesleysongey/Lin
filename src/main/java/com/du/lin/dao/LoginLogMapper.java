@@ -1,27 +1,16 @@
 package com.du.lin.dao;
 
-import java.util.List;
-
-import org.springframework.stereotype.Repository;
-
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.du.lin.bean.LoginLog;
-@Repository
-public interface LoginLogMapper {
-    int deleteByPrimaryKey(Integer id);
-    
-    int deleteAll();
 
-    int insert(LoginLog record);
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author lin
+ * @since 2017-11-23
+ */
+public interface LoginLogMapper extends BaseMapper<LoginLog> {
 
-    int insertSelective(LoginLog record);
-
-    LoginLog selectByPrimaryKey(Integer id);
-    
-    List<LoginLog> selectAll();
-
-    int updateByPrimaryKeySelective(LoginLog record);
-
-    int updateByPrimaryKeyWithBLOBs(LoginLog record);
-
-    int updateByPrimaryKey(LoginLog record);
 }

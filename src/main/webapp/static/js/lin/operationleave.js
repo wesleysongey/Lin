@@ -1,4 +1,5 @@
 $(function() {
+	$.jgrid.defaults.styleUI = 'Bootstrap';
 	buildgrid();
 });
 
