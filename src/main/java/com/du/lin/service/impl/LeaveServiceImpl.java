@@ -9,7 +9,6 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.du.lin.bean.Leave;
 import com.du.lin.bean.OperationLeave;
 import com.du.lin.bean.OperationLeaveUser;
-import com.du.lin.bean.User;
 import com.du.lin.bean.UserLeave;
 import com.du.lin.constant.Constant;
 import com.du.lin.dao.LeaveMapper;
@@ -18,7 +17,6 @@ import com.du.lin.service.LeaveService;
 import com.du.lin.utils.BeanUtil;
 import com.du.lin.utils.JqgridUtil;
 import com.du.lin.utils.Userinfo;
-import com.google.gson.Gson;
 @Service
 public class LeaveServiceImpl implements LeaveService{
 	@Autowired

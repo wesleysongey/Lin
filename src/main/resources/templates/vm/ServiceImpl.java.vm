@@ -4,14 +4,14 @@ package com.du.lin.service.impl;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.du.lin.bean.${model1};
 import com.du.lin.dao.${model1}Mapper;
-import com.du.lin.service.I${model1}Service;
+import com.du.lin.service.${model1}Service;
 import com.du.lin.utils.JqgridUtil;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ${model1}ServiceImpl extends ServiceImpl<${model1}Mapper, ${model1}> implements I${model1}Service {
+public class ${model1}ServiceImpl extends ServiceImpl<${model1}Mapper, ${model1}> implements ${model1}Service {
 	@Autowired
 	private JqgridUtil jqgridUtil;
 	

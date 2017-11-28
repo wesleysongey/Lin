@@ -4,6 +4,6 @@ import com.baomidou.mybatisplus.service.IService;
 import com.du.lin.bean.${model1};
 
 
-public interface I${model1}Service extends IService<${model1}> {
+public interface ${model1}Service extends IService<${model1}> {
 	String getShowJson(int page , int count);
 }

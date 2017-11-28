@@ -17,13 +17,11 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.User;
 import com.du.lin.dao.RoleMapper;
 import com.du.lin.dao.UserMapper;
 import com.du.lin.utils.BeanUtil;
-import com.du.lin.utils.Userinfo;
 
 
 
@@ -49,7 +47,6 @@ public class ShiroDbRealm extends AuthorizingRealm{
 	/**
 	 * 登录认证
 	 */
-	@SuppressWarnings("unused")
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationtoken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authenticationtoken;

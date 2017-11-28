@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.du.lin.annotation.BizLog;
 import com.du.lin.bean.Memo;
 import com.du.lin.service.MemoService;
-import com.google.gson.Gson;
 
 import java.util.List;
 

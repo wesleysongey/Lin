@@ -1,6 +1,5 @@
 package com.du.lin.bean;
 
-import java.util.Date;
 
 /**
  * 用于前后端传输数据

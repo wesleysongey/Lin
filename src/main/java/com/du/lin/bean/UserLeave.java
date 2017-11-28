@@ -1,6 +1,5 @@
 package com.du.lin.bean;
 
-import java.util.Date;
 
 public class UserLeave {
     private Integer id;

@@ -3,18 +3,14 @@ package com.du.lin.service.impl;
 import java.util.List;
 
 import com.du.lin.bean.ShiroUser;
-import com.du.lin.bean.ShowLog;
 import com.du.lin.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.du.lin.bean.User;
 import com.du.lin.constant.Constant;
 import com.du.lin.dao.UserMapper;
 import com.du.lin.service.UserService;
-import com.google.gson.Gson;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -26,8 +22,6 @@ public class UserServiceImpl implements UserService {
 	private LinTools linTools;
 	@Autowired
 	private JqgridUtil jqgridUtil;
-	@Autowired
-	private Gson gson;
 
 	@Override
 	public List<User> getAllUser() {

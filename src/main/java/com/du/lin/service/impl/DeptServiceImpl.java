@@ -1,15 +1,12 @@
 package com.du.lin.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.du.lin.bean.Dept;
 import com.du.lin.bean.ShiroUser;
-import com.du.lin.bean.ShowLog;
 import com.du.lin.constant.Constant;
 import com.du.lin.dao.DeptMapper;
 import com.du.lin.dao.UserMapper;
 import com.du.lin.service.DeptService;
 import com.du.lin.utils.JqgridUtil;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,7 +73,7 @@ public class DeptServiceImpl implements DeptService {
         updateUser.setDeptid(1);
         updateUser.setId(Integer.parseInt(id));
 //        int setUserResult = userMapper.updateByDeptidSelective(Integer.parseInt(id));
-        int setUserResult = userMapper.updateById(updateUser);
+        userMapper.updateById(updateUser);
         int result = mapper.deleteById(Integer.parseInt(id));
         return result+"";
     }

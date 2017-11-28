@@ -6,13 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.du.lin.bean.LoginLog;
 import com.du.lin.bean.OperationLog;
 import com.du.lin.bean.ShowLog;
 import com.du.lin.constant.Constant;
-import com.du.lin.dao.LoginLogMapper;
 import com.du.lin.dao.OperationLogMapper;
-import com.du.lin.service.LoginLogService;
 import com.du.lin.service.OperationLogService;
 import com.du.lin.utils.BeanUtil;
 import com.du.lin.utils.JqgridUtil;

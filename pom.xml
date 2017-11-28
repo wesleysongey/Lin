@@ -11,7 +11,7 @@
 	<artifactId>lin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>LinPlus</name>
+	<name>Lin</name>
 	<properties>
 		<webVersion>3.0</webVersion>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

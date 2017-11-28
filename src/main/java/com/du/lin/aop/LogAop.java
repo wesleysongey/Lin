@@ -8,15 +8,12 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.du.lin.annotation.BizLog;
-import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.User;
 import com.du.lin.log.LogManager;
 import com.du.lin.log.LogTaskFactory;
-import com.du.lin.shiro.ShiroKit;
 import com.du.lin.utils.Userinfo;
 
 /**

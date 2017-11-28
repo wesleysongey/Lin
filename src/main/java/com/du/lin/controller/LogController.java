@@ -1,8 +1,6 @@
 package com.du.lin.controller;
 
-import java.util.List;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,15 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.du.lin.annotation.BizLog;
 
-import com.du.lin.bean.ShowLog;
 import com.du.lin.constant.Constant;
 import com.du.lin.service.LoginLogService;
 import com.du.lin.service.OperationLogService;
-import com.du.lin.service.impl.OperationLogServiceImpl;
 
 import com.du.lin.utils.ExcelUtil;
-import com.du.lin.utils.JqgridUtil;
-import com.google.gson.Gson;
 
 @Controller
 public class LogController extends BaseController{

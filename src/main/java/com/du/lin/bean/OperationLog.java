@@ -1,7 +1,6 @@
 package com.du.lin.bean;
 
 
-import java.io.Serializable;
 
 import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;

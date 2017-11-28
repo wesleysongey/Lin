@@ -2,8 +2,6 @@ package com.du.lin.log;
 
 import java.util.TimerTask;
 
-import org.apache.tomcat.util.buf.UEncoder;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.du.lin.bean.LoginLog;
 import com.du.lin.bean.OperationLog;

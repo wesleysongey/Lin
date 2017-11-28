@@ -251,6 +251,10 @@ function getChecked(){
 
 
 function submittree(){
+	if(getChecked() == ""){
+		alert("未选择菜单！");
+		return;
+	}
 	data = {"roleid":roleidforterr,"menus":getChecked()};
 	$.ajax({
 		url:"/addrelation",
@@ -261,7 +265,8 @@ function submittree(){
 			if(data == 000){
 				successalert("","菜单配置完成");
 				hidetree();
-				$("#table_list_2").trigger("reloadGrid");
+//				$("#table_list_2").trigger("reloadGrid");
+				parent.location.reload();
 			}else{
 				errorsalert("" , "出现错误，请重试" );
 			}

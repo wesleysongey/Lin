@@ -2,30 +2,24 @@ package com.du.lin.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
-import org.apache.tomcat.util.bcel.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.du.lin.bean.Dept;
 import com.du.lin.bean.Menu;
 import com.du.lin.bean.Role;
 import com.du.lin.bean.RoleMenuRelation;
 import com.du.lin.bean.ShiroUser;
 import com.du.lin.bean.ShowRole;
-import com.du.lin.bean.User;
 import com.du.lin.constant.Constant;
 import com.du.lin.dao.MenuMapper;
 import com.du.lin.dao.RoleMapper;
 import com.du.lin.dao.RoleMenuRelationMapper;
 import com.du.lin.dao.UserMapper;
 import com.du.lin.service.RoleService;
-import com.du.lin.utils.BeanUtil;
 import com.du.lin.utils.JqgridUtil;
-import com.du.lin.utils.Userinfo;
 @Service
 public class RoleServiceImpl implements RoleService{
 	@Autowired
@@ -186,8 +180,18 @@ public class RoleServiceImpl implements RoleService{
 
 	@Override
 	public String addRelation(int roleid, String menus) {
-		int size = 0;
-		List<String> menuList = Arrays.asList(menus.split(","));
+		List<String> menuList = null;
+		if (menus.contains(",")) {
+			menuList = Arrays.asList(menus.split(","));			
+		}else{
+			menuList = new ArrayList<String>();
+			menuList.add(menus);
+		}
+		if(roleid == 1){
+			if (!menuList.contains("角色管理")) {
+				menuList.add("角色管理");				
+			} 
+		}
 		rmrMapper.delete(new EntityWrapper<RoleMenuRelation>().eq("roleid", roleid));
 		for (String string : menuList) {
 			Menu temp = new Menu();
@@ -198,7 +202,6 @@ public class RoleServiceImpl implements RoleService{
 				rmr.setMenuid(menu.getId());
 				rmr.setRoleid(roleid);
 				rmrMapper.insert(rmr);
-				size++;
 			}
 		}
 			return Constant.OPERATION_SUCCESS_CODE;

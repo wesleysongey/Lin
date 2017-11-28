@@ -8,33 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.du.lin.bean.*;
-import com.du.lin.service.NoticeService;
-import com.du.lin.utils.ExcelUtil;
-import com.du.lin.utils.FileUtil;
-import com.du.lin.utils.Userinfo;
-import com.google.gson.Gson;
 
-import org.apache.hadoop.mapred.gethistory_jsp;
-import org.apache.shiro.SecurityUtils;
+import com.du.lin.utils.Userinfo;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.du.lin.config.properties.LinProperties;
-import com.du.lin.dao.DeptMapper;
-import com.du.lin.dao.LoginLogMapper;
-import com.du.lin.dao.OperationLogMapper;
 import com.du.lin.service.DeptService;
-import com.du.lin.service.LoginLogService;
-import com.du.lin.service.MenuService;
-import com.du.lin.service.OperationLogService;
 import com.du.lin.service.RoleService;
 
-import static java.io.FileDescriptor.out;
 
 @Controller
 public class PageController extends BaseController {
@@ -46,8 +33,6 @@ public class PageController extends BaseController {
 	private DeptService deptService;
 	@Autowired
 	private LinProperties linProperties;
-	@Autowired
-	private MenuService service;
 	@Autowired
 	private RoleService roleService;
 
@@ -157,13 +142,7 @@ public class PageController extends BaseController {
 		return "rolegrid";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/ttt", method = { RequestMethod.POST })
-	public String ttt(HttpServletRequest request , Date start , Date end) {
-		System.out.println(start.toLocaleString());
-		System.out.println(end.toLocaleString());
-		return "rolegrid";
-	}
+
 	
 	@RequestMapping(value = "/leavepage", method = { RequestMethod.GET })
 	public String leavePage(HttpServletRequest request , Date start , Date end) {

@@ -13,15 +13,12 @@ import com.du.lin.bean.ShowNotice;
 import com.du.lin.constant.state.NoticeType;
 import com.du.lin.dao.NoticeMapper;
 import com.du.lin.service.NoticeService;
-import com.du.lin.shiro.ShiroKit;
 import com.du.lin.utils.BeanUtil;
 import com.du.lin.utils.Userinfo;
 @Service
 public class NoticeServiceImpl implements NoticeService{
 	@Autowired
 	private NoticeMapper noticeMapper;
-	@Autowired
-	private ShiroKit shiroKit;
 	@Autowired
 	private BeanUtil beanUtil;
 	

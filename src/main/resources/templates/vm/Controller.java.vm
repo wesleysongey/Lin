@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.du.lin.bean.${model1};
-import com.du.lin.service.I${model1}Service;
+import com.du.lin.service.${model1}Service;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 @RequestMapping("/${model}")
 public class ${model1}Controller {
 	@Autowired
-	private I${model1}Service service;
+	private ${model1}Service service;
 	@RequestMapping("")
 	public String ${model}(HttpServletRequest request){
 		return "${model}page";
