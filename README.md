@@ -47,6 +47,20 @@ public class ShiroConfig {
     }
 
 ```
+代码生成
+------
+项目借助Mybatis Plus代码生成器生成Bean以及Dao，通过Velocity生成Controller、Service、ServiceImpl、html、js文件。在数据库中创建新表后，代码生成文件即可根据此表生成上述文件，实现了基本的表格展示、增删改查功能，可直接复制进项目中直接使用，添加菜单数据到数据库，即可在项目中看到此菜单页面。   
+```
+    public static void main(String[] args) throws IOException {
+//      参数为表名
+        LinGenerater lg = new LinGenerater("thing");
+//      此方法可以生成代码
+        lg.execute();
+//      此方法可以插入菜单数据
+        lg.insertMenu("thing", "测试生成", "globe");
+    }   
+```
+
 日志记录
 ------
 日志记录通过aop(LogAop类)方式对所有包含@BizLog注解的方法进行aop切入，通过@Bizlog注解中的value属性来获取用户所做的操作，封装为日志类，异步存入数据库中（通过ScheduledThreadPoolExecutor类）。
@@ -55,7 +69,7 @@ public class ShiroConfig {
     public void logCut() {
 
     }
-```
+```   
 使用Thymeleaf使得html代码更简洁
 ------
 下面是便签功能实现的部分片段。
