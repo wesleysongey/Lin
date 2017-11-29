@@ -20,6 +20,7 @@ Lin基于SpringBoot,目标是实现自动办公,现阶段整合springmvc + shiro
 2.日志记录系统，记录用户的登陆、登出，用户执行的操作，通过@BizLog注解以及Spring中的AOP功能，记录了具体到用户的业务操作、登入登出，并且可以下载excel格式，方便查看。     
 3.利用Thymeleaf使得前端html代码看起来更加清晰。     
 4.通过角色管理来配置菜单，达到菜单为不同部门显示的目的，间接实现了权限的管理。
+5.创建表后，通过LinGenerater类可生成包括html、js、Dao、Service、Controller等代码，复制进项目可直接使用。
 
 javabean方式的配置文件
 ------
@@ -90,12 +91,14 @@ public class ShiroConfig {
 ### 后端
 
  1. SpringBoot
- 2. MyBatis
+ 2. MyBatis Plus
  3. Spring
  4. Thymeleaf
  5. Ehcache
  6. Kaptcha
  7. Shiro
+ 8. Velocity
+
 
 项目截图
 ------
