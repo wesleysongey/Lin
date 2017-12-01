@@ -150,7 +150,9 @@ public class LinGenerater {
 		tc.setServiceImpl(null);
 		mpg.setTemplate(tc);
 	}
-	
+	 /**
+	 * 初始化
+	 */	
 	private void init() {
 		attrs = getColumnList();
 		globalConfigInit();
@@ -160,7 +162,9 @@ public class LinGenerater {
 		templateConfigInit();
 		VelocityInit();
 	}
-
+    /**
+	 * 1.初始化 2.Velocity生成Controller、html、js、Service、ServiceImpl  3.MP生成Mapper、bean
+	 */
 	public void execute() {
 		init();
 		// 执行生成
@@ -169,7 +173,9 @@ public class LinGenerater {
 		System.out.println("可以使用LinGenerater中的insertMenu方法将菜单信息写入数据库");
 		System.out.println("之后在角色管理中配置菜单即可");
 	}
-
+    /**
+	 * 获取数据库表字段
+	 */
 	private List<String> getColumnList() {
 		List<String> columnName = new ArrayList<String>();
 		Connection conn = null;
@@ -210,7 +216,9 @@ public class LinGenerater {
 
 	
 
-
+    /**
+	 * Velocity生成Controller
+	 */
 	private void controllerGenterate() throws IOException {
 		Template t = ve.getTemplate("/templates/vm/Controller.java.vm");
 		VelocityContext vc = new VelocityContext();
@@ -224,7 +232,9 @@ public class LinGenerater {
 		fw.flush();
 		fw.close();
 	}
-
+    /**
+	 * Velocity生成html
+	 */
 	private void htmlGenterate() throws IOException {
 		Template t = ve.getTemplate("/templates/vm/Page.html.vm");
 		VelocityContext vc = new VelocityContext();
@@ -239,7 +249,9 @@ public class LinGenerater {
 		fw.close();
 
 	}
-
+    /**
+	 * Velocity生成js
+	 */
 	private void jsGenterate() throws IOException {
 		Template t = ve.getTemplate("/templates/vm/Page.js.vm");
 		VelocityContext vc = new VelocityContext();
@@ -255,7 +267,9 @@ public class LinGenerater {
 		fw.close();
 
 	}
-
+    /**
+	 * Velocity生成Service
+	 */
 	private void serviceGenterate() throws IOException {
 		Template t = ve.getTemplate("/templates/vm/Service.java.vm");
 		VelocityContext vc = new VelocityContext();
@@ -270,7 +284,9 @@ public class LinGenerater {
 		fw.flush();
 		fw.close();
 	}
-
+    /**
+	 * Velocity生成ServiceImpl
+	 */
 	private void serviceImplGenterate() throws IOException {
 		Template t = ve.getTemplate("/templates/vm/ServiceImpl.java.vm");
 		VelocityContext vc = new VelocityContext();
@@ -300,13 +316,17 @@ public class LinGenerater {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * 创建文件的父文件夹
+	 */
 	private void CreateParents(File file){
 		if (!file.getParentFile().exists()) {
 			file.getParentFile().mkdirs();
 		}
 	}
-	
+	/**
+	 * 插入菜单数据到数据库
+	 */	
 	public void insertMenu(String tabelName , String menuName , String icon){
 		if (tabelName == null ||"".equals(tabelName)) {
 			System.out.println("tableName error");
