@@ -80,9 +80,10 @@ public class LinGenerater {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-
+	 /**
+	 * 全局配置
+	 */
 	private void globalConfigInit() {
-		// 全局配置
 		GlobalConfig gc = new GlobalConfig();
 		gc.setOutputDir("D://Lin生成代码\\lin\\src\\main\\java");
 		gc.setFileOverride(true);
@@ -93,9 +94,10 @@ public class LinGenerater {
 		gc.setAuthor("lin");
 		mpg.setGlobalConfig(gc);
 	}
-
+	 /**
+	 * 数据源配置
+	 */
 	private void dataSourceConfigInit() {
-		// 数据源配置
 		DataSourceConfig dsc = new DataSourceConfig();
 		dsc.setDbType(DbType.MYSQL);
 		dsc.setDriverName("com.mysql.jdbc.Driver");
@@ -105,10 +107,10 @@ public class LinGenerater {
 				+ "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
 		mpg.setDataSource(dsc);
 	}
-
+	 /**
+	 * 策略配置
+	 */
 	private void strategyConfigInit() {
-
-		// 策略配置
 		StrategyConfig strategyConfig = new StrategyConfig();
 		// strategy.setTablePrefix(new String[]{"_"});// 此处可以修改为您的表前缀
 		strategyConfig.setInclude(new String[] { tableName });// 这里限制需要生成的表,不写则是生成所有表
