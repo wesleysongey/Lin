@@ -117,9 +117,10 @@ public class LinGenerater {
 		strategyConfig.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略  下划线转驼峰命名
 		mpg.setStrategy(strategyConfig);
 	}
-
+	 /**
+	 * 包配置
+	 */
 	private void packageConfigInit() {
-		// 包配置
 		PackageConfig pc = new PackageConfig();
 		pc.setParent(null);
 		pc.setEntity("com.du.lin.bean");
@@ -127,7 +128,9 @@ public class LinGenerater {
 		mpg.setPackageInfo(pc);
 
 	}
-
+	 /**
+	 * 初始化Velocity
+	 */
 	private void VelocityInit() {
 		ve.setProperty(VelocityEngine.RESOURCE_LOADER, "classpath");
 		ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
@@ -136,7 +139,9 @@ public class LinGenerater {
 		ve.setProperty(Velocity.OUTPUT_ENCODING, "utf8");
 		ve.init();
 	}
-
+	 /**
+	 * MP模板设置
+	 */
 	private void templateConfigInit(){
 		TemplateConfig tc = new TemplateConfig();
 		tc.setController(null);
