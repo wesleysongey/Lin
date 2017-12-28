@@ -16,7 +16,7 @@ Lin基于SpringBoot,目标是实现自动办公,现阶段整合springmvc + shiro
   
 导入教程    
 ------ 
-[导入视频](http://https://pan.baidu.com/s/1c210eLa)    
+[导入视频](https://pan.baidu.com/s/1qXEsFN2)    
 
 项目特点
 ------
