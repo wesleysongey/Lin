@@ -14,7 +14,7 @@ Lin基于SpringBoot,目标是实现自动办公,现阶段整合springmvc + shiro
         ★删除角色后，之前此角色用户自动配置为 用户       
         ★可通过角色来配置要显示的菜单      
   
-导入教程    
+相关视频    
 ------ 
 [导入项目](https://pan.baidu.com/s/1qXEsFN2)     
 [使用教程](https://pan.baidu.com/s/1cwK5Hk)       
