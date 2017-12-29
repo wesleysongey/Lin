@@ -23,6 +23,7 @@ public class JqgridUtil {
 		map.put("currentPage", currentPage);
 		map.put("dataList", list);
 		JSONObject jo = new JSONObject(map);
+		System.out.println(jo.toString());
 		return jo.toString();
 	}
 	

@@ -122,10 +122,10 @@ public class RoleServiceImpl implements RoleService{
 	public String setRole(int id, String tips, String roles) {
 		tips = tips.trim();
 		roles = roles.trim();
-		if ("".endsWith(tips)) {
+		if ("".equals(tips)) {
 			return "";
 		}
-		if ("".endsWith(roles)) {
+		if ("".equals(roles)) {
 			return "";
 		}
 		if(!roles.matches("^[a-zA-Z\\d_]*$")){
@@ -137,12 +137,24 @@ public class RoleServiceImpl implements RoleService{
 		role.setRoles(roles);
 		role.setTips(tips);
 
-		
-		if(mapper.selectList(new EntityWrapper<Role>().eq("roles", roles)).size() > 0){
-			return Constant.ERROR_CODE_ROLES_EXIST;
+		List<Role> select1 = mapper.selectList(new EntityWrapper<Role>().eq("roles", roles));
+		if(select1.size() > 0){
+			for (Role temp : select1){
+				if(temp.getId() != id){
+					return Constant.ERROR_CODE_ROLES_EXIST;
+				}
+			}
 		}
-		if(mapper.selectList(new EntityWrapper<Role>().eq("tips", tips)).size() > 0){
-			return Constant.ERROR_CODE_TIPS_EXIST;
+
+		select1.clear();
+		select1 = mapper.selectList(new EntityWrapper<Role>().eq("tips", tips));
+		if(select1.size() > 0){
+
+			for (Role temp : select1){
+				if(temp.getId() != id){
+					return Constant.ERROR_CODE_TIPS_EXIST;
+				}
+			}
 		}
 		
 		int result = mapper.updateById(role);

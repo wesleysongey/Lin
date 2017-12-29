@@ -157,8 +157,10 @@ function changedialogdismiss() {
 	$("#changedialog").hide(speed = "slow");
 }
 function changedialogshow(id) {
-	var datas = $("#table_list_2").jqGrid("getRowData", id);
-	$("#deptid").attr("value", id);
-	$("#deptname").attr("value", datas.name);
+	datas = $("#table_list_2").jqGrid("getRowData", id);
+	console.log("id:" + datas.name);
+	$("#deptid").val(id);
+	// $("#deptname").attr("value", datas.name);
+	$("#deptname").val(datas.name);
 	$("#changedialog").show(speed = "slow");
 }

@@ -26,7 +26,7 @@ public class LoginLogServiceImpl implements LoginLogService {
 	@Override
 	public List<LoginLog> getAllLoginLog() {
 
-		return loginLogMapper.selectList(new EntityWrapper<LoginLog>().orderBy("createtime"));
+		return loginLogMapper.selectList(new EntityWrapper<LoginLog>().orderBy("createtime" , false));
 	}
 
 	@Override

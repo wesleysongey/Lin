@@ -71,7 +71,7 @@ public class LeaveServiceImpl implements LeaveService{
 
 	@Override
 	public String getAllLeaveJson(int page, int count) {
-		List<Leave> dblist = mapper.selectList(new EntityWrapper<Leave>().orderBy("createtime"));
+		List<Leave> dblist = mapper.selectList(new EntityWrapper<Leave>().orderBy("createtime" , false));
 		List<OperationLeave> list = beanUtil.leaveListToOperationLeaveList(dblist);
 		int toIndex = count * page;
 		if (list.size() < toIndex) {

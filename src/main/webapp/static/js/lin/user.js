@@ -129,9 +129,7 @@ function changedialogdismiss(){
 	$("#changedialog").hide(speed="slow");
 }
 function changedialogshow(id){
-	
-	
-	
+	console.log( "changedialogshow" + id);
 	var datas = $("#table_list_2").jqGrid("getRowData",id);
 	$("#changeid").attr("value" , id);
 	$("#changeusername").text(datas.username);
@@ -217,6 +215,7 @@ function buildgrid(deptinfo , roleinfo){
 				        	   var ids = $("#table_list_2").jqGrid("getDataIDs");
 				        	   for (var int = 0; int < ids.length; int++) {
 				        		   var id = ids[int];
+				        		   console.log("ff" + id);
 				        		   var modify = "<a href='#' style='color:#f60' onclick='changedialogshow(" + id + ")'>修改</a>";  //这里的onclick就是调用了上面的javascript函数 Modify(id)
 				        		   var del = "<a href='#'  style='color:#f60' onclick='deldialog(" + id + ")' >删除</a>";
 				        		   var resetpasswork = "<a href='#'  style='color:#f60' onclick='resetpassworkdialog(" + id + ")' >重置密码</a>";

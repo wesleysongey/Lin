@@ -25,7 +25,7 @@ public class OperationLogServiceImpl implements OperationLogService {
 
 	@Override
 	public List<OperationLog> getAllOperationLog() {
-		return mapper.selectList(new EntityWrapper<OperationLog>().orderBy("createtime "));
+		return mapper.selectList(new EntityWrapper<OperationLog>().orderBy("createtime" , false));
 	}
 
 	@Override

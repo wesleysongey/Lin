@@ -61,7 +61,7 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public List<Notice> getIndexNotice() {
-		return noticeMapper.selectList(new EntityWrapper<Notice>().orderBy("createtime").last("limit 0,15"));
+		return noticeMapper.selectList(new EntityWrapper<Notice>().orderBy("createtime" , false).last("limit 0,15"));
 	}
 
 

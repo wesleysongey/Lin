@@ -137,7 +137,7 @@ function changedialogshow(id){
 	
 	
 	var datas = $("#table_list_2").jqGrid("getRowData",id);
-	$("#changeid").attr("value" , id);
+	$("#changeid").val(id);
 	$("#changetips").val(datas.tips);
 	$("#changeroles").val(datas.roles);
 	$("#changedialog").show(speed="slow");
